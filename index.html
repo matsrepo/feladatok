@@ -955,20 +955,25 @@ const A2 = [
 /* ---------- 7. alkalom: szignálás és kiadmányozás ---------- */
 { unit:"u7", id:"u7-hatarido", type:"form",
   title:"Határidő-számítás",
-  lead:"A rendszer csak azt figyeli, amit beírtak. Számold ki öt ügy lejárati napját.",
-  task:"Add meg a lejárat napját. Szabályok: a határidő a beérkezést követő napon indul (nem az iktatáskor, nem a szignáláskor), naptári napokban számolunk, és ha az utolsó nap szombatra vagy vasárnapra esik, a határidő a következő munkanapon jár le. A példákban a lejárat körül nincs ünnepnap.",
-  note:"A rossz kezdőnap a leggyakoribb határidőhiba-forrás. A naptári nap vagy munkanap kérdését mindig az ágazati szabály dönti el.",
+  lead:"Ügyintézési határidő vagy ügyfél-határidő? Öt eset, két eltérő szabály – számold ki a lejáratot.",
+  task:"Minden esetnél add meg, átcsúszik-e a lejárat, és mikor jár le a határidő. Szabályok az Ákr. alapján: a napokban megállapított határidőbe a kezdő napot (a beérkezés, illetve a közlés napját) nem számítjuk bele, és naptári napokban számolunk (52. § (1)). Ha az ügyfél határidejének utolsó napja olyan nap, amelyen a hatóságnál a munka szünetel (hétvége, ünnepnap), a határidő a következő munkanapon jár le – az ügyintézési határidőre viszont ez az átcsúszás nem vonatkozik (52. § (4)).",
+  note:"A rossz kezdőnap a leggyakoribb határidőhiba-forrás. Ügyintézési határidő: sommás eljárásban 8, teljes eljárásban 60 nap (Ákr. 50. § (2)). Fellebbezési határidő: a döntés közlésétől számított 15 nap. 2026. október 23. (péntek) nemzeti ünnep.",
   cases:[
-    { prompt:"Hivatali kapun pénteken, 2026. 03. 06-án 22:10-kor beérkezett kérelem, 15 napos határidő.", fields:[
-      { label:"Lejárat napja", type:"date", answer:"2026-03-23", show:"2026. 03. 23. (hétfő)", why:"Március 7-én indul, a 15. nap március 21., szombat, ezért hétfőn jár le." }]},
-    { prompt:"Kedden, 2026. 04. 21-én beérkezett kérelem, 8 napos határidő.", fields:[
-      { label:"Lejárat napja", type:"date", answer:"2026-04-29", show:"2026. 04. 29. (szerda)", why:"Április 22-én indul, a 8. nap április 29., szerda." }]},
-    { prompt:"Szerdán, 2026. 10. 14-én beérkezett közérdekű adatigénylés, 15 napos határidő.", fields:[
-      { label:"Lejárat napja", type:"date", answer:"2026-10-29", show:"2026. 10. 29. (csütörtök)", why:"Október 15-én indul, a 15. nap október 29., csütörtök." }]},
-    { prompt:"Pénteken, 2026. 05. 08-án beérkezett kérelem, 30 napos határidő.", fields:[
-      { label:"Lejárat napja", type:"date", answer:"2026-06-08", show:"2026. 06. 08. (hétfő)", why:"Május 9-én indul, a 30. nap június 7., vasárnap, ezért hétfőn jár le." }]},
-    { prompt:"Pénteken, 2026. 09. 11-én beérkezett kérelem, 8 napos határidő; az iktatás csak szeptember 14-én, hétfőn történt meg.", fields:[
-      { label:"Lejárat napja", type:"date", answer:"2026-09-21", show:"2026. 09. 21. (hétfő)", why:"A határidő a beérkezéstől számít, nem az iktatástól: szeptember 12-én indul, a 8. nap szeptember 19., szombat, ezért hétfőn jár le." }]}
+    { prompt:"Ügyintézési határidő – sommás eljárás (8 nap). A kérelem kedden, 2026. 04. 21-én érkezett.", fields:[
+      { label:"Átcsúszik-e, ha munkaszüneti napra esik?", type:"select", options:["Nem csúszik át","Átcsúszik a következő munkanapra"], answer:"Nem csúszik át", why:"Ügyintézési határidő: az Ákr. 52. § (4) kizárja az átcsúszást." },
+      { label:"Lejárat napja", type:"date", answer:"2026-04-29", show:"2026. 04. 29. (szerda)", why:"Április 22-től számolva a 8. nap április 29., szerda." }]},
+    { prompt:"Ügyintézési határidő – sommás eljárás (8 nap). A kérelem pénteken, 2026. 09. 11-én érkezett; az iktatás csak hétfőn, szeptember 14-én történt meg.", fields:[
+      { label:"Átcsúszik-e, ha munkaszüneti napra esik?", type:"select", options:["Nem csúszik át","Átcsúszik a következő munkanapra"], answer:"Nem csúszik át" },
+      { label:"Lejárat napja", type:"date", answer:"2026-09-19", show:"2026. 09. 19. (szombat)", hint:"A beérkezéstől számolj, ne az iktatástól – és ügyintézési határidőnél nincs átcsúszás.", why:"A határidő a beérkezéstől számít: szeptember 12-től a 8. nap szeptember 19., szombat. Ügyintézési határidő, ezért nem csúszik hétfőre – a döntést legkésőbb pénteken, szeptember 18-án érdemes meghozni." }]},
+    { prompt:"Ügyintézési határidő – teljes eljárás (60 nap). A kérelem pénteken, 2026. 05. 08-án érkezett.", fields:[
+      { label:"Átcsúszik-e, ha munkaszüneti napra esik?", type:"select", options:["Nem csúszik át","Átcsúszik a következő munkanapra"], answer:"Nem csúszik át" },
+      { label:"Lejárat napja", type:"date", answer:"2026-07-07", show:"2026. 07. 07. (kedd)", why:"Május 9-től számolva a 60. nap július 7., kedd." }]},
+    { prompt:"Ügyfél-határidő – hiánypótlás (15 nap). A hiánypótlási felhívást az ügyfél pénteken, 2026. 03. 06-án vette át a tárhelyéről.", fields:[
+      { label:"Átcsúszik-e, ha munkaszüneti napra esik?", type:"select", options:["Nem csúszik át","Átcsúszik a következő munkanapra"], answer:"Átcsúszik a következő munkanapra", why:"Az ügyfél határidejére az 52. § (4) átcsúszási szabálya vonatkozik." },
+      { label:"Lejárat napja", type:"date", answer:"2026-03-23", show:"2026. 03. 23. (hétfő)", why:"A közlés napja nem számít bele: március 7-től a 15. nap március 21., szombat, ezért hétfőn, március 23-án jár le." }]},
+    { prompt:"Ügyfél-határidő – fellebbezés (15 nap). A határozatot az ügyfél csütörtökön, 2026. 10. 08-án vette át.", fields:[
+      { label:"Átcsúszik-e, ha munkaszüneti napra esik?", type:"select", options:["Nem csúszik át","Átcsúszik a következő munkanapra"], answer:"Átcsúszik a következő munkanapra" },
+      { label:"Lejárat napja", type:"date", answer:"2026-10-26", show:"2026. 10. 26. (hétfő)", hint:"Nézd meg, milyen nap 2026. október 23.", why:"Október 9-től a 15. nap október 23., péntek – nemzeti ünnep. Utána hétvége, így a fellebbezési határidő hétfőn, október 26-án jár le." }]}
   ]
 },
 { unit:"u7", id:"u7-fogalompar", type:"match",
@@ -1074,7 +1079,7 @@ const A2 = [
   cards:[
     { q:"Mi a szignálás három kötelező tartalmi eleme?", options:["Ügyintéző, határidő, elintézési mód vagy utasítás", "Iktatószám, tárgy, küldő", "Kiadmányozó, aláírás, bélyegző"], ans:0, a:"Ügyintéző, határidő, elintézési mód vagy utasítás." },
     { q:"Mikor indokolt az automatikus szignálás, és mi a feltétele?", options:["Összetett, érzékeny ügyeknél, a vezető mérlegelésével", "Tömeges, homogén ügyeknél, karbantartott szignálási renddel", "Mindig, mert gyorsabb"], ans:1, a:"Tömeges, homogén ügyeknél; karbantartott szignálási renddel." },
-    { q:"Kedden beérkezett kérelem, 8 napos határidő – mikor jár le?", options:["A következő hét keddjén", "A következő hét szerdáján", "A következő hét csütörtökén"], ans:1, a:"A beérkezést követő napon (szerdán) indul, és a 8. napon, a következő hét szerdáján jár le – ha munkaszüneti napra esne, a következő munkanapon." },
+    { q:"Kedden beérkezett kérelem, 8 napos határidő – mikor jár le?", options:["A következő hét keddjén", "A következő hét szerdáján", "A következő hét csütörtökén"], ans:1, a:"A beérkezés napja nem számít bele: szerdától számolva a 8. nap a következő hét szerdája. Ügyintézési határidőnél akkor sem csúszna át, ha hétvégére esne (Ákr. 52. § (4))." },
     { q:"Mi a különbség a láttamozás és az ellenjegyzés között?", options:["A láttamozás minőségbiztosítás, az ellenjegyzés (jogszabályban meghatározott esetben) érvényességi kellék", "A láttamozás érvényességi kellék, az ellenjegyzés minőségbiztosítás", "A kettő ugyanazt jelenti"], ans:0, a:"A láttamozás minőségbiztosítás, az ellenjegyzés (jogszabályban meghatározott esetben) érvényességi kellék." },
     { q:"Miért mutatható ki technikailag a hitelesített irat módosítása?", options:["Mert a lenyomat (hash) eltérése azonnal látszik","Mert a rendszer nem engedi a mentést","Mert a papír példány eltér tőle"], ans:0, a:"Mert a lenyomat (hash) eltérése azonnal látszik." },
     { q:"Mi a jogszerű út egy már expediált, hibás kiadmány orvoslására?", options:["A kiadmány kijavítása a rendszerben", "Új kijavító vagy módosító döntés, új alszámon", "Telefonos tájékoztatás az ügyfélnek"], ans:1, a:"Új kijavító vagy módosító döntés, új alszámon." }
@@ -1347,7 +1352,7 @@ const A3 = [
       done:"Iktatva: PLD/1875/2026. Az érkeztetési bejegyzésben is megjelent a kapott iktatószám.",
       fx:{ ikt:["PLD/1875/2026","Szilágyi Márta","Közérdekű bejelentés – illegális hulladéklerakás, Nyárfa utca","–","–","B418","Iktatva, szignálásra vár"], erkSet:{ id:"É-2026/2451", cells:[[7,"Iktatva: PLD/1875/2026"]] }, doc: rubber("PLD/1875/2026") } },
     { short:"Szignálás", role:"Osztályvezető (szignáló)", title:"Szignálás",
-      text:"Az ügy megjelent a szignálási listádon. Jelöld ki az ügyintézőt, és add meg az elintézési határidőt. A közérdekű bejelentést 30 napon belül kell elbírálni; a határidő a beérkezést követő napon indul, és ha hétvégére esik, a következő munkanapon jár le.",
+      text:"Az ügy megjelent a szignálási listádon. Jelöld ki az ügyintézőt, és add meg az elintézési határidőt. A közérdekű bejelentést 30 napon belül kell elbírálni. A beérkezés napja nem számít bele: a számolás a következő napon indul, naptári napokban.",
       ctx: STAFF_CTX,
       fields:[
         { label:"Ügyintéző", type:"select", options:MUNKATARSAK, answer:"Tóth Bence – ügyintéző (panaszok, bejelentések)", hint:"Az ügykezelő az iratot kezeli, nem az ügyet.", why:"A bejelentések ügyintézője." },
@@ -1483,7 +1488,7 @@ const A3 = [
   title:"Péntek este: közérdekű adatigénylés",
   lead:"Péntek 21:47-kor adatigénylés érkezik az ügyfél tárhelyéről. Határidő-számítás, anonimizálás, jegyzői kiadmányozás.",
   task:"Nyolc lépésben te kezeled az ügyet. Figyelj a határidőre: a közérdekű adatigénylést 15 napon belül kell teljesíteni. Ha elakadsz, kérheted a megoldást.",
-  note:"Kitalált, egyszerűsített gyakorló rendszer. A határidő-számításnál a beérkezést követő naptól számolunk naptári napokban, hétvégi átcsúszással.",
+  note:"Kitalált, egyszerűsített gyakorló rendszer. Az Infotv. 15 napos határidejét a beérkezést követő naptól, naptári napokban számoljuk. Az adatigénylés nem hatósági eljárás, az Ákr. átcsúszási szabálya nem vonatkozik rá, az Infotv. pedig nem rendezi – ezért a biztonságos gyakorlat: teljesíts a 15. napig, és ha az nem munkanap, az előtte lévő utolsó munkanapon.",
   erk0: FLOW_ERK0, ikt0: FLOW_IKT0,
   envelope: env("Hivatali kapu – beérkezett üzenet", `<p><b>Feladó:</b> Kovács Anna (azonosított ügyfél, ügyfélkapuval)</p><p><b>Beérkezés (rendszeridő):</b> 2026. 10. 09. (péntek) 21:47</p><p><b>Kézbesítési azonosító:</b> KR-20261009-0451377</p><p><b>Tárgy:</b> Közérdekű adatigénylés</p><p>„Kérem a hivatal 2025-ben kötött megbízási szerződéseinek másolatát elektronikus úton.”</p><p>Elektronikus kapcsolattartást választott.</p>`),
   endText:"Az adatigénylést határidőben, anonimizált másolattal teljesítettétek. A mérlegelés indokolása is az ügyirat része lett.",
@@ -1492,9 +1497,9 @@ const A3 = [
       text:"Hétfőn 08:00-kor nyitod meg a rendszert. Az üzenet péntek este érkezett.",
       fields:[
         { label:"Mikor indul a 15 napos határidő?", type:"select", options:["2026. 10. 10-én, szombaton – a beérkezést követő napon","2026. 10. 12-én, hétfőn, amikor megnyitom","Az iktatás napján"], answer:"2026. 10. 10-én, szombaton – a beérkezést követő napon", hint:"A beérkezés rendszeridőpontja számít, nem a megnyitás.", why:"A határidő a beérkezést követő napon indul." },
-        { label:"Mikor jár le?", type:"date", answer:"2026-10-26", show:"2026. 10. 26. (hétfő)", hint:"A 15. nap hétvégére esik.", why:"A 15. nap október 24., szombat, ezért hétfőn, október 26-án jár le." }
+        { label:"Legkésőbb melyik napon teljesítsd, hogy biztosan határidőben legyél?", type:"date", answer:"2026-10-22", show:"2026. 10. 22. (csütörtök)", hint:"A 15. nap szombatra esik – és nézd meg a naptárt: mi van október 23-án?", why:"A 15. nap október 24., szombat. Az átcsúszásra nincs biztos jogszabályi alap, október 23. (péntek) pedig nemzeti ünnep – így az utolsó biztos munkanap csütörtök, október 22." }
       ],
-      done:"A határidő 2026. 10. 26. A hétvége már elvitt két napot – ezért kell a tárhelyet folyamatosan figyelni.",
+      done:"A teljesítés legkésőbbi biztonságos napja 2026. 10. 22. A hétvége már elvitt két napot, az ünnep még egyet – ezért kell a tárhelyet folyamatosan figyelni. Az Infotv. amúgy is a „legrövidebb idő alatti” teljesítést várja el.",
       fx:{} },
     { short:"Érkeztetés", role:"Rendszer + ügykezelő", title:"Az automatikus érkeztetés ellenőrzése",
       text:"A rendszer pénteken automatikusan érkeztette a küldeményt az É-2026/2451 azonosítóval.",
@@ -1522,10 +1527,10 @@ const A3 = [
       ctx: STAFF_CTX,
       fields:[
         { label:"Ügyintéző", type:"select", options:MUNKATARSAK, answer:"dr. Szabó Péter – ügyintéző (közérdekű adatigénylések)" },
-        { label:"Határidő", type:"date", answer:"2026-10-26", show:"2026. 10. 26.", hint:"Már kiszámoltad az első lépésben." }
+        { label:"Határidő (legkésőbbi teljesítés)", type:"date", answer:"2026-10-22", show:"2026. 10. 22.", hint:"Már kiszámoltad az első lépésben." }
       ],
-      done:"Szignálva: dr. Szabó Péter, határidő 2026. 10. 26.",
-      fx:{ iktSet:{ id:"PLD/1875/2026", cells:[[3,"dr. Szabó Péter"],[4,"2026. 10. 26."],[6,"Ügyintézés alatt"]] } } },
+      done:"Szignálva: dr. Szabó Péter, határidő 2026. 10. 22.",
+      fx:{ iktSet:{ id:"PLD/1875/2026", cells:[[3,"dr. Szabó Péter"],[4,"2026. 10. 22."],[6,"Ügyintézés alatt"]] } } },
     { short:"Tervezet", role:"Ügyintéző", title:"Anonimizálás és a válasz tervezete",
       text:"Összegyűjtöd a 2025-ös megbízási szerződéseket. Magánszemély vállalkozók neve, lakcíme, születési adatai és bankszámlaszáma is szerepel bennük.",
       fields:[
@@ -1612,7 +1617,7 @@ const A4 = [
       done:"Iktatva: PLD/37/2027, a PLD/1874/2026 előzmény szerelve.",
       fx:{ ikt:["PLD/37/2027","Bíró Kata","Panasz – ügyfélfogadási rend (ismételt); szerelt előzmény: PLD/1874/2026","–","–","B418","Iktatva, előzmény szerelve"], erkSet:{ id:"É-2027/0103", cells:[[7,"Iktatva: PLD/37/2027"]] }, doc: rubber("PLD/37/2027 · szerelve: PLD/1874/2026") } },
     { short:"Szignálás", role:"Osztályvezető", title:"Szignálás",
-      text:"A panaszt 30 napon belül kell elbírálni. A határidő a beérkezést követő napon indul; ha az utolsó nap hétvégére esik, a következő munkanapon jár le.",
+      text:"A panaszt 30 napon belül kell elbírálni. A beérkezés napja nem számít bele: a számolás a következő napon indul, naptári napokban.",
       ctx: STAFF_CTX,
       fields:[
         { label:"Ügyintéző", type:"select", options:MUNKATARSAK, answer:"Tóth Bence – ügyintéző (panaszok, bejelentések)", why:"Ő ismeri az előzményt is." },
@@ -1776,14 +1781,14 @@ const A4 = [
 { unit:"gyo", id:"gyo-hianyos", type:"flow",
   title:"Hiányos kérelem e-Papíron",
   lead:"Teraszengedély iránti kérelem érkezik péntek délután, kötelező melléklet nélkül. Iktatás, szignálás, hiánypótlási felhívás.",
-  task: ONALLO_TASK, note: ONALLO_NOTE + " Az ügyintézési határidőt a példában 60 naposnak vesszük.",
+  task: ONALLO_TASK, note: ONALLO_NOTE + " A kérelmet teljes eljárásban bíráljuk el (60 napos ügyintézési határidő).",
   erk0: FLOW_ERK0, ikt0: FLOW_IKT0,
   envelope: env("Hivatali kapu – e-Papír", `<p><b>Feladó:</b> Oláh Tímea (azonosított ügyfél, ügyfélkapuval)</p><p><b>Beérkezés (rendszeridő):</b> 2026. 10. 16. (péntek) 16:05</p><p><b>Kézbesítési azonosító:</b> KR-20261016-0463390</p><p><b>Tárgy:</b> Közterület-használati engedély iránti kérelem</p><p><b>Csatolmány:</b> kerelem.pdf</p><p>Elektronikus kapcsolattartást választott.</p>`),
   endText:"A hiányos kérelem is szabályosan bekerült a nyilvántartásba, a hiánypótlási felhívás az ügyirat alszámaként ment ki, a pótlás pedig ugyanide fog érkezni.",
   stages:[
     { short:"Megnyitás", role:"Központi ügykezelő", title:"Megnyitás és a tartalom",
       text:"Hétfő reggel nyitod meg az üzenetet. A csatolmány olvasható.",
-      fields:[{ label:"Mikor indul az ügyintézési határidő?", type:"select", options:["2026. 10. 17-én, a beérkezést követő napon","2026. 10. 19-én, hétfőn, a megnyitáskor","Az iktatás napján"], answer:"2026. 10. 17-én, a beérkezést követő napon" }],
+      fields:[{ label:"Mikor indul az ügyintézési határidő?", type:"select", options:["A beérkezés napja (10. 16.) nem számít bele: a számolás 10. 17-én indul","2026. 10. 19-én, hétfőn, a megnyitáskor","Az iktatás napján"], answer:"A beérkezés napja (10. 16.) nem számít bele: a számolás 10. 17-én indul", why:"Az eljárás a kérelem beérkezésével indul (Ákr. 37. § (2)), a napokban megállapított határidőbe ez a nap nem számít bele (52. § (1))." }],
       done:"A kérelem tartalma megjelent.",
       fx:{ doc: env("A kérelem (kerelem.pdf)", `<p>Kérem, engedélyezzék a Fő tér 4. előtti 24 m² közterület használatát kávézóterasz céljára, 2027. 04. 01. és 09. 30. között.</p><p>Melléklet: –</p><p>Oláh Tímea</p>`) + `<div class="env"><span class="lbl">Ügyintézői segédlet</span><p>A közterület-használati kérelemhez kötelező melléklet: helyszínrajz a használni kívánt területről.</p></div>` } },
     { short:"Érkeztetés", role:"Rendszer + ügykezelő", title:"Az automatikus érkeztetés ellenőrzése", text:"A rendszer pénteken az É-2026/2451 azonosítóval érkeztetett.",
@@ -1802,7 +1807,7 @@ const A4 = [
       ],
       done:"Iktatva: PLD/1875/2026.",
       fx:{ ikt:["PLD/1875/2026","Oláh Tímea","Közterület-használati engedély iránti kérelem – kávézóterasz, Fő tér 4.","–","–","B530","Iktatva"], erkSet:{ id:"É-2026/2451", cells:[[7,"Iktatva: PLD/1875/2026"]] }, doc: rubber("PLD/1875/2026") } },
-    { short:"Szignálás", role:"Osztályvezető", title:"Szignálás", text:"Az ügyintézési határidő 60 nap; hétvégi lejáratnál a következő munkanapon jár le.", ctx: STAFF_CTX,
+    { short:"Szignálás", role:"Osztályvezető", title:"Szignálás", text:"Teljes eljárás: az ügyintézési határidő 60 nap (Ákr. 50. § (2)). A beérkezés napja nem számít bele, és az ügyintézési határidő akkor sem csúszik át, ha hétvégére esne (Ákr. 52. § (4)).", ctx: STAFF_CTX,
       fields:[
         { label:"Ügyintéző", type:"select", options:MUNKATARSAK, answer:"Varró Dániel – ügyintéző (közterület-használat)" },
         { label:"Elintézési határidő", type:"date", answer:"2026-12-15", show:"2026. 12. 15. (kedd)", why:"Október 17-én indul, a 60. nap december 15., kedd." }
