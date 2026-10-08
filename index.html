@@ -91,6 +91,136 @@ button{font:inherit;color:inherit;cursor:pointer}
 .note{font-size:.85rem;color:var(--muted);border-left:3px solid var(--line);padding-left:12px;max-width:72ch}
 .ctx{border:1px solid var(--line);border-radius:6px;padding:14px 16px;background:var(--paper);font-size:.92rem;display:flex;flex-direction:column;gap:8px}
 .ctx .label{margin-bottom:2px}
+.phone{max-width:22rem;border:1px solid var(--line);border-radius:18px;background:var(--surface);padding:10px 12px 14px;display:flex;flex-direction:column;gap:6px}
+.phone-top{font:600 .8rem/1.3 "IBM Plex Sans",sans-serif;color:var(--muted);text-align:center;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:4px}
+.bubble{align-self:flex-start;max-width:92%;background:var(--paper);border:1px solid var(--line);border-radius:14px 14px 14px 4px;padding:8px 11px;font-size:.9rem;line-height:1.4;overflow-wrap:anywhere}
+.btime{display:block;text-align:right;font-size:.7rem;color:var(--muted);margin-top:3px}
+.mailmock{border:1px solid var(--line);border-radius:6px;background:var(--surface);overflow:hidden}
+.mailmock .mhead{padding:9px 12px;border-bottom:1px solid var(--line);font-size:.82rem;line-height:1.5;color:var(--muted);overflow-wrap:anywhere}
+.mailmock .mhead b{color:var(--ink);font-weight:600}
+.mailmock .mbody{padding:10px 12px;font-size:.9rem;line-height:1.5}
+.ctx .phone,.ctx .mailmock{align-self:stretch}
+.ctx .phone{align-self:flex-start;width:100%}
+
+/* ---- OSINT böngésző-szimuláció ---- */
+.ob{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.ob-bar{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--paper);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.ob-nav{width:30px;height:30px;border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--ink);cursor:pointer;font-size:1rem}
+.ob-nav:disabled{opacity:.4;cursor:default}
+.ob-addr{flex:1;min-width:160px;display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:var(--surface)}
+.ob-addr input{flex:1;border:0;background:transparent;color:var(--muted);font:.8rem/1.3 "IBM Plex Mono",monospace;outline:none;overflow:hidden;text-overflow:ellipsis}
+.ob-pill{border:1px solid var(--stamp);color:var(--stamp);background:var(--stamp-soft);border-radius:999px;padding:5px 12px;font:600 .82rem "IBM Plex Sans",sans-serif;cursor:pointer;white-space:nowrap}
+.ob-pill.ghost{border-color:var(--line);color:var(--muted);background:var(--surface)}
+.ob-bm{display:flex;align-items:center;gap:8px;padding:6px 12px;border-bottom:1px solid var(--line);font-size:.78rem;color:var(--muted);flex-wrap:wrap}
+.ob-bm button{border:0;background:transparent;color:var(--stamp);cursor:pointer;font-size:.78rem;padding:2px 4px}
+.ob-view{max-height:620px;overflow:auto;padding:0}
+.ob-view>div{padding:18px}
+
+/* kereső */
+.op-search{display:flex;flex-direction:column;gap:12px}
+.op-ghead{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.op-glogo{font:700 1.5rem "Newsreader",serif;letter-spacing:-1px}
+.op-glogo span:nth-child(1){color:#4285f4}.op-glogo span:nth-child(2){color:#ea4335}.op-glogo span:nth-child(3){color:#fbbc05}.op-glogo span:nth-child(4){color:#4285f4}.op-glogo span:nth-child(5){color:#34a853}.op-glogo span:nth-child(6){color:#ea4335}
+.op-sbox{flex:1;min-width:200px;display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:7px 14px;background:var(--surface)}
+.op-sbox input{flex:1;border:0;background:transparent;color:var(--ink);outline:none}
+.op-sbox button{border:0;background:var(--stamp);color:#fff;border-radius:999px;padding:5px 12px;font-size:.82rem;cursor:default}
+.op-hint{border:1px solid var(--warn);background:var(--warn-soft);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;font-size:.86rem}
+.op-hint b{color:var(--ink)}.op-hint span{color:var(--muted)}
+.op-result{border:1px solid transparent;border-radius:8px;padding:10px 12px;cursor:pointer;text-align:left;transition:background .12s}
+.op-result:hover{background:var(--paper);border-color:var(--line)}
+.op-rsrc{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.op-rsrc i{width:22px;height:22px;border-radius:50%;background:var(--paper);border:1px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:.75rem;font-weight:700}
+.op-rsrc small{color:var(--muted);font:.76rem/1 "IBM Plex Mono",monospace}
+.op-result h3{margin:0;font:500 1.05rem/1.3 "Newsreader",serif;color:#1a0dab}
+.op-result p{margin:3px 0 0;font-size:.86rem;color:var(--muted)}
+:root[data-theme="dark"] .op-result h3,:root:not([data-theme="light"]) .op-result h3{color:#8ab4f8}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .op-result h3{color:#8ab4f8}}
+
+/* szerkesztőségi / céges oldalak */
+.op-editorial,.op-corp{display:flex;flex-direction:column;gap:10px}
+.op-editorial>header,.op-corphead,.op-corpnav,.op-fbtop{font-size:.8rem}
+.op-editorial>header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:8px;flex-wrap:wrap;gap:8px}
+.op-editorial>header b{font:700 .9rem "IBM Plex Sans",sans-serif;letter-spacing:.5px}
+.op-editorial nav,.op-corpnav{display:flex;gap:12px;color:var(--muted)}
+.op-corpnav b{color:var(--stamp)}
+.op-eyebrow{font:600 .72rem "IBM Plex Mono",monospace;color:var(--muted);letter-spacing:1px}
+.op-editorial h1,.op-corp h2{margin:0;font-family:"Newsreader",serif}
+.op-lead{font-size:.95rem;color:var(--ink)}
+.op-hero{height:120px;border-radius:10px;background:linear-gradient(135deg,var(--paper),var(--stamp-soft));display:grid;place-items:center;font-size:2.4rem}
+.op-flag{border:1px solid var(--bad);background:var(--bad-soft);border-radius:8px;padding:9px 12px;font-size:.84rem}
+.op-flag.ok{border-color:var(--ok);background:var(--ok-soft)}
+.op-corphead{display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.op-logo{width:44px;height:44px;border-radius:10px;background:var(--stamp-soft);display:grid;place-items:center;font-size:1.4rem}
+.op-corphead h1{margin:0;font:700 1.15rem "IBM Plex Sans",sans-serif}
+.op-corphead p{margin:0;font-size:.78rem;color:var(--muted)}
+.op-crumb{font:.76rem "IBM Plex Mono",monospace;color:var(--muted)}
+.op-team{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.op-team article{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--paper)}
+.op-team b{display:block;margin-top:6px}.op-team small{color:var(--stamp);font-weight:600}.op-team p{font-size:.82rem;color:var(--muted);margin:6px 0 0}
+.op-ph{height:60px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:1.6rem}
+.op-wall p{border:1px solid var(--line);border-radius:8px;padding:9px 12px;background:var(--paper);margin:0 0 8px;font-size:.88rem}
+
+/* közösségi profilok */
+.op-social{display:flex;flex-direction:column;gap:0}
+.op-fbtop{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.op-fbtop b{font:800 1.1rem "IBM Plex Sans",sans-serif;color:var(--stamp)}
+.op-fbtop i{width:26px;height:26px;border-radius:50%;background:var(--stamp-soft);display:grid;place-items:center;font-style:normal;font-size:.8rem;font-weight:700}
+.op-cover{position:relative;margin:10px 0 34px}
+.op-cband{height:96px;border-radius:12px;background:linear-gradient(120deg,#2a6f97,#61a5c2)}
+.op-ava{position:absolute;left:16px;bottom:-26px;width:72px;height:72px;border-radius:50%;background:var(--surface);border:3px solid var(--surface);box-shadow:0 0 0 1px var(--line);display:grid;place-items:center;font-size:2rem}
+.op-ava.big{width:84px;height:84px;position:static;font-size:2.4rem}
+.op-identity{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.op-identity h1{margin:0;font-family:"Newsreader",serif}.op-identity p{margin:0;color:var(--muted);font-size:.82rem}
+.op-identity button,.op-igname button{border:1px solid var(--stamp);background:var(--stamp-soft);color:var(--stamp);border-radius:7px;padding:6px 12px;font-size:.82rem;font-weight:600;cursor:default}
+.op-ptabs,.op-igtabs{display:flex;gap:16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 0;margin:12px 0;font-size:.85rem;color:var(--muted)}
+.op-ptabs b,.op-igtabs b{color:var(--ink)}
+.op-fbgrid{display:grid;grid-template-columns:minmax(0,260px) 1fr;gap:14px}
+.op-card{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--paper);align-self:start}
+.op-card h2{margin:0 0 8px;font-size:1rem}.op-card p{margin:5px 0;font-size:.86rem}.op-card small{color:var(--muted);display:block;margin-top:8px}
+.op-feed{display:flex;flex-direction:column;gap:10px;min-width:0}
+.op-post{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--paper)}
+.op-post header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.op-post header i{width:30px;height:30px;border-radius:50%;background:var(--stamp-soft);display:grid;place-items:center;font-style:normal;font-weight:700}
+.op-post header b{font-size:.9rem}.op-post header small{color:var(--muted);font-size:.76rem;display:block}
+.op-post p{margin:0;font-size:.9rem}.op-post footer{margin-top:8px;color:var(--muted);font-size:.8rem}
+.op-comments{margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
+.op-comments p{font-size:.82rem;color:var(--muted);margin:4px 0}
+.op-igprofile{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:6px 0}
+.op-igname{display:flex;align-items:center;gap:10px}.op-igname h1{margin:0;font-size:1.3rem}
+.op-igprofile strong{display:block;margin-top:4px}.op-igprofile small{color:var(--muted)}
+.op-iggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.op-iggrid figure{margin:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--paper)}
+.op-iggrid .op-ph{height:90px;border:0;border-radius:0;font-size:1.8rem}
+.op-iggrid figcaption{font-size:.72rem;color:var(--muted);padding:6px 8px}
+.op-iggrid .op-clue{border-color:var(--ok)}.op-iggrid .op-clue figcaption{color:var(--ink)}
+
+/* overlayek */
+.ob-ov{position:fixed;inset:0;background:rgba(10,16,24,.55);display:grid;place-items:center;padding:20px;z-index:60;overflow:auto}
+.ob-modal{background:var(--surface);border:1px solid var(--line);border-radius:14px;max-width:560px;width:100%;max-height:88vh;overflow:auto;padding:24px;position:relative;box-shadow:0 18px 50px rgba(0,0,0,.3)}
+.ob-x{position:absolute;top:12px;right:14px;border:0;background:transparent;font-size:1.5rem;color:var(--muted);cursor:pointer;line-height:1}
+.ob-kick{font:600 .72rem "IBM Plex Mono",monospace;color:var(--stamp);letter-spacing:1px}
+.ob-modal h2{margin:6px 0 10px;font-family:"Newsreader",serif}
+.ob-modal h3{margin:16px 0 6px;font-size:1rem}
+.ob-modal p{font-size:.9rem;line-height:1.55}
+.ob-list{margin:8px 0;padding-left:20px}.ob-list li{margin:4px 0;font-size:.9rem}
+.ob-answers{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.ob-answers label{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:9px;padding:8px 10px}
+.ob-answers label>span{width:24px;height:24px;border-radius:50%;background:var(--paper);border:1px solid var(--line);display:grid;place-items:center;font-size:.8rem;font-weight:700;flex:none}
+.ob-answers label>div{flex:1}.ob-answers small{display:block;color:var(--muted);font-size:.76rem}
+.ob-answers input{width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);padding:3px 0;outline:none;font-size:.92rem}
+.ob-answers label.ok{border-color:var(--ok);background:var(--ok-soft)}
+.ob-answers label.bad{border-color:var(--bad);background:var(--bad-soft)}
+.ob-answers label b{font-size:1rem;flex:none}
+.ob-note-res{border-radius:8px;padding:10px 12px;font-size:.88rem;margin-bottom:12px}
+.ob-note-res.ok{border:1px solid var(--ok);background:var(--ok-soft)}
+.ob-note-res.bad{border:1px solid var(--bad);background:var(--bad-soft)}
+.ob-risks{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.ob-risks>div{border:1px solid var(--line);border-left:3px solid var(--stamp);border-radius:8px;padding:9px 12px;background:var(--paper)}
+.ob-risks b{display:block;font-size:.86rem}.ob-risks span{font-size:.84rem;color:var(--muted)}
+.ob-advice{margin:8px 0;padding-left:20px}.ob-advice li{margin:5px 0;font-size:.88rem}
+.ob-gdpr{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--paper);font-size:.82rem;color:var(--muted)}
+@media(max-width:620px){.op-fbgrid{grid-template-columns:1fr}.op-iggrid{grid-template-columns:repeat(2,1fr)}.ob-view{max-height:70vh}}
+
 
 .items{display:flex;flex-direction:column;gap:12px;list-style:none;margin:0;padding:0}
 .item{border:1px solid var(--line);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
@@ -1930,6 +2060,803 @@ const A4 = [
 }
 ];
 
+/* ===== 2. kurzus: Információbiztonság és adatvédelem ===== */
+const sms = (from, text, time) => `<div class="phone"><div class="phone-top">${from}</div><div class="bubble">${text}<span class="btime">${time||""}</span></div></div>`;
+const mail = (from, subj, body) => `<div class="mailmock"><div class="mhead"><b>Feladó:</b> ${from}<br><b>Tárgy:</b> ${subj}</div><div class="mbody">${body}</div></div>`;
+const chat = (from, lines) => `<div class="phone"><div class="phone-top">${from}</div>${lines.map(l=>`<div class="bubble">${l}</div>`).join("")}</div>`;
+
+const B1 = [
+/* ---------- 1. Alapfogalmak ---------- */
+{ unit:"ib1", id:"ib1-cia", type:"match",
+  title:"Melyik sérül? – a CIA-triász",
+  lead:"Bizalmasság, sértetlenség vagy rendelkezésre állás? Nyolc biztonsági esemény, nyolc döntés.",
+  task:"Minden eseménynél válaszd ki, az információbiztonság melyik alapkövetelménye sérül elsősorban.",
+  note:"CIA: Confidentiality (bizalmasság), Integrity (sértetlenség), Availability (rendelkezésre állás). Egy incidens több elemet is érinthet – itt a leginkább érintettet keresd.",
+  options:["Bizalmasság","Sértetlenség","Rendelkezésre állás"],
+  items:[
+    { q:"Egy munkatárs tévedésből az egész hivatalnak elküldi a fizetési listát.", a:"Bizalmasság", why:"Jogosulatlan személyek ismerték meg az adatot." },
+    { q:"Túlterheléses (DDoS) támadás miatt egy napig nem érhető el az ügyfélkapus szolgáltatás.", a:"Rendelkezésre állás", why:"Az adat nem sérült, de a jogosultak nem férnek hozzá." },
+    { q:"Egy támadó egy számla bankszámlaszámát a sajátjára cseréli, mielőtt a könyvelés kifizetné.", a:"Sértetlenség", why:"Az adat jogosulatlanul megváltozott." },
+    { q:"A zsarolóvírus titkosítja a szerver összes fájlját.", a:"Rendelkezésre állás", why:"Az adatok elérhetetlenné váltak (ha a támadók ki is lopták őket, a bizalmasság is sérül)." },
+    { q:"Valaki lefotózza a kollégája monitorán látható ügyféladatokat.", a:"Bizalmasság", why:"Jogosulatlan megismerés – vállfeletti leskelődés." },
+    { q:"Egy hibás szoftverfrissítés után a nyilvántartás egy része rossz dátumokat mutat.", a:"Sértetlenség", why:"Az adat pontossága, hitelessége sérült – nem kell hozzá támadó." },
+    { q:"Áramszünet miatt leáll a szerverterem, és nincs szünetmentes táp.", a:"Rendelkezésre állás", why:"Fizikai ok, de ugyanúgy a hozzáférhetőséget érinti." },
+    { q:"Egy honlapon átírják a hivatal ügyfélfogadási idejét és a telefonszámot.", a:"Sértetlenség", why:"A közzétett információ jogosulatlanul módosult (deface)." }
+  ]
+},
+{ unit:"ib1", id:"ib1-fogalmak", type:"match",
+  title:"Fenyegetés, sebezhetőség, kockázat",
+  lead:"A kockázatelemzés szótára: ismerd fel a fogalmakat a gyakorlati példákban.",
+  task:"Párosítsd a példákat a fogalmakkal.",
+  note:"Egyszerű képlet: kockázat ≈ fenyegetés × sebezhetőség × hatás. A kontroll a sebezhetőséget vagy a hatást csökkenti.",
+  options:["Fenyegetés","Sebezhetőség","Kockázat","Kontroll","Incidens"],
+  items:[
+    { q:"Adathalász csoportok, amelyek önkormányzatokat céloznak", a:"Fenyegetés", why:"A lehetséges kárt okozó tényező." },
+    { q:"Két éve nem frissített levelezőszerver", a:"Sebezhetőség", why:"Gyengeség, amelyet egy fenyegetés kihasználhat." },
+    { q:"Annak az esélye és hatása, hogy egy támadó a frissítetlen szerveren keresztül bejut", a:"Kockázat", why:"A valószínűség és a hatás együtt." },
+    { q:"Kétfaktoros hitelesítés bevezetése a levelezésben", a:"Kontroll", why:"Óvintézkedés, amely csökkenti a kockázatot." },
+    { q:"Tegnap egy kolléga fiókjából 400 kéretlen e-mail ment ki", a:"Incidens", why:"Ténylegesen bekövetkezett biztonsági esemény." },
+    { q:"Nincs jóváhagyási rend a nagy összegű utalásokra", a:"Sebezhetőség", why:"Folyamatbeli gyengeség – a CEO-csalások kedvenc rése." },
+    { q:"Belépőkártyás beléptetés a szerverterembe", a:"Kontroll", why:"Fizikai kontroll." }
+  ]
+},
+{ unit:"ib1", id:"ib1-kontroll", type:"mcq",
+  title:"Megelőző, feltáró vagy helyreállító?",
+  lead:"A kontrollok a hiba előtt, közben vagy után dolgoznak. Melyik melyik?",
+  task:"Minden kontrollnál döntsd el, mikor hat.",
+  options:["Megelőző","Feltáró","Helyreállító"],
+  items:[
+    { q:"Tűzfalszabály, amely tiltja a kívülről érkező távoli asztali kapcsolatot.", a:0, why:"A támadást eleve megakadályozza." },
+    { q:"Riasztás, ha egy fiók éjjel 3-kor külföldről jelentkezik be.", a:1, why:"A gyanús eseményt észleli." },
+    { q:"Napi mentés, amelyből egy titkosított szerver visszaállítható.", a:2, why:"A kár után a működést állítja helyre." },
+    { q:"Kötelező biztonsági tudatossági képzés minden új belépőnek.", a:0, why:"A hibás viselkedést előzi meg." },
+    { q:"A naplók heti áttekintése sikertelen belépési kísérletek után kutatva.", a:1, why:"Utólag tárja fel a mintázatot." },
+    { q:"Üzletmenet-folytonossági terv tartalék telephellyel.", a:2, why:"A kiesés után a működés folytatását biztosítja." },
+    { q:"Vírusirtó, amely a letöltött fájlt megnyitás előtt karanténba teszi.", a:0, why:"A kártékony kód futását akadályozza meg." }
+  ]
+},
+{ unit:"ib1", id:"ib1-kartya", type:"cards",
+  title:"Fogalomkártyák",
+  lead:"Tizenkét alapfogalom az információbiztonságból, gyors ismétléshez.",
+  task:"Olvasd el a fogalmat, mondd ki magadban a jelentését, majd fordítsd meg a kártyát.",
+  cards:[
+    { q:"Bizalmasság", a:"Az információt csak az arra jogosultak ismerhetik meg." },
+    { q:"Sértetlenség (integritás)", a:"Az információ pontos, teljes, és csak jogosult módon változhat; a változás kimutatható." },
+    { q:"Rendelkezésre állás", a:"A jogosultak akkor férnek hozzá az információhoz és a rendszerhez, amikor szükségük van rá." },
+    { q:"Hitelesség (autentikáció)", a:"Annak igazolása, hogy a felhasználó, eszköz vagy üzenet valóban az, aminek mondja magát." },
+    { q:"Letagadhatatlanság", a:"A műveletet végző később nem tagadhatja le, hogy elvégezte (pl. elektronikus aláírás, napló)." },
+    { q:"Social engineering", a:"Az emberi tényező manipulálása: a támadó bizalommal, sürgetéssel, tekintéllyel veszi rá az áldozatot valamire." },
+    { q:"Zero-day (nulladik napi) sebezhetőség", a:"Olyan hiba, amelyről a gyártó még nem tud, vagy amelyre még nincs javítás." },
+    { q:"Legkisebb jogosultság elve", a:"Mindenki csak annyi hozzáférést kap, amennyi a feladatához feltétlenül szükséges." },
+    { q:"Mélységi védelem (defense in depth)", a:"Több, egymást kiegészítő védelmi réteg: ha egy elesik, a következő még véd." },
+    { q:"Biztonsági incidens", a:"Ténylegesen bekövetkezett esemény, amely veszélyezteti az információ bizalmasságát, sértetlenségét vagy rendelkezésre állását." },
+    { q:"Támadási felület", a:"Mindazon pontok összessége, ahol egy támadó bejuthat: szolgáltatások, fiókok, eszközök, emberek." },
+    { q:"Kockázat", a:"Egy fenyegetés bekövetkezésének valószínűsége és várható hatása együtt." }
+  ]
+},
+
+/* ---------- 2. Internetes csalások ---------- */
+{ unit:"ib2", id:"ib2-tipusok", type:"match",
+  title:"Csalástípusok felismerése",
+  lead:"Adathalászat, vishing, CEO-csalás, befektetési csalás… Nevezd meg a módszert a leírás alapján.",
+  task:"Párosítsd a leírásokat a csalástípusokkal.",
+  options:["Adathalászat (phishing)","SMS-es adathalászat (smishing)","Telefonos csalás (vishing)","Vezetői megszemélyesítés (CEO-csalás)","Befektetési csalás","Romantikus csalás","Piactéri vevőcsalás","Hamis webáruház"],
+  items:[
+    { q:"Banknak látszó e-mail: „szokatlan bejelentkezés, erősítse meg adatait a linken”", a:"Adathalászat (phishing)", why:"E-mailben, hamis oldalra csalt adatmegadás." },
+    { q:"„Csomagja vámkezelésre vár, fizessen 1 290 Ft-ot” – rövid link egy ismeretlen számról", a:"SMS-es adathalászat (smishing)", why:"SMS-ben érkező adathalászat, apró összeggel a kártyaadatokért." },
+    { q:"A „bank biztonsági osztálya” hív: „gyanús tranzakció, olvassa fel a most kapott kódot”", a:"Telefonos csalás (vishing)", why:"Telefonos megszemélyesítés; a bank soha nem kér kódot telefonon." },
+    { q:"Péntek délután e-mail a „vezérigazgatótól”: titkos akvizíció, azonnal utaljon egy külföldi számlára", a:"Vezetői megszemélyesítés (CEO-csalás)", why:"Tekintély + titoktartás + sürgetés a pénzügyön keresztül." },
+    { q:"Hirdetés egy ismert műsorvezető arcával: „havi 30% hozam kriptóval, garantáltan”", a:"Befektetési csalás", why:"Irreális hozamígéret, hamis hírességes ajánlás." },
+    { q:"Hónapok óta tartó online kapcsolat, majd hirtelen pénzkérés egy „orvosi vészhelyzetre”", a:"Romantikus csalás", why:"Érzelmi kötődés kiépítése, majd pénzkérés." },
+    { q:"A „vevő” egy linket küld, ahol a pénz átvételéhez meg kell adni a kártyaadatokat", a:"Piactéri vevőcsalás", why:"Az eladót csalják hamis „fizetésfogadó” oldalra." },
+    { q:"Márkás cipők 80%-os kedvezménnyel, friss domain, csak előre utalás", a:"Hamis webáruház", why:"Irreálisan olcsó ár, új domain, visszafordíthatatlan fizetési mód." }
+  ]
+},
+{ unit:"ib2", id:"ib2-csalo", type:"mcq",
+  title:"Csaló vagy valódi?",
+  lead:"Nyolc üzenet a telefonodon és a postafiókodban. Melyik csalás, és melyik hiteles?",
+  task:"Nézd meg az üzenetet, és döntsd el, csaló vagy valódi. Figyelj a részletekre: feladó, link, hangnem, kérés.",
+  note:"A szerepeltetett bankok, cégek és linkek kitaláltak.",
+  options:["Csaló","Valódi"],
+  items:[
+    { ctx: sms("+36 30 412 8890", "Kedves Ugyfel! Csomagja a raktarban var, a kezbesites 1290 Ft vamkezelesi dij befizetese utan lehetseges: posta-hu.csomag-info.top/fizetes", "10:42"), q:"Csomagértesítő SMS", a:0, why:"Magánszámról érkezik, ékezet nélküli, idegen domainre (.top) mutat, apró díjat kér – klasszikus smishing." },
+    { ctx: sms("PeldaBank", "A PeldaBank kartyajaval 18 990 Ft-os vasarlas tortent a Teszt Aruhaz-ban 2026.10.08 14:12. Egyenleg: 214 330 Ft.", "14:12"), q:"Banki tranzakciós értesítő", a:1, why:"Nem kér semmit, nincs link, a bank nevéből jön, és egy általad végzett vásárlást ír le – tipikus valódi értesítő. (Ha nem te vásároltál, a bankot a kártyán lévő számon hívd.)" },
+    { ctx: mail("PeldaBank Biztonsag &lt;security@peldabank-ugyfel.com&gt;", "SÜRGŐS: fiókja 24 órán belül felfüggesztésre kerül", "Tisztelt Ügyfelünk! Rendszerünk szokatlan tevékenységet észlelt. Fiókja zárolását csak úgy kerülheti el, ha az alábbi linken 24 órán belül megerősíti kártyaadatait és internetbanki jelszavát. <u>Megerősítés most</u>"), q:"„Fiókfelfüggesztés” e-mail", a:0, why:"Hasonló, de idegen domain, sürgetés, fenyegetés, jelszót és kártyaadatot kér – egy bank sem kér ilyet e-mailben." },
+    { ctx: chat("Anya", ["Szia kicsim, elromlott a telefonom, ez az új számom.", "Tudnál most gyorsan utalni 180 ezret? Holnap visszaadom, nagyon sürgős, ne hívj most, nem tudok beszélni."]), q:"„Új számom van” üzenet", a:0, why:"Ismerős megszemélyesítése új számról, sürgetés, és kifejezetten tiltja a hívást – ellenőrizd a régi számon." },
+    { ctx: mail("Neptun &lt;noreply@neptun.pelda-egyetem.hu&gt;", "Új üzenet érkezett a Neptunba", "Új üzenete érkezett a Neptun rendszerben. Az üzenet megtekintéséhez jelentkezzen be a megszokott módon a Neptunba."), q:"Neptun-értesítő", a:1, why:"Az intézmény saját domainjéről jön, nem tartalmaz linket vagy kérést – a „jelentkezzen be a megszokott módon” biztonságos minta." },
+    { ctx: mail("Nemzeti Adó- és Vámhivatal &lt;visszaterites@nav-ado-visszaterites.eu&gt;", "Adó-visszatérítés: 48 320 Ft jár Önnek", "Ön 48 320 Ft adó-visszatérítésre jogosult. Az összeg jóváírásához adja meg bankkártyája adatait az alábbi űrlapon 48 órán belül."), q:"Adó-visszatérítés e-mail", a:0, why:"Idegen domain, váratlan pénzígéret, kártyaadat kérése határidővel – a hatóság nem így fizet vissza." },
+    { ctx: sms("+36 70 553 1207", "Szia! Láttam a hirdetésedet a Piactéren, megvenném a babakocsit. A futár elviszi, a pénzt itt tudod átvenni: piacter-atvetel.online/kartya-ellenorzes", "19:05"), q:"Piactéri vevő üzenete", a:0, why:"Eladóként soha nem kell kártyaadatot megadnod a pénz „átvételéhez” – hamis fizetési oldal." },
+    { ctx: mail("Informatikai Osztály &lt;it@peldavaros.hu&gt;", "Tervezett karbantartás csütörtök este", "Tisztelt Kollégák! Csütörtökön 20 és 22 óra között a levelezőrendszer karbantartás miatt nem lesz elérhető. Teendőjük nincs. Kérdés esetén hívják a megszokott belső számot: 1234."), q:"IT-karbantartási értesítő", a:1, why:"Saját domain, nincs link, nincs adatkérés, belső ismert elérhetőséget ad – hiteles tájékoztatás." }
+  ]
+},
+{ unit:"ib2", id:"ib2-email", type:"find",
+  title:"Adathalász e-mail boncolása",
+  lead:"Egy profi adathalász levél. Hány árulkodó jelet találsz benne?",
+  task:"Kattints az e-mail minden olyan részére, amely csalásra utal. A rendben lévő részeket hagyd jelöletlenül, majd ellenőrizd.",
+  note:"Egyetlen jel még nem bizonyít, de több együtt szinte biztos. A legfontosabb szabály: kétség esetén ne a levélben kapott linket vagy számot használd, hanem a hivatalos elérhetőséget.",
+  docTitle:"Beérkezett üzenet",
+  doc:[
+    { t:"Feladó: PeldaBank Ügyfélszolgálat <ugyfelszolgalat@peldabank-support.net>", bad:true, why:"A megjelenített név a bankra utal, de a domain idegen (peldabank-support.net)." },
+    { t:"Címzett: (titkos másolat)", bad:true, why:"Tömegesen, rejtett címzettel kiküldött levél – nem személyes ügyintézés." },
+    { t:"Tárgy: Biztonsági figyelmeztetés – azonnali intézkedés szükséges!!!", bad:true, why:"Riasztó hangnem, felkiáltójelek, sürgetés." },
+    { t:"Tisztelt Ügyfél!", bad:true, why:"Személytelen megszólítás: a bank név szerint szólít." },
+    { t:"Rendszerünk ismeretlen eszközről történő bejelentkezést észlelt fiókjában.", bad:false, why:"Önmagában hihető mondat – ezért hatásos a csalás." },
+    { t:"Amennyiben 12 órán belül nem erősíti meg adatait, fiókját biztonsági okokból véglegesen zároljuk.", bad:true, why:"Fenyegetés szoros határidővel – a gondolkodási idő elvétele." },
+    { t:"Kattintson ide: https://peldabank.hu.ugyfel-azonositas.info/belepes", bad:true, why:"A valódi domain a végén van: ugyfel-azonositas.info – a „peldabank.hu” csak aldomain-álca." },
+    { t:"Az azonosításhoz adja meg internetbanki jelszavát és a kártyája hátoldalán lévő CVC-kódot.", bad:true, why:"A bank soha nem kér jelszót vagy CVC-kódot." },
+    { t:"Köszönjük, hogy a PeldaBankot választotta.", bad:false, why:"Átlagos záró formula." },
+    { t:"Melléklet: Biztonsagi_utmutato.pdf.exe", bad:true, why:"Kettős kiterjesztés: valójában futtatható program." }
+  ]
+},
+{ unit:"ib2", id:"ib2-webshop", type:"find",
+  title:"Hamis webáruház",
+  lead:"Egy webshop, ahol minden túl szép, hogy igaz legyen. Mi árulja el?",
+  task:"Jelöld meg a webáruház azon jellemzőit, amelyek hamis oldalra utalnak. A semleges elemeket hagyd jelöletlenül.",
+  docTitle:"cipo-akcio-outlet-hu.shop – „Prémium Outlet”",
+  doc:[
+    { t:"Domain: cipo-akcio-outlet-hu.shop – a domainnyilvántartó szerint 9 napja regisztrálták", bad:true, why:"Friss, hosszú, kulcsszavas domain egzotikus végződéssel." },
+    { t:"Minden termék 70–85% kedvezménnyel, „csak ma”", bad:true, why:"Irreális kedvezmény, mesterséges sürgetés." },
+    { t:"A böngésző lakat ikonja: a kapcsolat titkosított (HTTPS)", bad:false, why:"A HTTPS ma már a csaló oldalakon is általános – nem bizonyítja a hitelességet." },
+    { t:"Fizetés: kizárólag előre utalás vagy kriptovaluta", bad:true, why:"Visszafordíthatatlan fizetési mód; kártyás fizetésnél lenne visszaterhelési lehetőség." },
+    { t:"Impresszum: nincs cégnév, adószám, cím – csak egy webes űrlap", bad:true, why:"A hazai webáruházaknak fel kell tüntetniük az üzemeltető adatait; ennek hiánya erős jel." },
+    { t:"Vásárlói vélemények: 2 400 db, mind 5 csillagos, ugyanazon a napon írva", bad:true, why:"Generált, nem hiteles vélemények." },
+    { t:"Termékfotók: a gyártó hivatalos képei", bad:false, why:"Valódi boltok is ezeket használják – önmagában nem árulkodó." },
+    { t:"Ügyfélszolgálat: csak WhatsApp-szám, külföldi előhívóval", bad:true, why:"Nincs elérhető, beazonosítható ügyfélszolgálat." },
+    { t:"Az oldal szövegeiben gépi fordításra utaló hibák: „Kosárba tesz most olcsó”", bad:true, why:"Gépi fordítás – külföldről üzemeltetett csalásra utal." }
+  ]
+},
+{ unit:"ib2", id:"ib2-ceo", type:"sim",
+  title:"A vezérigazgató hívása",
+  lead:"Péntek 16:40, könyvelés. A „vezérigazgató” telefonál, a hangja kísértetiesen valódi. Mit teszel?",
+  task:"Te vagy a pénzügyi ügyintéző. Minden lépésnél válaszd ki, mit teszel.",
+  note:"A mesterséges intelligenciával klónozott hang ma már néhány perces hangmintából előállítható. A védelem nem a hang felismerése, hanem a folyamat: visszahívás ismert számon, négy szem elve, jóváhagyási rend.",
+  start:"c1",
+  nodes:{
+    c1:{ when:"péntek 16:40", short:"A „vezérigazgató” hív.", text:"Ismeretlen számról hív a vezérigazgató – a hangja, a hangsúlya az övé. „Titkos akvizíció, a jogászok már tudnak róla. Még ma el kell utalni 38 millió forintot egy osztrák ügyvédi letéti számlára. Senkinek ne szóljon, a tőzsde miatt bizalmas.” Mit teszel?",
+      choices:[
+        { t:"Megkérem, hogy várjon, és visszahívom a cégnyilvántartásban szereplő, általam ismert számán.", ok:true, next:"c2", fb:"Helyes. A visszahívás független, ismert csatornán a leghatékonyabb védekezés." },
+        { t:"Azonnal utalok – a vezérigazgató hangját biztosan felismerem.", ok:false, next:"c2", fb:"A hang klónozható. A „biztosan felismerem” éppen az, amire a csaló épít." },
+        { t:"Kérek tőle egy e-mailt is, és ha megjön, utalok.", ok:false, next:"c2", fb:"Az e-mail is hamisítható vagy feltört fiókból is jöhet – ugyanazon a csatornán marad a támadó." }
+      ]},
+    c2:{ when:"16:43", short:"A hívó nyomást gyakorol.", text:"A hívó ingerült: „Nincs időnk visszahívásra, a bank 17-kor zár! Ha elúszik az üzlet, maga lesz a felelős.” Mit teszel?",
+      choices:[
+        { t:"Udvariasan kitartok: a jóváhagyási rend szerint nem utalhatok ellenőrzés nélkül.", ok:true, next:"c3", fb:"Helyes. A sürgetés és a fenyegetés a manipuláció jele – a szabály épp ilyenkor véd." },
+        { t:"Megijedek, és utalok, hiszen ő a főnököm.", ok:false, next:"c3", fb:"A tekintély és a félelem a social engineering két fő eszköze." },
+        { t:"Megkérdezem a kollégámat, ő mit tenne, és együtt utalunk.", ok:false, next:"c3", fb:"A négy szem elve jó, de csak ha ellenőrzéssel jár – két ember együtt is bedőlhet." }
+      ]},
+    c3:{ when:"16:50", short:"Visszahívás.", text:"Visszahívod a vezérigazgatót a hivatalos számán. Meglepődik: semmiféle akvizícióról nem tud, épp egy konferencián ül. Mi a következő lépés?",
+      choices:[
+        { t:"Bejelentem az esetet az informatikai biztonsági felelősnek és a vezetésnek, rögzítem a hívás adatait.", ok:true, next:"c4", fb:"Helyes. Az eset a szervezetet célozta – mások is kaphatnak hasonló hívást." },
+        { t:"Megkönnyebbülök, és elfelejtem az egészet – nem történt kár.", ok:false, next:"c4", fb:"A sikertelen kísérlet is incidens: jelezni kell, mert a támadó újrapróbálkozhat mással." }
+      ]},
+    c4:{ when:"hétfő", short:"Tanulságok.", text:"Hétfőn megbeszélés. Melyik intézkedés csökkenti leginkább a jövőbeli kockázatot?",
+      choices:[
+        { t:"Kötelező kétkulcsos jóváhagyás nagy összegű és új számlára menő utalásnál, visszahívással ismert számon.", ok:true, next:"cv", fb:"Helyes. Folyamatszintű kontroll: nem a hangfelismerésen, hanem a szabályon múlik." },
+        { t:"Megtiltjuk a vezérigazgatónak, hogy telefonon hívja a pénzügyet.", ok:false, next:"cv", fb:"A támadó nem tartja be a tiltást – a kontrollnak a fogadó oldalon kell lennie." },
+        { t:"Mindenkinek megtanítjuk felismerni a vezérigazgató hangját.", ok:false, next:"cv", fb:"A klónozott hang ellen a hangfelismerés nem véd." }
+      ]},
+    cv:{ end:true, text:"A 38 millió forint a cégnél maradt. A sikeres védekezést nem a gyanakvás, hanem a szabály adta: visszahívás független csatornán, és nincs utalás ellenőrzés nélkül." }
+  }
+},
+{ unit:"ib2", id:"ib2-piacter", type:"sim",
+  title:"A piactéri vevő",
+  lead:"Eladod a régi babakocsit. A „vevő” azonnal jelentkezik, és még a futárt is intézi. Hol a csapda?",
+  task:"Te vagy az eladó. Minden lépésnél válaszd ki, mit teszel.",
+  start:"p1",
+  nodes:{
+    p1:{ short:"Lelkes vevő jelentkezik.", text:"Két perccel a hirdetés feladása után üzenet: „Megvenném alkudás nélkül! Vidéken lakom, futárral küldetném, a fizetést a Piactér biztonságos fizetésével intézem.” Mit válaszolsz?",
+      choices:[
+        { t:"Rendben, de kérem, a platform saját, beépített fizetési funkcióját használjuk, a platformon belül maradva.", ok:true, next:"p2", fb:"Helyes. A platformon kívülre terelés az egyik legfontosabb figyelmeztető jel." },
+        { t:"Megadom a WhatsApp-számomat, ott gyorsabb.", ok:false, next:"p2", fb:"A csalók szeretik kivinni a beszélgetést a platformról, ahol nincs moderálás és védelem." }
+      ]},
+    p2:{ short:"Link érkezik.", text:"A vevő küld egy linket: „Itt tudod átvenni a pénzt, csak add meg a kártyaszámodat, a lejáratot és a CVC-kódot, hogy jóváírják.” Az oldal pont úgy néz ki, mint a Piactér. Mit teszel?",
+      choices:[
+        { t:"Nem adok meg semmit: pénz fogadásához soha nem kell CVC-kód vagy a teljes kártyaadat.", ok:true, next:"p3", fb:"Helyes. A CVC-kód fizetéshez kell, nem pénz fogadásához." },
+        { t:"Megadom, hiszen pénzt kapok, nem fizetek.", ok:false, next:"p3", fb:"Pontosan erre épít a csalás: az adatokkal a csaló fizet a kártyáddal." },
+        { t:"Megadom, de csak a kártyaszámot és a lejáratot.", ok:false, next:"p3", fb:"A félig megadott adat is veszélyes, és a hamis oldal jellemzően a többit is bekéri." }
+      ]},
+    p3:{ short:"Ha már megadtad volna…", text:"Tegyük fel, hogy a barátod már beírta az adatait, és most egy SMS-ben érkező kódot is kér tőle az oldal. Mi az azonnali teendő?",
+      choices:[
+        { t:"A kódot nem adja meg, azonnal felhívja a bankját a kártyán lévő számon, letiltatja a kártyát, majd feljelentést tesz.", ok:true, next:"p4", fb:"Helyes. Az idő kulcskérdés: a gyors letiltás megakadályozhatja a terhelést." },
+        { t:"Megadja a kódot, hogy kiderüljön, mi történik.", ok:false, next:"p4", fb:"Az SMS-kód jóváhagy egy tranzakciót vagy egy digitális kártya regisztrációját – ezzel a csaló hozzáfér." },
+        { t:"Vár néhány napot, hátha nem történik semmi.", ok:false, next:"p4", fb:"A várakozás a csalónak kedvez; minden perc számít." }
+      ]},
+    p4:{ short:"Bizonyítékok.", text:"Mit érdemes megőrizni a feljelentéshez?",
+      choices:[
+        { t:"A beszélgetést, a linket, a csaló profilját és a bankszámla-kivonatot – képernyőképekkel, dátummal.", ok:true, next:"pv", fb:"Helyes. A rendőrség és a bank is ezekből tud dolgozni." },
+        { t:"Semmit, kínos az egész, törlöm a beszélgetést.", ok:false, next:"pv", fb:"A törléssel a bizonyíték is elvész – a szégyen helyett a gyors bejelentés segít." }
+      ]},
+    pv:{ end:true, text:"A piactéri csalás lényege a megfordított szerep: az eladót teszik „fizetővé”. Ökölszabály: pénz fogadásához soha nem kell kártyaadat, CVC-kód vagy SMS-kód." }
+  }
+},
+{ unit:"ib2", id:"ib2-kattintottam", type:"sim",
+  title:"„Rákattintottam…” – mi most?",
+  lead:"Egy kolléga beírta a jelszavát egy hamis bejelentkezési oldalra. Vezesd végig a kármentést.",
+  task:"Te vagy a kolléga, aki észrevette a hibát. Minden lépésnél válaszd ki, mit teszel.",
+  start:"k1",
+  nodes:{
+    k1:{ when:"09:12", short:"Észreveszed a hibát.", text:"Egy „megosztott dokumentum” linkjére kattintva beírtad a hivatali e-mail-címed és jelszavad. Utána az oldal hibát írt, és most gyanús lett. Mi az első lépés?",
+      choices:[
+        { t:"Azonnal megváltoztatom a jelszavam a hivatalos felületen, és szólok az informatikának.", ok:true, next:"k2", fb:"Helyes. A gyorsaság a lényeg: a támadók percek alatt felhasználják a megszerzett adatokat." },
+        { t:"Nem szólok senkinek, nehogy bajom legyen belőle.", ok:false, next:"k2", fb:"A hallgatás a támadónak segít. A jó biztonsági kultúra nem bünteti a gyors bejelentést." },
+        { t:"Megpróbálom újra a linket, hátha most működik.", ok:false, next:"k2", fb:"Ezzel csak újra a támadónak adod az adatokat." }
+      ]},
+    k2:{ when:"09:20", short:"Más fiókok is veszélyben.", text:"Ugyanezt a jelszót használod a magánlevelezésedhez és egy webáruházban is. Mit teszel?",
+      choices:[
+        { t:"Mindenhol megváltoztatom, és ezentúl minden fiókhoz egyedi jelszót használok jelszókezelővel.", ok:true, next:"k3", fb:"Helyes. Az ismételt jelszó miatt egy kiszivárgás minden fiókot veszélyeztet (credential stuffing)." },
+        { t:"Csak a hivatali jelszót cserélem, a többi nem érintett.", ok:false, next:"k3", fb:"A támadók a megszerzett párokat automatikusan kipróbálják más szolgáltatásokon." }
+      ]},
+    k3:{ when:"09:40", short:"Mit vizsgál az informatika?", text:"Az informatikus megkérdezi, mit nézzen meg elsőként a fiókodban.",
+      choices:[
+        { t:"A bejelentkezési naplót, a levelezési szabályokat (átirányítás!) és hogy ment-e ki levél a nevemben.", ok:true, next:"k4", fb:"Helyes. A támadók gyakran rejtett továbbítási szabályt állítanak be, és a fiókból adathalászlevelet küldenek tovább." },
+        { t:"Semmit, a jelszócsere mindent megoldott.", ok:false, next:"k4", fb:"A támadó a jelszócsere előtt is beállíthatott tartós hozzáférést vagy továbbítást." }
+      ]},
+    k4:{ short:"Megelőzés.", text:"Mi védett volna meg a legjobban, ha a jelszó mégis kiszivárog?",
+      choices:[
+        { t:"Kétfaktoros (többtényezős) hitelesítés.", ok:true, next:"kv", fb:"Helyes. A jelszó önmagában nem elég a belépéshez, ha második tényező is kell." },
+        { t:"Hosszabb jelszó.", ok:false, next:"kv", fb:"A hamis oldalon a hosszú jelszót is ugyanúgy beírod – a hossz a találgatás ellen véd, az adathalászat ellen nem." },
+        { t:"Gyakoribb jelszócsere.", ok:false, next:"kv", fb:"A kiszivárgott jelszót a támadó percek alatt használja – a rendszeres csere ezen nem segít." }
+      ]},
+    kv:{ end:true, text:"A gyors bejelentés és a jelszócsere megfogta a támadást. A legfontosabb tanulság: aki hibázott, az a leggyorsabb riasztó – ha nem fél szólni." }
+  }
+},
+{ unit:"ib2", id:"ib2-kviz", type:"cards",
+  title:"Villámkvíz – csalások",
+  lead:"Hat gyors kérdés az internetes csalásokról.",
+  task:"Kattints a szerinted helyes válaszra. Azonnal látod, jó-e, és miért.",
+  cards:[
+    { q:"Kérhet-e a bankod telefonon SMS-ben kapott kódot vagy internetbanki jelszót?", options:["Igen, biztonsági ellenőrzéshez","Soha"], ans:1, a:"Soha. Aki ilyet kér, csaló – akkor is, ha a bank számáról hív (a hívószám hamisítható)." },
+    { q:"A lakat ikon (HTTPS) azt jelenti, hogy az oldal megbízható?", options:["Igen","Nem, csak a kapcsolat titkosított"], ans:1, a:"Nem. A HTTPS csak azt jelzi, hogy a kapcsolat titkosított – a csaló oldalak többsége is HTTPS-t használ." },
+    { q:"Melyik a valódi domain: peldabank.hu.ugyfel-azonositas.info?", options:["peldabank.hu","ugyfel-azonositas.info","info"], ans:1, a:"ugyfel-azonositas.info – a domain mindig a cím végén, az első perjel előtt van; a „peldabank.hu” itt csak aldomain." },
+    { q:"Pénz fogadásához szükség van-e a kártyád CVC-kódjára?", options:["Igen","Nem"], ans:1, a:"Nem. A CVC-kód fizetéshez kell – aki pénz átvételéhez kéri, csaló." },
+    { q:"Mi a legjobb válasz egy sürgető, ismerősnek tűnő pénzkérésre új számról?", options:["Gyorsan segítek","Visszahívom a régi, ismert számán","Visszaírok ugyanoda kérdéssel"], ans:1, a:"Visszahívás független, ismert csatornán – a válaszüzenet ugyanahhoz a csalóhoz megy." },
+    { q:"Melyik a csalók három legfőbb pszichológiai eszköze?", options:["Sürgetés, tekintély, félelem","Humor, udvariasság, türelem","Hosszú levél, sok melléklet, szakszavak"], ans:0, a:"Sürgetés, tekintély, félelem (és a mohóság): mind a gondolkodási időt veszik el." }
+  ]
+},
+
+/* ---------- 3. Social engineering és hitelesítés ---------- */
+{ unit:"ib3", id:"ib3-se", type:"match",
+  title:"A social engineering eszköztára",
+  lead:"Csali, ürügy, besurranás: nevezd meg a manipulációs technikát.",
+  task:"Párosítsd a helyzeteket a technikákkal.",
+  options:["Ürügyalapú megtévesztés (pretexting)","Csali (baiting)","Besurranás (tailgating)","Szívességcsere (quid pro quo)","Vállfeletti leskelődés (shoulder surfing)","Itatóhely-támadás (watering hole)"],
+  items:[
+    { q:"Valaki „a karbantartótól” jön, láthatósági mellényben, és a szerverterem kulcsát kéri.", a:"Ürügyalapú megtévesztés (pretexting)", why:"Kitalált szerep és történet a bizalom megszerzéséhez." },
+    { q:"A parkolóban talált pendrive címkéje: „Bérek 2026 – bizalmas”.", a:"Csali (baiting)", why:"A kíváncsiságra épít; a pendrive kártékony kódot tartalmaz." },
+    { q:"Egy kávét egyensúlyozó idegen besétál a kártyás ajtón mögötted.", a:"Besurranás (tailgating)", why:"Fizikai behatolás az udvariasságot kihasználva." },
+    { q:"„Ingyenes informatikai segítség” – cserébe csak a jelszavadat kéri a hívó.", a:"Szívességcsere (quid pro quo)", why:"Szolgáltatást ajánl cserébe az adatért." },
+    { q:"A vonaton a melletted ülő figyeli, ahogy beírod a laptopod jelszavát.", a:"Vállfeletti leskelődés (shoulder surfing)", why:"Közvetlen megfigyelés." },
+    { q:"A támadók egy szakmai fórumot fertőznek meg, amelyet a célszervezet munkatársai gyakran látogatnak.", a:"Itatóhely-támadás (watering hole)", why:"A célcsoport kedvelt oldalát teszik csapdává." }
+  ]
+},
+{ unit:"ib3", id:"ib3-iroda", type:"find",
+  title:"Irodai bejárás",
+  lead:"Biztonsági auditor vagy. Sétálj végig egy irodán, és jegyezd fel a hiányosságokat.",
+  task:"Kattints minden olyan megfigyelésre, amely biztonsági kockázatot jelent. A rendben lévő gyakorlatot hagyd jelöletlenül.",
+  docTitle:"Bejárási jegyzőkönyv – Példaváros Polgármesteri Hivatal, 2. emelet",
+  doc:[
+    { t:"A recepción minden látogató névre szóló vendégkártyát kap, és kísérővel közlekedik.", bad:false, why:"Jó gyakorlat: azonosítás és kíséret." },
+    { t:"A 204-es irodában a monitor szélére ragasztott cetlin: „jelszó: Tavasz2026!”.", bad:true, why:"Felírt jelszó – bárki láthatja." },
+    { t:"Ebédidőben három gép zárolatlanul, bejelentkezett állapotban áll.", bad:true, why:"Zárolatlan munkaállomás: bárki dolgozhat a felhasználó nevében. (Windows+L!)" },
+    { t:"A szerverterem ajtaját egy ék tartja nyitva „a szellőzés miatt”.", bad:true, why:"A fizikai beléptetés megkerülése." },
+    { t:"A közös nyomtatóban két órája ott felejtett ügyféllista hever.", bad:true, why:"Bizalmas dokumentum felügyelet nélkül – „tiszta asztal” és nyomtatási sor feloldása jelszóval." },
+    { t:"A munkaállomásokon automatikus képernyőzár van beállítva 5 perc inaktivitás után.", bad:false, why:"Jó gyakorlat." },
+    { t:"Egy kolléga kölcsönadta a belépőkártyáját a gyakornoknak, „amíg megérkezik az övé”.", bad:true, why:"Megosztott azonosító: a személyi felelősség megszűnik." },
+    { t:"A konyhai faliújságon kint van a Wi-Fi vendéghálózat jelszava.", bad:false, why:"Elkülönített vendéghálózatnál ez elfogadható – ha az nem éri el a belső rendszereket." },
+    { t:"Az íróasztalon egy talált, címkézetlen pendrive vár, hogy „valaki megnézi, kié”.", bad:true, why:"Ismeretlen adathordozót tilos csatlakoztatni – az informatikának kell leadni." },
+    { t:"A selejtezett iratok zárt, iratmegsemmisítő cég által ürített gyűjtőbe kerülnek.", bad:false, why:"Jó gyakorlat." }
+  ]
+},
+{ unit:"ib3", id:"ib3-jelszo", type:"mcq",
+  title:"Jelszómítoszok",
+  lead:"Jó tanács vagy elavult mítosz? Nyolc állítás a jelszavakról.",
+  task:"Döntsd el, hogy az állítás jó gyakorlat vagy mítosz.",
+  options:["Jó gyakorlat","Mítosz"],
+  items:[
+    { q:"A hosszú jelmondat (például négy véletlen szó) erősebb, mint egy rövid, bonyolult jelszó.", a:0, why:"A hossz növeli a legjobban a feltörés idejét, és a jelmondat könnyebben megjegyezhető." },
+    { q:"Elég egyetlen erős jelszó, ha mindenhol azt használom.", a:1, why:"Egy kiszivárgás minden fiókot kinyit (credential stuffing)." },
+    { q:"A jelszókezelő használata biztonságosabb, mint a jelszavak fejben tartása.", a:0, why:"Egyedi, hosszú jelszavakat tesz lehetővé minden fiókhoz." },
+    { q:"A Tavasz2026! típusú jelszó erős, mert van benne nagybetű, szám és írásjel.", a:1, why:"Kiszámítható minta (évszak + évszám + jel) – a támadók szótárai pont ezeket próbálják." },
+    { q:"Kötelező 30 naponta jelszót cserélni akkor is, ha nincs gyanú.", a:1, why:"A gyakori kényszerített csere kiszámítható jelszavakhoz vezet; a csere kiszivárgás gyanújakor indokolt." },
+    { q:"A jelszó mellé kétfaktoros hitelesítést kapcsolok minden fontos fiókon.", a:0, why:"A második tényező kiszivárgott jelszó esetén is megvéd." },
+    { q:"A biztonsági kérdésre (anyja leánykori neve) érdemes valódi választ adni.", a:1, why:"A valódi válasz gyakran kideríthető (OSINT). Jobb kitalált, a jelszókezelőben tárolt válasz." },
+    { q:"Ha a böngésző felajánlja, egy nyilvános gépen se mentsem el a jelszót.", a:0, why:"Közös vagy nyilvános gépen a mentett jelszó bárkinek elérhető." }
+  ]
+},
+{ unit:"ib3", id:"ib3-mfa", type:"match",
+  title:"Hitelesítési tényezők",
+  lead:"Tudás, birtoklás vagy biometria? Csoportosítsd a hitelesítési módokat.",
+  task:"Párosítsd a hitelesítési módokat a tényezőtípussal.",
+  note:"Valódi többtényezős hitelesítés: két különböző típusú tényező. Két jelszó együtt még csak egytényezős.",
+  options:["Tudás (amit tudsz)","Birtoklás (ami nálad van)","Biometria (ami vagy)"],
+  items:[
+    { q:"Jelszó vagy PIN-kód", a:"Tudás (amit tudsz)" },
+    { q:"Hitelesítő alkalmazás 30 másodpercenként változó kódja", a:"Birtoklás (ami nálad van)", why:"A kód a telefonodon lévő alkalmazáshoz kötött." },
+    { q:"Ujjlenyomat-olvasó", a:"Biometria (ami vagy)" },
+    { q:"Fizikai biztonsági kulcs (USB/NFC)", a:"Birtoklás (ami nálad van)" },
+    { q:"Arcfelismerés", a:"Biometria (ami vagy)" },
+    { q:"Biztonsági kérdésre adott válasz", a:"Tudás (amit tudsz)" },
+    { q:"SMS-ben kapott egyszer használatos kód", a:"Birtoklás (ami nálad van)", why:"A telefonszámhoz (SIM) kötött – de SIM-csere csalással eltéríthető." }
+  ]
+},
+{ unit:"ib3", id:"ib3-mfa-csapdak", type:"mcq",
+  title:"Amikor a kétfaktoros sem elég",
+  lead:"MFA-fáradás, SIM-csere, valós idejű adathalászat: a második tényező kijátszásának módjai.",
+  task:"Válaszd ki a helyes választ.",
+  items:[
+    { q:"Éjjel 2-kor tízszer egymás után jóváhagyási kérés érkezik a telefonodra. Mit teszel?", options:["Jóváhagyom, hogy abbamaradjon","Elutasítom, és jelzem az informatikának: valaki ismeri a jelszavamat","Kikapcsolom a telefont, reggel majd megnézem"], a:1, why:"Ez MFA-fáradás (push bombing): a támadó tudja a jelszót, és arra vár, hogy unalomból jóváhagyd." },
+    { q:"Mi a SIM-csere csalás lényege?", options:["A támadó a mobilszolgáltatónál a saját SIM-kártyájára íratja át a számodat, így megkapja az SMS-kódjaidat","A telefonod akkumulátorát cserélik ki","A támadó új telefont vásárol a nevedre"], a:0, why:"Ezért az SMS a leggyengébb második tényező; a hitelesítő alkalmazás vagy a fizikai kulcs erősebb." },
+    { q:"Melyik második tényező véd a legjobban a hamis bejelentkezési oldalak ellen?", options:["SMS-kód","Hitelesítő alkalmazás kódja","Fizikai biztonsági kulcs vagy passkey"], a:2, why:"A fizikai kulcs és a passkey a valódi domainhez kötött, ezért a hamis oldalon nem működik." },
+    { q:"Egy hamis oldal valós időben továbbítja a beírt jelszót és SMS-kódot a valódi oldalnak. Mi ez?", options:["Közbeékelődéses (adversary-in-the-middle) adathalászat","Túlterheléses támadás","Zsarolóvírus"], a:0, why:"A támadó proxyként ül a felhasználó és a valódi oldal között, és ellopja a munkamenetet." }
+  ]
+},
+
+/* ---------- 4. OSINT ---------- */
+{ unit:"ib4", id:"ib4-ciklus", type:"order",
+  title:"Az OSINT-ciklus",
+  lead:"A nyílt forrású információszerzés is módszeres folyamat. Rakd sorba a lépéseit.",
+  task:"Rendezd sorba a hírszerzési ciklus lépéseit.",
+  done:"A visszacsatolás alapján a ciklus újraindul – az új kérdések új gyűjtést igényelnek.",
+  steps:["Tervezés és irányítás: a kérdés és a keretek meghatározása","Gyűjtés: nyílt források felkutatása","Feldolgozás: rendszerezés, fordítás, adatkinyerés","Elemzés: értékelés, ellenőrzés, következtetés","Terjesztés: jelentés a megrendelőnek","Visszacsatolás: a megrendelő értékelése, új kérdések"]
+},
+{ unit:"ib4", id:"ib4-int", type:"match",
+  title:"Hírszerzési diszciplínák",
+  lead:"OSINT, HUMINT, SIGINT, GEOINT… Melyik forrás melyik diszciplínához tartozik?",
+  task:"Párosítsd a forrásokat a diszciplínákkal.",
+  options:["OSINT (nyílt forrás)","HUMINT (emberi forrás)","SIGINT (jelfelderítés)","GEOINT (térinformatika)","SOCMINT (közösségi média)"],
+  items:[
+    { q:"Egy cég nyilvános éves beszámolója a cégnyilvántartásban", a:"OSINT (nyílt forrás)" },
+    { q:"Beszélgetés egy volt munkatárssal, aki belső információkat oszt meg", a:"HUMINT (emberi forrás)" },
+    { q:"Rádióforgalom lehallgatása és elemzése", a:"SIGINT (jelfelderítés)" },
+    { q:"Műholdképek összevetése egy építkezés haladásáról", a:"GEOINT (térinformatika)" },
+    { q:"Nyilvános posztok és hashtagek elemzése egy tüntetésről", a:"SOCMINT (közösségi média)", why:"A SOCMINT az OSINT közösségimédia-specifikus ága." },
+    { q:"Archív újságcikkek és közlönyök", a:"OSINT (nyílt forrás)" }
+  ]
+},
+{ unit:"ib4", id:"ib4-dork", type:"match",
+  title:"Keresőoperátorok",
+  lead:"A jó kérdés fél siker. Melyik keresőoperátorral találod meg, amit keresel?",
+  task:"Párosítsd a keresési célt a megfelelő operátorral.",
+  note:"Az operátorok a nagy keresőkben működnek, a pontos szintaxis keresőnként kissé eltérhet. Csak nyilvánosan elérhető tartalmat keress, és ne próbálj védett rendszerekbe bejutni.",
+  options:["site:","filetype:","intitle:","inurl:","\"pontos kifejezés\"","-kizárás","before: / after:"],
+  items:[
+    { q:"Csak egy adott weboldalon belül keresnél (pl. csak a kormany.hu-n).", a:"site:" },
+    { q:"Csak PDF-dokumentumokat keresel.", a:"filetype:" },
+    { q:"Olyan oldalakat keresel, amelyek címében szerepel egy szó.", a:"intitle:" },
+    { q:"Olyan oldalakat keresel, amelyek webcímében szerepel a „palyazat” szó.", a:"inurl:" },
+    { q:"Pontosan ebben a szósorrendben keresel egy idézetet.", a:"\"pontos kifejezés\"" },
+    { q:"A „Jaguar” autókra keresel, az állatot ki akarod szűrni.", a:"-kizárás" },
+    { q:"Csak egy adott időszak előtt vagy után megjelent találatok kellenek.", a:"before: / after:" }
+  ]
+},
+{ unit:"ib4", id:"ib4-forras", type:"match",
+  title:"Hol nézzem meg?",
+  lead:"Az OSINT-forrástár: melyik nyílt forrás felel a kérdésedre?",
+  task:"Párosítsd a kérdést a forrással.",
+  options:["e-cegjegyzek.hu","Wayback Machine (web.archive.org)","Flightradar24","crt.sh","Copernicus Browser","Magyar Közlöny","SunCalc","Elektronikus Közbeszerzési Rendszer (EKR)"],
+  items:[
+    { q:"Kik egy magyar cég vezető tisztségviselői, és mikor alapították?", a:"e-cegjegyzek.hu" },
+    { q:"Mi állt egy weboldalon két évvel ezelőtt, mielőtt törölték?", a:"Wayback Machine (web.archive.org)" },
+    { q:"Merre repült tegnap egy adott polgári repülőgép?", a:"Flightradar24" },
+    { q:"Milyen aldomainjei vannak egy szervezetnek a kiadott TLS-tanúsítványok alapján?", a:"crt.sh" },
+    { q:"Látszik-e műholdképen egy erdőtűz kiterjedése a múlt héten?", a:"Copernicus Browser" },
+    { q:"Mikor jelent meg egy jogszabály, és mi a hivatalos szövege?", a:"Magyar Közlöny" },
+    { q:"Egy fotón látható árnyékok alapján nagyjából hány órakor készült a kép?", a:"SunCalc" },
+    { q:"Milyen közbeszerzéseket írt ki egy önkormányzat tavaly?", a:"Elektronikus Közbeszerzési Rendszer (EKR)" }
+  ]
+},
+{ unit:"ib4", id:"ib4-geo", type:"mcq",
+  title:"Hol és mikor készült?",
+  lead:"Geolokáció és kronolokáció egy fotó leírásából: következtess a nyomokból.",
+  task:"Olvasd el a képleírást, és válaszolj. A lényeg az indoklás: melyik nyom mire utal.",
+  keepOrder:true,
+  items:[
+    { ctx:`<span class="label">A fotó leírása</span><p>Villamosmegálló, a tábla kétnyelvű: magyar és szlovák. A háttérben széles folyó, rajta híd. A járdán hosszú árnyékok nyúlnak kelet felé. Az emberek kabátban vannak, a fák kopaszok.</p>`,
+      q:"Melyik nyom szűkíti le leginkább az országrészt?", options:["A villamos","A kétnyelvű, magyar–szlovák tábla","A kabátok"], a:1, why:"A kétnyelvű magyar–szlovák felirat a határ menti, magyarlakta szlovákiai településekre utal – a villamossal együtt kevés a lehetőség." },
+    { q:"A hosszú, kelet felé nyúló árnyékok alapján melyik napszakban készült a kép?", options:["Kora délután","Késő délután, napnyugta előtt","Délben"], a:1, why:"Ha az árnyék kelet felé nyúlik, a nap nyugaton van – tehát délután; a hosszú árnyék alacsony napállást jelez." },
+    { q:"Mi a következő helyes lépés a feltételezés ellenőrzésére?", options:["Megkérdezem a fotó posztolóját, hol lakik","Összevetem utcaképpel és térképpel a megálló, a híd és a folyópart jellegzetességeit","Elfogadom az első ötletemet"], a:1, why:"Az OSINT-ben minden feltevést független forrással kell igazolni; a posztoló zaklatása pedig etikai és jogi határsértés lehet." },
+    { q:"Mi az évszakra utaló legmegbízhatóbb nyom?", options:["A kopasz fák és a téli öltözet","A villamos színe","A híd"], a:0, why:"A növényzet állapota és az öltözet együtt jól jelzi az évszakot." }
+  ]
+},
+{ unit:"ib4", id:"ib4-etika", type:"sim",
+  title:"A nyomozás határai",
+  lead:"Egy beszállító cég hátterét kell feltérképezned. Meddig mehetsz el jogszerűen és etikusan?",
+  task:"Te vagy az elemző. A feladat: átvilágítani egy leendő beszállítót, a Kitalált Kft.-t. Minden lépésnél válaszd ki, mit teszel.",
+  note:"Az OSINT „nyílt” forrásai sem jelentenek korlátlan felhasználást: a személyes adatok gyűjtése adatkezelés (GDPR), és a Btk. is tilt bizonyos cselekményeket (pl. 422. § tiltott adatszerzés, 423. § információs rendszer vagy adat megsértése).",
+  start:"o1",
+  nodes:{
+    o1:{ short:"Kiindulás.", text:"A megbízás: átvilágítani a Kitalált Kft.-t a szerződéskötés előtt. Mivel kezded?",
+      choices:[
+        { t:"A cégnyilvántartással, a beszámolókkal és a közbeszerzési adatokkal.", ok:true, next:"o2", fb:"Helyes. Hivatalos, nyilvános, a célhoz szükséges forrásokkal kezdünk." },
+        { t:"Az ügyvezető gyerekeinek közösségimédia-profiljaival.", ok:false, next:"o2", fb:"Nem szükséges és aránytalan: a cég átvilágításához nincs köze." }
+      ]},
+    o2:{ short:"Zárt csoport.", text:"Kiderül, hogy a cég dolgozói egy zárt közösségimédia-csoportban beszélgetnek. Bejutnál, ha hamis profillal jelentkeznél. Mit teszel?",
+      choices:[
+        { t:"Nem lépek be hamis profillal: ez már nem nyílt forrás, és megtévesztés.", ok:true, next:"o3", fb:"Helyes. A hamis személyazonossággal szerzett hozzáférés etikai és jogi határsértés lehet." },
+        { t:"Csinálok egy hamis profilt, hiszen csak olvasok.", ok:false, next:"o3", fb:"A hamis személyazonosság használata nem nyílt forrású gyűjtés; kockázatos és etikátlan." }
+      ]},
+    o3:{ short:"Nyitott mappa.", text:"A cég honlapján egy rosszul beállított, nyitott könyvtárban ügyféllisták és bérjegyzékek látszanak. Mit teszel?",
+      choices:[
+        { t:"Nem töltöm le és nem használom fel; jelzem a megbízónak, és javaslom a cég értesítését.", ok:true, next:"o4", fb:"Helyes. A véletlenül elérhetővé vált személyes adat nem válik szabadon felhasználhatóvá; a felelős közzététel a helyes út." },
+        { t:"Letöltöm mindet, hiszen bárki elérheti.", ok:false, next:"o4", fb:"Az elérhetőség nem jogalap: a személyes adatok letöltése és kezelése jogsértő lehet." },
+        { t:"Kipróbálom, milyen más könyvtárak érhetők még el a szerveren.", ok:false, next:"o4", fb:"Ez már a rendszer feltérképezése, és információs rendszer elleni cselekménynek minősülhet." }
+      ]},
+    o4:{ short:"Jelentés.", text:"Elkészül a jelentés. Mi kerüljön bele?",
+      choices:[
+        { t:"A célhoz szükséges tények, forrásmegjelöléssel, a bizonytalanságok jelölésével, a felesleges személyes adatok nélkül.", ok:true, next:"ov", fb:"Helyes. Ellenőrizhetőség, adattakarékosság és célhoz kötöttség." },
+        { t:"Minden, amit találtam, a dolgozók magánéletével együtt – hátha jól jön.", ok:false, next:"ov", fb:"A „hátha jól jön” gyűjtés ellentétes az adattakarékosság elvével, és a jelentést is értéktelenebbé teszi." }
+      ]},
+    ov:{ end:true, text:"Az átvilágítás jogszerű és felhasználható lett. Az OSINT ereje a módszerességben van, nem a határok átlépésében." }
+  }
+},
+{ unit:"ib4", id:"ib4-esetek", type:"cards",
+  title:"OSINT-esettanulmányok",
+  lead:"Három híres eset tanulságai: MH17, Strava-hőtérkép, Ukrajna 2022.",
+  task:"Kattints a szerinted helyes válaszra. Azonnal látod, jó-e, és miért.",
+  cards:[
+    { q:"Mit mutatott meg 2018-ban a Strava fitneszalkalmazás nyilvános hőtérképe?", options:["Katonai bázisok elhelyezkedését és belső útvonalait a katonák futóadataiból","A világ legnépszerűbb futópályáit, veszély nélkül","Hogy az alkalmazást feltörték"], ans:0, a:"A katonák futásai kirajzolták a bázisokat és útvonalaikat – az egyéni, ártalmatlannak tűnő adatok összesítve érzékeny információvá váltak." },
+    { q:"Mi volt az OSINT legfőbb hozzájárulása az MH17-es járat lelövésének vizsgálatához?", options:["Közösségi médiás fotók és videók alapján rekonstruálták a légvédelmi rendszer útvonalát","Titkos lehallgatások nyilvánosságra hozatala","Egy szemtanú vallomása"], ans:0, a:"Nyilvános fotók, videók és posztok geolokálásával követték nyomon a rendszer mozgását – a nyílt forrás nemzetközi bizonyítékká vált." },
+    { q:"Mit mutatott meg az OSINT szerepe 2022 elején Ukrajna kapcsán?", options:["Kereskedelmi műholdképek és közösségimédia-videók alapján nyilvánosan követhetővé váltak a csapatmozgások","Hogy az OSINT katonai helyzetekben használhatatlan","Hogy csak állami szervek végezhetnek OSINT-et"], ans:0, a:"A kereskedelmi műholdképek és a civilek által posztolt videók tömegesen tették láthatóvá a csapatösszevonásokat." },
+    { q:"Mi a Strava-eset fő tanulsága egy szervezet számára?", options:["Az összesített, egyenként ártalmatlan adatok is érzékenyek lehetnek – az alkalmazások adatmegosztási beállításait szabályozni kell","Tilos sportolni","A fitneszalkalmazások mind kártékonyak"], ans:0, a:"Az aggregáció kockázata: a szervezeti biztonsági szabályzatnak a személyes eszközök és alkalmazások adatmegosztására is ki kell terjednie." }
+  ]
+},
+
+/* ---------- 5. Kártékony kódok és incidenskezelés ---------- */
+{ unit:"ib5", id:"ib5-malware", type:"match",
+  title:"Kártékony kódok",
+  lead:"Zsarolóvírus, trójai, féreg, botnet: ismerd fel a kártékony kódot a viselkedéséről.",
+  task:"Párosítsd a leírásokat a kártékony kódok típusaival.",
+  options:["Zsarolóvírus (ransomware)","Trójai program","Féreg (worm)","Kémprogram (spyware)","Botnet","Információlopó (infostealer)","Rootkit"],
+  items:[
+    { q:"Titkosítja a fájlokat, és váltságdíjat követel a visszafejtésért", a:"Zsarolóvírus (ransomware)" },
+    { q:"Hasznos programnak álcázza magát, de a háttérben hátsó kaput nyit", a:"Trójai program" },
+    { q:"Felhasználói beavatkozás nélkül terjed hálózaton keresztül gépről gépre", a:"Féreg (worm)" },
+    { q:"Titokban figyeli a felhasználót, rögzíti a billentyűleütéseket vagy a képernyőt", a:"Kémprogram (spyware)" },
+    { q:"Fertőzött gépek távolról irányított hálózata, például túlterheléses támadáshoz", a:"Botnet" },
+    { q:"A böngészőben mentett jelszavakat és munkamenet-sütiket gyűjti és küldi el", a:"Információlopó (infostealer)" },
+    { q:"Az operációs rendszer mélyén rejti el magát és más kártékony kódokat", a:"Rootkit" }
+  ]
+},
+{ unit:"ib5", id:"ib5-fazisok", type:"order",
+  title:"Az incidenskezelés fázisai",
+  lead:"A felkészüléstől a tanulságokig: a klasszikus incidenskezelési életciklus.",
+  task:"Rendezd sorba az incidenskezelés hat fázisát.",
+  note:"A modell a nemzetközi gyakorlatban elterjedt (pl. NIST SP 800-61) felosztást követi.",
+  done:"A tanulságok visszacsatolnak a felkészülésbe – a ciklus soha nem zárul le végleg.",
+  steps:["Felkészülés: szabályzat, csapat, eszközök, gyakorlatok","Észlelés és elemzés","Elszigetelés: a terjedés megállítása","Felszámolás: a kártékony kód és a támadói hozzáférés eltávolítása","Helyreállítás: a működés visszaállítása, megfigyelés","Tanulságok levonása"]
+},
+{ unit:"ib5", id:"ib5-ransom", type:"sim",
+  title:"Zsarolóvírus a hivatalban",
+  lead:"Hétfő reggel 07:50: a hivatal gépein egymás után jelenik meg a váltságdíjat követelő üzenet. Te vezeted az incidenskezelést.",
+  task:"Te vagy az informatikai biztonsági felelős. Minden lépésnél válaszd ki a helyes döntést.",
+  note:"Kitalált eset. A személyesadat-incidenst a GDPR szerint 72 órán belül be kell jelenteni a felügyeleti hatóságnak (NAIH), ha kockázattal jár; a kiberbiztonsági incidensek bejelentésének rendjét a kiberbiztonsági törvény (2024. évi LXIX. törvény) és végrehajtási rendeletei szabályozzák.",
+  start:"r1",
+  nodes:{
+    r1:{ when:"hétfő 07:50", short:"Megjelenik a váltságdíjüzenet.", text:"Három gépen és a fájlszerveren jelent meg az üzenet: „Fájljait titkosítottuk. Fizessen 5 bitcoint 72 órán belül.” Mi az első lépés?",
+      choices:[
+        { t:"Leválasztom a fertőzött gépeket és a szervert a hálózatról, de nem kapcsolom ki őket.", ok:true, next:"r2", fb:"Helyes. Elszigetelés: megállítjuk a terjedést, a memóriában maradó nyomok pedig megmaradnak a vizsgálathoz." },
+        { t:"Mindent újraindítok, hátha elmúlik.", ok:false, next:"r2", fb:"Az újraindítás nem állítja meg a titkosítást, és elveszhetnek a memóriában lévő bizonyítékok." },
+        { t:"Megvárom, amíg mindenki beér, és megbeszéljük.", ok:false, next:"r2", fb:"Minden perc alatt újabb gépek titkosítódhatnak – az elszigetelés nem várhat." }
+      ]},
+    r2:{ when:"08:15", short:"Kit értesítünk?", text:"A terjedés megállt. Kit kell értesíteni?",
+      choices:[
+        { t:"A vezetést, az incidenskezelő csapatot, és a jogszabály szerinti bejelentési rendben az illetékes kiberbiztonsági hatóságot, illetve eseménykezelő központot.", ok:true, next:"r3", fb:"Helyes. A bejelentés kötelezettség, és segítséget is hoz." },
+        { t:"Senkit, házon belül megoldjuk, nehogy kiderüljön.", ok:false, next:"r3", fb:"Az eltitkolás jogsértő lehet, és elzár a külső szakmai segítségtől." }
+      ]},
+    r3:{ when:"10:00", short:"Fizessünk?", text:"A polgármester kérdezi: fizessünk, és túl vagyunk rajta?",
+      choices:[
+        { t:"A fizetést nem javaslom: nincs garancia a visszafejtésre, finanszírozza a bűnözést, és újabb támadásra tehet célponttá. Előbb a mentéseket vizsgáljuk.", ok:true, next:"r4", fb:"Helyes. A hatóságok és a szakmai ajánlások általában a fizetés ellen szólnak; a döntés a vezetésé, de megalapozottnak kell lennie." },
+        { t:"Igen, fizessünk azonnal, az a leggyorsabb.", ok:false, next:"r4", fb:"A fizetés sem garancia, és a támadók gyakran az adatokat is ellopták – a zsarolás folytatódhat." }
+      ]},
+    r4:{ when:"11:30", short:"Személyes adatok.", text:"A vizsgálat kiderít: a támadók a titkosítás előtt ügyféladatokat is kimásoltak. Mit jelent ez?",
+      choices:[
+        { t:"Személyesadat-incidens is: a GDPR szerint 72 órán belül be kell jelenteni a NAIH-nak, és magas kockázatnál az érintetteket is tájékoztatni kell.", ok:true, next:"r5", fb:"Helyes. A zsarolóvírus egyszerre kiberbiztonsági és adatvédelmi incidens." },
+        { t:"Mivel a fájlokat visszaállítjuk, nincs további teendő.", ok:false, next:"r5", fb:"A kiszivárgott adatot a visszaállítás nem hozza vissza – az adatvédelmi kötelezettség független ettől." }
+      ]},
+    r5:{ when:"kedd", short:"Helyreállítás.", text:"Van egy hetente készülő, a hálózattól elkülönítetten tárolt mentés. Hogyan állítjuk helyre a rendszert?",
+      choices:[
+        { t:"A támadói hozzáférés felszámolása után, tiszta rendszerre, a mentésből – és utána fokozott megfigyelés.", ok:true, next:"r6", fb:"Helyes. Ha a behatolási pontot nem zárjuk be, a támadók visszatérnek." },
+        { t:"Azonnal visszatöltjük a mentést a fertőzött gépekre.", ok:false, next:"r6", fb:"A fertőzött rendszerre visszaállított adat újra titkosítódhat." }
+      ]},
+    r6:{ when:"egy hónap múlva", short:"Tanulságok.", text:"A belépési pont: egy kolléga kiszivárgott VPN-jelszava, többtényezős hitelesítés nélkül. Melyik a legfontosabb intézkedés?",
+      choices:[
+        { t:"Többtényezős hitelesítés minden távoli hozzáférésen, és a mentések rendszeres visszaállítási tesztje.", ok:true, next:"rv", fb:"Helyes. A belépési pont lezárása és a helyreállíthatóság tesztelése a két kulcs." },
+        { t:"A kolléga elbocsátása.", ok:false, next:"rv", fb:"A hibáztatás nem zárja le a sebezhetőséget, és elriasztja a többieket a jövőbeli bejelentéstől." }
+      ]},
+    rv:{ end:true, text:"A hivatal két nap alatt helyreállt, a bejelentések határidőben megtörténtek. A siker kulcsa a gyors elszigetelés, az offline mentés és a bejelentési rend ismerete volt." }
+  }
+},
+{ unit:"ib5", id:"ib5-mentes", type:"mcq",
+  title:"Mentés és helyreállítás",
+  lead:"A 3-2-1 szabálytól a visszaállítási tesztig: a zsarolóvírus elleni utolsó védvonal.",
+  task:"Válaszd ki a helyes választ.",
+  items:[
+    { q:"Mit jelent a 3-2-1 mentési szabály?", options:["3 másolat, 2 különböző adathordozón, 1 a telephelyen kívül","3 naponta mentünk, 2 hétig őrizzük, 1 ember felel érte","3 jelszó, 2 faktor, 1 rendszergazda"], a:0, why:"A klasszikus szabály; ma gyakran kiegészítik egy offline vagy megváltoztathatatlan példánnyal." },
+    { q:"Miért fontos, hogy legyen offline vagy megváltoztathatatlan mentés?", options:["Mert olcsóbb","Mert a zsarolóvírus a hálózaton elérhető mentéseket is titkosíthatja","Mert gyorsabb"], a:1, why:"A támadók kifejezetten a mentéseket keresik először." },
+    { q:"Mit bizonyít egy sikeres mentés naplóbejegyzése?", options:["Hogy a mentés biztosan visszaállítható","Csak azt, hogy a mentés lefutott – a visszaállíthatóságot tesztelni kell","Hogy nincs szükség több mentésre"], a:1, why:"A nem tesztelt mentés csak remény – rendszeres visszaállítási próba kell." },
+    { q:"Mit jelent a helyreállítási pont célérték (RPO)?", options:["Mennyi adatvesztés fogadható el időben kifejezve","Mennyi idő alatt kell helyreállni","Hány mentés készül naponta"], a:0, why:"Az RPO az elfogadható adatvesztés, az RTO a helyreállítás maximális ideje." }
+  ]
+},
+{ unit:"ib5", id:"ib5-kviz", type:"cards",
+  title:"Villámkvíz – incidensek",
+  lead:"Hat gyors kérdés kártékony kódokról és incidenskezelésről.",
+  task:"Kattints a szerinted helyes válaszra. Azonnal látod, jó-e, és miért.",
+  cards:[
+    { q:"Mi az első teendő egy terjedő zsarolóvírusnál?", options:["Elszigetelés: a fertőzött eszközök leválasztása a hálózatról","A gépek kikapcsolása","A váltságdíj kifizetése"], ans:0, a:"Elszigetelés – a kikapcsolás a memóriában lévő bizonyítékokat is törölheti." },
+    { q:"Kártékony kód-e egy hasznos programnak álcázott, hátsó kaput nyitó szoftver?", options:["Igen, trójai program","Nem"], ans:0, a:"Igen, ez a trójai program." },
+    { q:"Mi a különbség a vírus és a féreg között?", options:["A féreg felhasználói beavatkozás nélkül is terjed a hálózaton","Nincs különbség","A vírus csak telefonon működik"], ans:0, a:"A féreg önállóan terjed, a vírus egy gazdaprogramhoz kötődik, és jellemzően felhasználói művelet kell a terjedéséhez." },
+    { q:"Személyesadat-incidens-e, ha a zsarolóvírus előtt a támadók ügyféladatokat másoltak ki?", options:["Igen – 72 órán belüli NAIH-bejelentés mérlegelendő","Nem, mert visszaállítottuk a fájlokat"], ans:0, a:"Igen. A kiszivárgott adatot a helyreállítás nem hozza vissza." },
+    { q:"Miért nem jó ötlet hibáztatni azt, aki rákattintott a kártékony linkre?", options:["Mert akkor legközelebb senki nem jelent be időben","Mert úgyis kiderül","Mert az informatika a hibás"], ans:0, a:"A gyors bejelentés a legfontosabb védelem; a félelem elhallgatáshoz vezet." },
+    { q:"Melyik incidenskezelési fázis után jön a helyreállítás?", options:["Felszámolás","Felkészülés","Észlelés"], ans:0, a:"Előbb el kell távolítani a kártékony kódot és a támadói hozzáférést, csak utána lehet helyreállítani." }
+  ]
+},
+
+/* ---------- Önálló gyakorlás: gyanús üzenetek ---------- */
+{ unit:"ibo", id:"ibo-csomag", type:"find",
+  title:"Csomagértesítő SMS",
+  lead:"„Csomagja megérkezett” – de tényleg?",
+  task:"Jelöld meg az üzenet minden árulkodó részletét, a rendben lévőket hagyd jelöletlenül.",
+  docTitle:"SMS · +44 7700 912 334 · 08:17",
+  doc:[
+    { t:"Feladó: brit (+44) mobilszám", bad:true, why:"Egy hazai csomagküldő nem külföldi magánszámról ír." },
+    { t:"„Kedves Ugyfel!”", bad:true, why:"Ékezet nélküli, személytelen megszólítás." },
+    { t:"Az üzenet reggel, munkaidőben érkezett", bad:false, why:"Az időpont önmagában semmit nem bizonyít – a csalók is munkaidőben küldenek." },
+    { t:"„Csomagja a depóba érkezett.”", bad:false, why:"Önmagában hihető – a csalás erre építi a bizalmat." },
+    { t:"„A címe hiányos, ezért a kézbesítés sikertelen.”", bad:true, why:"Kitalált probléma, amelyre a csaló kínál „megoldást”." },
+    { t:"„Az újrakézbesítés díja 349 Ft.”", bad:true, why:"Apró összeg – a cél valójában a kártyaadat megszerzése." },
+    { t:"„24 órán belül fizessen, különben a csomag visszamegy.”", bad:true, why:"Mesterséges sürgetés." },
+    { t:"Link: csomag-kezbesites.hu-post.xyz/r?id=88412", bad:true, why:"A valódi domain a hu-post.xyz – idegen, egzotikus végződésű." }
+  ]
+},
+{ unit:"ibo", id:"ibo-allas", type:"find",
+  title:"Álláshirdetés: „pénzügyi asszisztens”",
+  lead:"Napi két óra munka, magas fizetés, otthonról. Mi a csapda?",
+  task:"Jelöld meg a hirdetés gyanús elemeit.",
+  docTitle:"Álláshirdetés – közösségi médiában megosztva",
+  doc:[
+    { t:"A hirdetés részletesen leírja a munkaidő-beosztást és a betanítás menetét", bad:false, why:"A részletesség önmagában nem gyanús – a jó csalók is gondosan fogalmaznak." },
+    { t:"Munkakör: pénzügyi asszisztens, teljesen otthonról", bad:false, why:"Távmunka önmagában gyakori és legitim." },
+    { t:"Napi 2 óra munka, havi nettó 650 000 Ft", bad:true, why:"Irreális bér a ráfordításhoz képest." },
+    { t:"Tapasztalat és végzettség nem szükséges", bad:true, why:"Pénzügyi munkakörnél gyanús, ha semmilyen feltétel nincs." },
+    { t:"Feladat: a bankszámládra érkező összegek továbbutalása a cég „partnereinek”, jutalék fejében", bad:true, why:"Ez pénzöszvér-toborzás: a csalásból származó pénz tisztára mosása – a „munkavállaló” bűncselekményben vesz részt." },
+    { t:"Jelentkezés csak Telegramon, önéletrajz nem kell", bad:true, why:"Kerülik a nyomon követhető, hivatalos csatornákat." },
+    { t:"A jelentkezéshez küldd el a személyi igazolványod és a bankkártyád fényképét", bad:true, why:"Személyazonosság-lopás és számlanyitás a nevedben." },
+    { t:"A cég neve: „Global Finance Solutions Ltd.”, cégjegyzékszám nélkül", bad:true, why:"Ellenőrizhetetlen, általános cégnév." }
+  ]
+},
+{ unit:"ibo", id:"ibo-befektetes", type:"find",
+  title:"Befektetési hirdetés híres arccal",
+  lead:"Egy népszerű műsorvezető „elárulja titkát”. Bízhatsz benne?",
+  task:"Jelöld meg a hirdetés árulkodó elemeit.",
+  docTitle:"Szponzorált hirdetés – videómegosztó oldalon",
+  doc:[
+    { t:"Videó: egy ismert televíziós műsorvezető ajánlja a platformot, de a szája mozgása nem pontosan követi a hangot", bad:true, why:"Mesterséges intelligenciával készült hamisítvány (deepfake) jele." },
+    { t:"„Havi 30% garantált hozam, kockázat nélkül”", bad:true, why:"Garantált magas hozam kockázat nélkül nem létezik." },
+    { t:"„Már csak 17 hely maradt mára!”", bad:true, why:"Mesterséges szűkösség és sürgetés." },
+    { t:"Minimális befizetés: 250 euró, kriptovalutában vagy átutalással", bad:true, why:"Visszafordíthatatlan fizetési mód, külföldi platform." },
+    { t:"Regisztráció után „személyes pénzügyi tanácsadó” hív, és távoli asztali programot telepíttet", bad:true, why:"A távoli hozzáféréssel a csaló a bankodba is belép." },
+    { t:"A hirdetés alatt sok hozzászólás „Nekem is bejött!” szöveggel", bad:true, why:"Kamu, sablonos hozzászólások." },
+    { t:"A hirdetés igényes grafikával, hibátlan magyar szöveggel készült", bad:false, why:"A mesterséges intelligencia miatt a hibátlan nyelvezet ma már nem a hitelesség jele." },
+    { t:"A hirdetés szponzorált tartalomként jelenik meg", bad:false, why:"A fizetett hirdetés önmagában nem gyanús – de a platformok nem ellenőriznek minden hirdetőt." }
+  ]
+},
+{ unit:"ibo", id:"ibo-ismeros", type:"find",
+  title:"„Szia, segítenél?” – üzenet egy ismerőstől",
+  lead:"Egy régi ismerős ír a közösségi oldalon. Valóban ő az?",
+  task:"Jelöld meg az üzenet gyanús elemeit.",
+  docTitle:"Közösségi oldal – csevegés",
+  doc:[
+    { t:"Feladó: a régi évfolyamtársad neve és profilképe", bad:false, why:"A név és a kép egyezik – épp ezért veszélyes: a fiókot feltörték vagy lemásolták." },
+    { t:"„Szia, rég beszéltünk! Hogy vagy?”", bad:false, why:"Átlagos nyitás." },
+    { t:"Közös ismerősökre és egy régi kirándulásra is utal", bad:false, why:"Ezeket a feltört fiók korábbi üzeneteiből vagy a nyilvános posztokból is ki lehet olvasni – önmagában nem bizonyít." },
+    { t:"„Bajban vagyok, külföldön elveszett a pénztárcám.”", bad:true, why:"Vészhelyzet-történet – érzelmi nyomás." },
+    { t:"„Kérlek, küldj egy 6 jegyű kódot, ami most SMS-ben jön a telefonodra, tévedésből a te számodra ment.”", bad:true, why:"Ezzel a kóddal a te fiókodat veszik át – soha ne add tovább." },
+    { t:"„Ne hívj, nem tudok beszélni.”", bad:true, why:"Kizárja az ellenőrzést független csatornán." },
+    { t:"Az üzenetben furcsa, idegenszerű mondatszerkezetek", bad:true, why:"Gépi fordításra vagy idegen nyelvű csalóra utal." },
+    { t:"A profil friss posztjai napok óta ugyanazt a befektetési linket osztják meg", bad:true, why:"Feltört fiók jele." }
+  ]
+},
+{ unit:"ibo", id:"ibo-szamla", type:"find",
+  title:"Megváltozott bankszámlaszám",
+  lead:"Egy régi beszállító levele a könyvelésnek: „új számlára utaljanak”.",
+  task:"Jelöld meg a levél gyanús elemeit.",
+  docTitle:"E-mail – könyvelés",
+  doc:[
+    { t:"Feladó: Szűts Géza <gszuts@papir-pont-kft.hu>", bad:true, why:"A valódi domain papir-pont.hu – a „-kft” betoldás megtévesztő hasonmás domain." },
+    { t:"Tárgy: RE: 2026/0912 számú számla", bad:false, why:"Hivatkozás egy valódi korábbi levelezésre – a támadó feltört fiókból vagy kiszivárgott levelekből dolgozhat." },
+    { t:"„Bankunk megváltozott, kérjük, a mellékelt számlát már az új számlaszámra utalják.”", bad:true, why:"A számlaszámcsere a BEC-csalások klasszikus eleme; csak ismert telefonszámon visszahívva fogadható el." },
+    { t:"„Az új számla egy külföldi bankban van.”", bad:true, why:"Hazai partnernél váratlan külföldi számla – erős jel." },
+    { t:"„A változásról kérjük, ne egyeztessenek telefonon, mert irodánk költözik.”", bad:true, why:"Az ellenőrzés kizárása." },
+    { t:"Melléklet: szamla_2026_0912.pdf", bad:false, why:"A PDF-számla önmagában szokásos – a tartalmát kell összevetni a korábbiakkal." },
+    { t:"Az aláírásban a cég megszokott logója és címe szerepel", bad:false, why:"A logó és az aláírás könnyen másolható – sem nem hiteles, sem nem gyanús önmagában." },
+    { t:"„Kérjük, még ma rendezzék, mert késedelmi kamatot kell felszámítanunk.”", bad:true, why:"Sürgetés és fenyegetés." }
+  ]
+},
+{ unit:"ibo", id:"ibo-qr", type:"find",
+  title:"QR-kód a parkolóórán",
+  lead:"Egy matrica a parkolóórán: „Fizessen gyorsan QR-kóddal!” Mire figyelj?",
+  task:"Jelöld meg a helyzet gyanús elemeit.",
+  docTitle:"Helyszín: belvárosi parkolóóra",
+  doc:[
+    { t:"A parkolóórán egy ráragasztott matrica, rajta QR-kód", bad:true, why:"Utólag felragasztott matrica – a QR-kódos csalás (quishing) tipikus formája." },
+    { t:"A matrica szövege: „Új, gyors fizetés – kártyával, regisztráció nélkül!”", bad:true, why:"Csábító egyszerűség, a hivatalos csatorna megkerülése." },
+    { t:"A beolvasott QR-kód egy parkolas-fizetes-gyors.com oldalra visz", bad:true, why:"Nem az önkormányzat vagy a hivatalos parkolási szolgáltató domainje." },
+    { t:"Az oldal a teljes kártyaadatot és a CVC-kódot kéri", bad:true, why:"Kártyaadat-lopás." },
+    { t:"A parkolóórán gyárilag nyomtatott tájékoztató a hivatalos mobilparkolási lehetőségekről", bad:false, why:"Ez a hiteles forrás – ezt érdemes használni." },
+    { t:"A matrica alatt a gyári felirat részben kitakarva", bad:true, why:"A hivatalos információ eltakarása a csalás része." }
+  ]
+}
+];
+
+/* ===== OSINT-nyomozás (interaktív böngésző-szimuláció) =====
+   Minden név, cég, oldal és adat kitalált („minta”). A feladat egy
+   hozzájáruláson alapuló, önkéntes digitálislábnyom-audit: kizárólag
+   nyilvános forrásokból kell hat személyes adatot összegyűjteni, majd
+   a záró összegzés megmutatja, mire lenne elég ennyi adat egy támadónak. */
+
+const OSINT = [
+{
+  unit:"ib4", id:"ib4-nyomozas", type:"osint",
+  title:"Digitális lábnyom – OSINT-nyomozás",
+  lead:"Szimulált böngésző, hamis profilok, egy valódi módszer. Gyűjtsd össze hat nyilvános adatból egy ember digitális lábnyomát.",
+  task:"Nyisd meg a találatokat és a profilokat, keresd meg a hat személyes adatot, és írd be őket a Jegyzetfüzetbe. Csak nyilvános forrásból dolgozz, és ellenőrizd, hogy tényleg a keresett személyről van-e szó.",
+  note:"Minden név, cég és weboldal kitalált. A gyakorlat hozzájáruláson alapuló önaudit: Minta Dóra maga kérte, hogy nézzétek meg, mi derül ki róla a nyílt forrásokból. Valós személyre soha ne végezz ilyet az engedélye nélkül.",
+  mission:{
+    kicker:"OSINT · DIGITÁLISLÁBNYOM-AUDIT",
+    title:"Mennyit árul el magáról egy ismeretlen?",
+    text:"Minta Dóra egy biztonságtudatossági tréningre készül, és beleegyezett, hogy megnézzétek: mit tudna meg róla egy idegen pusztán a nyilvános internetről. A feladatod, hogy <b>kizárólag nyílt forrásból</b> gyűjts össze róla hat személyes adatot – pontosan azokat, amelyekre egy támadó is vadászna.",
+    sub:"Hat adat. Öt oldal. Egy személy.",
+    subtext:"A Google-szerű találatok mögött kitalált profilok és weboldalak rejlenek. Vigyázz: többen is viselik a „Minta Dóra” nevet – ellenőrizd a munkahely, a város és a profilkép egyezését, mielőtt egy adatot elfogadsz.",
+    list:["Hol dolgozik (cég)","A kutyája neve","Honnan származik (város)","Melyik általános iskolába járt","Mikor van a születésnapja","Melyik sportcsapatnak szurkol"]
+  },
+  facts:[
+    { label:"Hol dolgozik? (cég neve)", hint:"céges „csapatunk” oldal", answers:["kék delfin kft","kek delfin kft","kék delfin","kek delfin","kékdelfin"] },
+    { label:"Mi a kutyája neve?", hint:"fotós poszt", answers:["búbos","bubos"] },
+    { label:"Melyik városból származik?", hint:"profil adatlap", answers:["füzesd","fuzesd"] },
+    { label:"Melyik általános iskolába járt?", hint:"osztálytalálkozós poszt", answers:["füzesdi patak általános iskola","fuzesdi patak altalanos iskola","füzesdi patak","fuzesdi patak","patak általános iskola","patak altalanos iskola"] },
+    { label:"Mikor van a születésnapja? (hónap, nap)", hint:"születésnapi jókívánságok", answers:["június 14","junius 14","június 14.","06.14","06 14","0614","jún 14","jun 14"] },
+    { label:"Melyik sportcsapatnak szurkol?", hint:"profil + poszt", answers:["vándor fc","vandor fc","vándor","vandor","vándor futballklub"] }
+  ],
+  bookmarks:[ {label:"◆ Kereső", page:"search"} ],
+  search:{
+    query:"Minta Dóra",
+    hint:"Hat személyes adat rejlik a találatok mögött – de nem minden találat hasznos, és nem minden „Minta Dóra” ugyanaz a személy. Ellenőrizd a forrást.",
+    results:[
+      { page:"news", host:"sporthirado.example › uszas", title:"Minta Dóra ifjúsági úszó aranyérme", snippet:"A 18 éves versenyző megnyerte a 200 méteres pillangó döntőjét. Edzője szerint az olimpia a cél.", noise:true },
+      { page:"face", host:"kozossegi.example › minta.dora", title:"Minta Dóra | Közösségi profil", snippet:"Dóra nyilvános profilja: bemutatkozás, fényképek, bejegyzések és egyéb személyes adatok.", key:true },
+      { page:"insta", host:"kepmegoszto.example › dora_es_bubos", title:"Minta Dóra (@dora_es_bubos) • Képmegosztó", snippet:"842 követő · Tengerpart, séták, és egy nagyon fotogén kutya a főszerepben.", key:true },
+      { page:"team", host:"kekdelfin.example › rolunk › csapat", title:"Csapatunk – Kék Delfin Kft.", snippet:"Munkatársaink bemutatkozása: marketing, értékesítés és ügyfélszolgálat egy helyen.", key:true },
+      { page:"blog", host:"receptfeszek.example › szerzo › minta-dora", title:"Minta Dóra receptjei – Receptfészek", snippet:"Gyors vacsorák és sütemények egy lelkes hobbiszakácstól. Heti új recept.", noise:true },
+      { page:"iskola", host:"fuzesdipatak-suli.example › hirek › talalkozo", title:"20 éves osztálytalálkozó – Füzesdi Patak Általános Iskola", snippet:"Volt diákjaink közösségi bejegyzései és fotói a jubileumi találkozóról.", key:true },
+      { page:"shop", host:"ajandekbolt.example › kereses", title:"„Dóra” feliratos bögrék és ajándékok", snippet:"Névre szóló ajándéktárgyak nagy választékban, gyors kiszállítással.", noise:true }
+    ]
+  },
+  pages:{
+    news:{ url:"https://sporthirado.example/uszas/minta-dora", title:"Sporthíradó – úszás", html:`
+      <div class="op-editorial">
+        <header><b>SPORTHÍRADÓ</b><nav><span>Főoldal</span><span>Úszás</span><span>Archívum</span></nav></header>
+        <span class="op-eyebrow">IFJÚSÁGI SPORT • 3 PERC</span>
+        <h1>Minta Dóra ifjúsági úszó aranyérme</h1>
+        <p class="op-lead">A 18 éves versenyző magabiztosan nyerte a 200 méteres pillangó döntőjét a hétvégi országos bajnokságon.</p>
+        <div class="op-hero">🏊</div>
+        <p>„Rengeteget edzettünk ezért” – nyilatkozta a fiatal sportoló. A klub szerint a következő cél a korosztályos Európa-bajnokság.</p>
+        <p class="op-flag">⚠ Ellenőrizd: ez a Minta Dóra egy <b>18 éves sportoló</b>. A keresett személy felnőtt, egy cégnél dolgozik – ez a cikk valószínűleg <b>névrokon</b>, nem a te alanyod.</p>
+      </div>`},
+    blog:{ url:"https://receptfeszek.example/szerzo/minta-dora", title:"Receptfészek – Minta Dóra", html:`
+      <div class="op-editorial">
+        <header><b>RECEPTFÉSZEK</b><nav><span>Receptek</span><span>Szerzők</span><span>Rólunk</span></nav></header>
+        <span class="op-eyebrow">SZERZŐI OLDAL</span>
+        <h1>Minta Dóra receptjei</h1>
+        <p class="op-lead">„Imádok sütni, és szeretem, ha gyorsan megvan a vacsora.” Dóra heti egy új receptet oszt meg.</p>
+        <div class="op-hero">🍰</div>
+        <p>Legnépszerűbb receptek: tízperces rakott tészta, almás pite, túrógombóc.</p>
+        <p class="op-flag">⚠ Ez a profil egy <b>másik</b> Minta Dóra: egy másik városban élő hobbiszakács. Semmi nem köti a te alanyodhoz (Kék Delfin, Füzesd, Búbos). <b>Névrokon.</b></p>
+      </div>`},
+    shop:{ url:"https://ajandekbolt.example/kereses", title:"Ajándékbolt – keresés", html:`
+      <div class="op-editorial">
+        <header><b>AJÁNDÉKBOLT.EXAMPLE</b><nav><span>Kosár</span><span>Belépés</span></nav></header>
+        <span class="op-eyebrow">34 TALÁLAT • KATALÓGUS</span>
+        <h1>„Dóra” feliratos ajándékok</h1>
+        <p class="op-lead">Névre szóló bögrék, kulcstartók és pólók. Ez egy webáruház, nem egy személy adatlapja.</p>
+        <div class="op-hero">🎁</div>
+        <p class="op-flag">⚠ Kereskedelmi találat, nem forrás. Nem tartalmaz a nyomozáshoz használható személyes adatot.</p>
+      </div>`},
+    face:{ url:"https://kozossegi.example/minta.dora", title:"Minta Dóra | Közösségi profil", html:`
+      <div class="op-social">
+        <div class="op-fbtop"><b>közösségi</b><span>⌕ Keresés</span><i>D</i></div>
+        <div class="op-cover"><div class="op-cband"></div><div class="op-ava">🙂</div></div>
+        <div class="op-identity"><div><h1>Minta Dóra</h1><p>318 ismerős</p></div><button>Ismerősnek jelölöm</button></div>
+        <nav class="op-ptabs"><b>Idővonal</b><span>Adatlap</span><span>Ismerősök</span><span>Fényképek</span></nav>
+        <div class="op-fbgrid">
+          <aside class="op-card">
+            <h2>Adatlap</h2>
+            <p>💼 Marketingkoordinátor – <b>Kék Delfin Kft.</b></p>
+            <p>🏠 Jelenlegi lakhely: Mintaváros</p>
+            <p>📍 Származási hely: <b>Füzesd</b></p>
+            <p>🎓 Tanult itt: Füzesdi Patak Általános Iskola</p>
+            <p>⚽ Szurkol: <b>Vándor FC</b></p>
+            <p>🐕 Legjobb barát: Búbos</p>
+            <small>Ez a rész a profilon <b>nyilvános</b> – bárki látja.</small>
+          </aside>
+          <div class="op-feed">
+            <article class="op-post op-noise"><header><i>D</i><div><b>Minta Dóra</b><small>szeptember 12. · 🌐</small></div></header><p>Új kávéfőző az irodában. A hétfők máris elviselhetőbbek. ☕</p><footer>♡ 14 · 💬 2</footer></article>
+            <article class="op-post"><header><i>D</i><div><b>Minta Dóra</b><small>június 14. · 🌐</small></div></header><p>Köszönöm a rengeteg születésnapi köszöntést! 🎂 A legszebb ajándék, hogy Búbos nem ette meg a tortát (idén).</p><footer>♡ 96 · 💬 <b>41 hozzászólás</b></footer>
+              <div class="op-comments"><p><b>Kiss Anna:</b> Boldog szülinapot, Dóri! 🎈</p><p><b>Nagy Péter:</b> Isten éltessen! Már 32? 😄</p><p><b>Tóth Rita:</b> Sok boldogságot! ❤️</p></div></article>
+            <article class="op-post op-noise"><header><i>D</i><div><b>Minta Dóra</b><small>május 30. · 🌐</small></div></header><p>Hajrá <b>Vándor</b>! Micsoda meccs volt tegnap a szomszéd város ellen. ⚽🔵</p><footer>♡ 27 · 💬 6</footer></article>
+            <article class="op-post op-noise"><header><i>D</i><div><b>Minta Dóra</b><small>május 9. · 🌐</small></div></header><p>Hosszú hétvége, rövid kirándulás. A hegyek mindig jó ötlet. 🏞️</p><footer>♡ 41 · 💬 5</footer></article>
+          </div>
+        </div>
+      </div>`},
+    insta:{ url:"https://kepmegoszto.example/dora_es_bubos", title:"@dora_es_bubos • Képmegosztó", html:`
+      <div class="op-social">
+        <div class="op-igprofile">
+          <div class="op-ava big">🐕</div>
+          <div><div class="op-igname"><h1>dora_es_bubos</h1><button>Követés</button></div>
+          <p><b>48</b> bejegyzés　<b>842</b> követő　<b>301</b> követett</p>
+          <strong>Minta Dóra</strong><small>„Dóra &amp; Búbos – séták, tengerpart, egy kis káosz.” 🐾</small></div>
+        </div>
+        <nav class="op-igtabs"><b>▦ BEJEGYZÉSEK</b><span>▧ MEGJELÖLT</span></nav>
+        <div class="op-iggrid">
+          <figure><div class="op-ph">🐕</div><figcaption>Búbos a tengerparton</figcaption></figure>
+          <figure><div class="op-ph">☕</div><figcaption>Reggeli kávé</figcaption></figure>
+          <figure class="op-clue"><div class="op-ph">🐕🎂</div><figcaption><b>Búbos</b> is ünnepelt velem a szülinapomon – június közepe a legjobb hónap! 🎉</figcaption></figure>
+          <figure><div class="op-ph">🌊</div><figcaption>Nyár</figcaption></figure>
+          <figure><div class="op-ph">⚽</div><figcaption>Vándor FC meccs</figcaption></figure>
+          <figure><div class="op-ph">🥾</div><figcaption>Túra</figcaption></figure>
+        </div>
+        <p class="op-flag ok">✓ Ez a profil <b>egyezik</b> az alanyoddal: ugyanaz a kutya (Búbos), ugyanaz a csapat (Vándor FC). Megerősített forrás.</p>
+      </div>`},
+    team:{ url:"https://kekdelfin.example/rolunk/csapat", title:"Csapatunk – Kék Delfin Kft.", html:`
+      <div class="op-corp">
+        <header class="op-corphead"><div class="op-logo">🐬</div><div><h1>Kék Delfin Kft.</h1><p>Marketing · Rendezvény · Kommunikáció</p></div></header>
+        <nav class="op-corpnav"><span>Rólunk</span><b>Csapatunk</b><span>Szolgáltatások</span><span>Kapcsolat</span></nav>
+        <div class="op-crumb">Főoldal › Rólunk › Csapatunk</div>
+        <h2>Ismerd meg a csapatot!</h2>
+        <div class="op-team">
+          <article><div class="op-ph">👩</div><b>Minta Dóra</b><small>Marketingkoordinátor</small><p>„Imádom a kreatív kampányokat és a kutyámat, Búbost.” Elérhetőség: dora.minta@kekdelfin.example</p></article>
+          <article><div class="op-ph">👨</div><b>Példa Gábor</b><small>Értékesítési vezető</small><p>15 éve a szakmában. Kapcsolat: gabor.pelda@kekdelfin.example</p></article>
+          <article><div class="op-ph">👩</div><b>Teszt Kata</b><small>Ügyfélszolgálat</small><p>Mindig segít, bármilyen kérdés merül fel.</p></article>
+        </div>
+        <aside class="op-flag">⚠ Nyilvános „csapatunk” oldal: a név, a beosztás, a céges e-mail-cím és egy személyes részlet (a kutya neve) együtt már célzott adathalászathoz elég.</aside>
+      </div>`},
+    iskola:{ url:"https://fuzesdipatak-suli.example/hirek/talalkozo", title:"Osztálytalálkozó – Füzesdi Patak Ált. Isk.", html:`
+      <div class="op-corp">
+        <header class="op-corphead"><div class="op-logo">🎓</div><div><h1>Füzesdi Patak Általános Iskola</h1><p>Tudás · Közösség · Füzesd</p></div></header>
+        <nav class="op-corpnav"><span>Iskolánk</span><b>Hírek</b><span>Dokumentumok</span><span>Kapcsolat</span></nav>
+        <div class="op-crumb">Főoldal › Hírek › Közösség</div>
+        <span class="op-eyebrow">KÖZÖSSÉGI HÍR</span>
+        <h2>20 éves osztálytalálkozó – fotók és köszöntők</h2>
+        <p class="op-lead">Volt diákjaink megosztották emlékeiket. Örömmel láttuk viszont a 8.B egykori tanulóit!</p>
+        <div class="op-wall">
+          <p><b>Minta Dóra:</b> „Hihetetlen, hogy 20 év telt el a <b>Füzesdi Patak Általános Iskola</b> óta! Köszönjük a szervezést. 💙”</p>
+          <p><b>Kovács Áron:</b> „Nagyon jó volt mindenkit újra látni.”</p>
+          <p><b>Szabó Lili:</b> „Jövőre ugyanitt!”</p>
+        </div>
+        <aside class="op-flag">⚠ A gyakori „melyik iskolába jártál?” biztonsági kérdés válasza itt, nyilvánosan olvasható.</aside>
+      </div>`}
+  },
+  debrief:{
+    kicker:"ÖSSZEGZÉS · MIRE ELÉG EZ A HAT ADAT?",
+    title:"Hat nyilvános adatból összeáll a támadás",
+    intro:"Egyik adat sem volt „titkos” – mégis, együtt pontosan azt adják ki, amire egy támadónak szüksége van. Nézd meg, melyik mire jó neki:",
+    rows:[
+      { fact:"Munkahely + beosztás + céges e-mail", risk:"Célzott adathalászat (spear phishing): a támadó a kolléga vagy a vezető nevében ír hihető levelet." },
+      { fact:"Kutya neve + általános iskola", risk:"Klasszikus biztonsági kérdések („Mi a kedvenc állatod?”, „Melyik iskolába jártál?”) – ezekkel jelszó-visszaállítás kérhető." },
+      { fact:"Születésnap + származási város", risk:"Személyazonosság „ellenőrzése” ügyfélszolgálaton, és gyakori jelszóminták (város+év, név+születési dátum)." },
+      { fact:"Kedvenc csapat + hobbi", risk:"Bizalomépítés a beszélgetés elején, és további jelszótippek (a kedvenc csapat neve gyakori jelszóelem)." }
+    ],
+    advice:[
+      "Állítsd privátra a profilod adatlapját; a „származási hely”, iskola, születésnap ne legyen nyilvános.",
+      "Biztonsági kérdésekre adj kitalált, jelszókezelőben tárolt választ – ne a valódit.",
+      "Használj egyedi, személyes adatra nem épülő jelszavakat jelszókezelővel, és mindenhol kapcsolj be többtényezős hitelesítést.",
+      "A céges „csapatunk” oldalon a beosztásnál több ne szerepeljen; magánéleti részlet semmiképp.",
+      "Légy gyanakvó a téged név szerint, munkahelyeddel együtt megszólító, sürgető levelekkel szemben."
+    ],
+    gdpr:"Adatvédelmi lábjegyzet: attól, hogy egy adat nyilvánosan elérhető, még nem lesz szabadon felhasználható. Mások személyes adatainak gyűjtése és rendszerezése – nyílt forrásból is – adatkezelés, amelyhez jogalap és cél kell (GDPR). Ez a gyakorlat az érintett kifejezett hozzájárulásával, oktatási célból készült."
+  }
+}
+];
+
 /* ============================================================
    KURZUSOK — új kurzust a tömb végére lehet felvenni.
    Feladattípusok: mcq · order · match · sim · find · form · cards
@@ -1956,11 +2883,21 @@ const COURSES = [
     ],
     activities: [...A1, ...A2, ...A3, ...A4]
   }
-  /* Új kurzus mintája:
-  ,{ id:"infobiz", code:"BA", title:"Információbiztonság és adatvédelem", desc:"…",
-     units:[ { id:"t1", short:"1", label:"1. szeminárium", chip:"1. Csalások", title:"Internetes csalások" } ],
-     activities:[ { unit:"t1", id:"t1-phishing", type:"mcq", title:"…", lead:"…", task:"…", options:["…","…"], items:[ { q:"…", a:0, why:"…" } ] } ] }
-  */
+  ,{
+    id: "infobiz",
+    code: "Szeminárium",
+    title: "Információbiztonság és adatvédelem",
+    desc: "Csaló vagy valódi? Adathalász levelek, social engineering, OSINT-nyomozás, zsarolóvírus a hivatalban – gyakorlati esetekkel és szimulációkkal.",
+    units: [
+      { id:"ib1", short:"1", label:"1. témakör", chip:"1. Alapfogalmak", title:"Az információbiztonság alapfogalmai" },
+      { id:"ib2", short:"2", label:"2. témakör", chip:"2. Internetes csalások", title:"Internetes csalások – csaló vagy valódi?" },
+      { id:"ib3", short:"3", label:"3. témakör", chip:"3. Social engineering", title:"Social engineering és hitelesítés" },
+      { id:"ib4", short:"4", label:"4. témakör", chip:"4. OSINT", title:"Nyílt forrású információszerzés (OSINT)" },
+      { id:"ib5", short:"5", label:"5. témakör", chip:"5. Incidenskezelés", title:"Kártékony kódok és incidenskezelés" },
+      { id:"ibo", short:"Ö", label:"Önálló gyakorlás", chip:"Gyanús üzenetek", title:"Gyanús üzenetek – önálló gyakorlás", random:true, rndLabel:"Véletlenszerű feladat", desc:"Hat valószerű helyzet, mindegyikben más csalási minta. A Véletlenszerű feladat gomb egyet kisorsol – elsőként azokat, amelyeket még nem oldottál meg." }
+    ],
+    activities: [...B1, ...OSINT]
+  }
 ];
 
 /* ============================================================
@@ -1973,7 +2910,7 @@ const store = {
   get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
   set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
 };
-const TYPE = { mcq:"Feleletválasztós", order:"Sorrend", match:"Párosítás", sim:"Szimuláció", find:"Hibakereső", form:"Kitöltős", cards:"Tanulókártya", flow:"Teljes ügymenet" };
+const TYPE = { mcq:"Feleletválasztós", order:"Sorrend", match:"Párosítás", sim:"Szimuláció", find:"Hibakereső", form:"Kitöltős", cards:"Tanulókártya", flow:"Teljes ügymenet", osint:"OSINT-nyomozás" };
 let course = null, unitFilter = "all";
 
 function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
@@ -2016,7 +2953,7 @@ function renderActivities(){
   $("#activities").innerHTML = units.map(u => {
     const acts = course.activities.filter(a => a.unit===u.id);
     return `<div class="unit-block">
-      <div class="unit-title"><span class="mono">${esc(u.label)}</span><h3>${esc(u.title)}</h3>${u.random?`<button class="btn rnd" data-random="${u.id}">Véletlenszerű ügy</button>`:""}</div>
+      <div class="unit-title"><span class="mono">${esc(u.label)}</span><h3>${esc(u.title)}</h3>${u.random?`<button class="btn rnd" data-random="${u.id}">${esc(u.rndLabel||"Véletlenszerű ügy")}</button>`:""}</div>
       ${u.desc?`<p class="unit-desc">${esc(u.desc)}</p>`:""}
       <div class="grid">${acts.map(a => {
         const b = best[key(a)];
@@ -2029,7 +2966,11 @@ function renderActivities(){
     </div>`;}).join("");
 }
 function selectCourse(id, scroll){
-  course = COURSES.find(c => c.id===id);
+  const next = COURSES.find(c => c.id===id) || COURSES[0];
+  if(!course || course.id!==next.id) unitFilter = "all";
+  course = next;
+  store.set("lastCourse", course.id);
+  if(location.hash.slice(1)!==course.id) history.replaceState(null, "", "#"+course.id);
   renderCourses(); renderUnits(); renderActivities();
   $("#sheet").hidden = true;
   if(scroll) $("#step2").scrollIntoView({behavior:"smooth", block:"start"});
@@ -2056,12 +2997,12 @@ function openActivity(id){
     </div>
     <p class="task">${esc(a.task)}</p>
     ${a.ctx?`<div class="ctx">${a.ctx}</div>`:""}
-    <div class="score"><span class="label">Eredmény</span><span class="mono" id="sc">0 / 0</span><div class="bar"><i id="scbar"></i></div><button class="btn ghost" id="reset">Újrakezdés</button></div>
+    <div class="score"><span class="label">Eredmény</span><span class="mono" id="sc">0 / 0</span><div class="bar"><i id="scbar"></i></div><button class="btn ghost" id="reset">Újrakezdés</button>${u.random&&a.type!=="flow"?`<button class="btn ghost" data-random="${u.id}">Másik véletlenszerű</button>`:""}</div>
     <div id="body"></div>
     ${a.note?`<p class="note">${esc(a.note)}</p>`:""}`;
   $("#back").onclick = () => { s.hidden = true; renderActivities(); $("#step2").scrollIntoView({behavior:"smooth"}); };
   $("#reset").onclick = () => openActivity(id);
-  ({mcq:runMcq, order:runOrder, match:runMatch, sim:runSim, find:runFind, form:runForm, cards:runCards, flow:runFlow})[a.type](a);
+  ({mcq:runMcq, order:runOrder, match:runMatch, sim:runSim, find:runFind, form:runForm, cards:runCards, flow:runFlow, osint:runOsint})[a.type](a);
   s.scrollIntoView({behavior:"smooth", block:"start"});
 }
 
@@ -2181,6 +3122,113 @@ function runSim(a){
     log.push({scene: n.short || n.text.slice(0,70)+"…", choice: c.t, ok: c.ok});
   };
   draw(null);
+}
+
+/* ---------- OSINT-nyomozás (böngésző-szimuláció) ---------- */
+function normA(s){ return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]/g,""); }
+function runOsint(a){
+  const facts = a.facts, N = facts.length;
+  let hist = ["search"], hi = 0;
+  const answers = Array(N).fill("");
+  let checked = false;
+  const correct = () => facts.map((f,i)=> f.answers.some(x=>normA(x)===normA(answers[i])) );
+  const count = () => correct().filter(Boolean).length;
+  setScore(0, N);
+
+  const searchPage = () => {
+    const r = a.search.results;
+    return `<div class="op-search">
+      <div class="op-ghead"><div class="op-glogo"><span>n</span><span>y</span><span>o</span><span>m</span><span>o</span><span>z</span></div>
+        <div class="op-sbox"><span>⌕</span><input value="${esc(a.search.query)}" readonly><button>Keresés</button></div></div>
+      <div class="op-hint"><b>OSINT-küldetés</b><span>${esc(a.search.hint)}</span></div>
+      ${r.map(x=>`<article class="op-result ${x.noise?"op-nr":""}" data-nav="${x.page}">
+        <div class="op-rsrc"><i>${esc(x.title.charAt(0))}</i><div><small>${esc(x.host)}</small></div></div>
+        <h3>${esc(x.title)}</h3><p>${esc(x.snippet)}</p></article>`).join("")}
+    </div>`;
+  };
+  const pageHtml = id => id==="search" ? searchPage() : a.pages[id].html;
+  const titleOf = id => id==="search" ? "Nyomozó kereső" : a.pages[id].title;
+  const urlOf = id => id==="search" ? "https://nyomozo.example/kereses?q="+encodeURIComponent(a.search.query) : a.pages[id].url;
+
+  const draw = () => {
+    const cur = hist[hi], c = count();
+    $("#body").innerHTML = `<div class="ob">
+      <div class="ob-bar">
+        <button class="ob-nav" data-h="-1" ${hi===0?"disabled":""} aria-label="Vissza">←</button>
+        <button class="ob-nav" data-h="1" ${hi===hist.length-1?"disabled":""} aria-label="Előre">→</button>
+        <div class="ob-addr"><span>🔒</span><input value="${esc(urlOf(cur))}" readonly></div>
+        <button class="ob-pill" id="ob-note">▤ Jegyzetfüzet ${c}/${N}</button>
+        <button class="ob-pill ghost" id="ob-mission">Küldetés</button>
+      </div>
+      <div class="ob-bm">${a.bookmarks.map(b=>`<button data-nav="${b.page}">${esc(b.label)}</button>`).join("")}<span>${esc(titleOf(cur))}</span></div>
+      <div class="ob-view">${pageHtml(cur)}</div>
+    </div>`;
+    $("#body").querySelectorAll("[data-nav]").forEach(el=>el.onclick=()=>{ hist = hist.slice(0,hi+1); hist.push(el.dataset.nav); hi = hist.length-1; draw(); });
+    $("#body").querySelectorAll(".ob-nav").forEach(el=>el.onclick=()=>{ hi = Math.min(hist.length-1, Math.max(0, hi + +el.dataset.h)); draw(); });
+    $("#ob-note").onclick = openNote;
+    $("#ob-mission").onclick = openMission;
+  };
+
+  const overlay = (cls, html) => {
+    const d = document.createElement("div");
+    d.className = "ob-ov "+cls; d.innerHTML = html;
+    $("#sheet").appendChild(d);
+    d.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>d.remove());
+    d.addEventListener("click", e=>{ if(e.target===d) d.remove(); });
+    return d;
+  };
+  const openMission = () => {
+    const m = a.mission;
+    overlay("", `<section class="ob-modal mission">
+      <button class="ob-x" data-close aria-label="Bezár">×</button>
+      <span class="ob-kick">${esc(m.kicker)}</span><h2>${esc(m.title)}</h2>
+      <p>${m.text}</p>
+      <h3>${esc(m.sub)}</h3><p>${esc(m.subtext)}</p>
+      <ol class="ob-list">${m.list.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>
+      <button class="btn" data-close>Kezdés</button></section>`);
+  };
+  const openDebrief = () => {
+    const d = a.debrief;
+    overlay("", `<section class="ob-modal debrief">
+      <button class="ob-x" data-close aria-label="Bezár">×</button>
+      <span class="ob-kick">${esc(d.kicker)}</span><h2>${esc(d.title)}</h2>
+      <p>${esc(d.intro)}</p>
+      <div class="ob-risks">${d.rows.map(r=>`<div><b>${esc(r.fact)}</b><span>${esc(r.risk)}</span></div>`).join("")}</div>
+      <h3>Mit tegyen Dóra (és te)?</h3>
+      <ul class="ob-advice">${d.advice.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+      <p class="ob-gdpr">${esc(d.gdpr)}</p>
+      <button class="btn" data-close>Bezár</button></section>`);
+  };
+  const openNote = () => {
+    const render = d => {
+      const cor = correct(), c = cor.filter(Boolean).length;
+      d.innerHTML = `<section class="ob-modal note">
+        <button class="ob-x" data-close aria-label="Bezár">×</button>
+        <span class="ob-kick">JEGYZETFÜZET · ${N} ADAT</span><h2>Mit tudtál meg Dóráról?</h2>
+        <p>Írd be a megtalált adatokat. A rendszer csak a válaszokat ellenőrzi; a forrást és a bizonyítékot a csoport munkalapjára vezesd.</p>
+        <div class="ob-answers">${facts.map((f,i)=>`
+          <label class="${checked?(cor[i]?"ok":"bad"):""}"><span>${i+1}</span>
+            <div><small>${esc(f.label)}</small><input data-i="${i}" value="${esc(answers[i])}" autocomplete="off" placeholder="${esc(f.hint)}"></div>
+            ${checked?`<b>${cor[i]?"✓":"?"}</b>`:""}</label>`).join("")}</div>
+        ${checked && c<N ? `<div class="ob-note-res bad">Még ${N-c} adat hibás vagy hiányzik. Térj vissza a forrásokhoz, és ellenőrizd a bizonyítékot.</div>`:""}
+        ${checked && c===N ? `<div class="ob-note-res ok"><b>Mind a ${N} adat helyes.</b> Megvan a teljes digitális lábnyom – nézd meg, mire lenne elég egy támadónak.</div>`:""}
+        ${checked && c===N
+          ? `<button class="btn" id="ob-debrief">Összegzés megnyitása →</button>`
+          : `<button class="btn" id="ob-check">Ellenőrzés</button>`}
+      </section>`;
+      d.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>d.remove());
+      d.querySelectorAll(".ob-answers input").forEach(inp=>inp.oninput=()=>{ answers[+inp.dataset.i]=inp.value; });
+      const chk = d.querySelector("#ob-check");
+      if(chk) chk.onclick = () => { checked = true; const c = count(); setScore(c,N); finish(a,c,N); render(d); draw(); };
+      const db = d.querySelector("#ob-debrief");
+      if(db) db.onclick = () => { d.remove(); openDebrief(); };
+    };
+    const d = overlay("", "");
+    render(d);
+  };
+
+  draw();
+  openMission();
 }
 
 /* ---------- hibakereső ---------- */
@@ -2419,7 +3467,8 @@ document.addEventListener("click", e => {
   const r = e.target.closest("[data-random]"); if(r) return openRandom(r.dataset.random);
 });
 renderCourses();
-if(COURSES.length===1) selectCourse(COURSES[0].id, false);
+selectCourse(location.hash.slice(1) || store.get("lastCourse") || COURSES[0].id, false);
+window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if(COURSES.some(c=>c.id===h) && h!==course.id) selectCourse(h, true); });
 
 </script>
 </body>
