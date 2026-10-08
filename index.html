@@ -846,7 +846,7 @@ const A2 = [
 },
 { unit:"u6", id:"u6-iktatni", type:"mcq",
   title:"Iktatandó-e?",
-  lead:"Tíz beérkezett irat. Döntsd el a főszabály és a kivétellista alapján, melyiket kell iktatni.",
+  lead:"Tíz irat a postán, a postafiókban és a hivatalon belül. Döntsd el a főszabály és a kivétellista alapján, melyiket kell iktatni.",
   task:"Mindegyiknél válaszd ki, hogy iktatandó irat-e. Kétség esetén ne feledd: a nyilvántartáson kívüli irat a legnagyobb kockázat.",
   note:"A pontos kört a szerv iratkezelési szabályzata határozza meg. A nem iktatandó iratokat is lehet érkeztetni.",
   options:["Iktatandó","Nem iktatandó"],
@@ -907,18 +907,18 @@ const A2 = [
   task:"Olvasd el a küldemény adatait és az iktatókönyv állását, majd töltsd ki a mezőket. Az irattári tételszámhoz a 3. alkalom mintatábláját használd.",
   note:"A tételszám-hozzárendelés már iktatáskor megtörténik – itt lép működésbe az irattári terv. Mintatábla: A101 alapdokumentumok · A205 belső szabályzatok · B312 közérdekű adatigénylések · B418 panaszok, közérdekű bejelentések · C520 beszerzés · C611 bér- és illetményügyek.",
   cases:[
-    { ctx:`<span class="label">1. küldemény</span><p>Postán érkezett 2026. 10. 05-én. Feladó: Horváth Lajos. A levél a „PLD/1310-1/2026 számú hiánypótlási felhívásukra” hivatkozik, és két mellékletet tartalmaz. A PLD/1310/2026 ügy egy panaszügy; eddigi iratai: PLD/1310/2026 (a panasz) és PLD/1310-1/2026 (a hiánypótlási felhívás).</p>`,
+    { ctx:`<span class="label">1. küldemény</span><p>Postán érkezett 2026. 10. 05-én. Feladó: Horváth Lajos. A levél a „PLD/1290-1/2026 számú hiánypótlási felhívásukra” hivatkozik, és két mellékletet tartalmaz. A PLD/1290/2026 ügy egy panaszügy; eddigi iratai: PLD/1290/2026 (a panasz) és PLD/1290-1/2026 (a hiánypótlási felhívás).</p>`,
       fields:[
         { label:"Beérkezés módja", type:"select", options:["Hivatali kapu","Postai küldemény","Személyes benyújtás","E-mail"], answer:"Postai küldemény" },
-        { label:"Iktatószám", type:"select", options:["PLD/1310-1/2026","PLD/1310-2/2026","Új főszám (következő szabad)","PLD/1311/2026"], answer:"PLD/1310-2/2026", why:"A beérkező hiánypótlás az ügyirat következő alszáma." },
+        { label:"Iktatószám", type:"select", options:["PLD/1290-1/2026","PLD/1290-2/2026","Új főszám (következő szabad)","PLD/1291/2026"], answer:"PLD/1290-2/2026", why:"A beérkező hiánypótlás az ügyirat következő alszáma." },
         { label:"Küldő", type:"text", answer:"Horváth Lajos" },
         { label:"Mellékletek száma", type:"number", answer:2 },
         { label:"Irattári tételszám", type:"select", options:["A101","A205","B312","B418","C520","C611"], answer:"B418", why:"Panaszügy: B418, 5 év." }
       ]},
-    { ctx:`<span class="label">2. küldemény</span><p>Hivatali kapun érkezett 2026. 10. 07-én 09:41-kor. Feladó: Kovács Anna (ügyfélkapus azonosítással). Közérdekű adatigénylés a hivatal 2025. évi szerződésállományára. Előzménye nincs. Az iktatókönyvben az utolsó főszám: PLD/1874/2026.</p>`,
+    { ctx:`<span class="label">2. küldemény</span><p>Hivatali kapun érkezett 2026. 10. 07-én 09:41-kor. Feladó: Kertész Dóra (ügyfélkapus azonosítással). Közérdekű adatigénylés a hivatal 2025. évi rendezvényköltségeire. Előzménye nincs. Az iktatókönyvben az utolsó főszám: PLD/1860/2026.</p>`,
       fields:[
         { label:"Beérkezés módja", type:"select", options:["Hivatali kapu","Postai küldemény","Személyes benyújtás","E-mail"], answer:"Hivatali kapu" },
-        { label:"Iktatószám", type:"select", options:["PLD/1874-1/2026","PLD/1875/2026","PLD/1875-1/2026","PLD/1/2026"], answer:"PLD/1875/2026", why:"Új ügy kezdőirata: a következő főszám, alszám nélkül." },
+        { label:"Iktatószám", type:"select", options:["PLD/1860-1/2026","PLD/1861/2026","PLD/1861-1/2026","PLD/1/2026"], answer:"PLD/1861/2026", why:"Új ügy kezdőirata: a következő főszám, alszám nélkül." },
         { label:"Irattári tételszám", type:"select", options:["A101","A205","B312","B418","C520","C611"], answer:"B312", why:"Közérdekű adatigénylés: B312, 5 év." },
         { label:"Az Infotv. szerinti elintézési határidő", type:"select", options:["8 nap","15 nap","30 nap","60 nap"], answer:"15 nap", why:"A közérdekű adatigénylés rövid, 15 napos határideje miatt kiemelt jelzés indokolt." }
       ]}
@@ -1090,15 +1090,15 @@ const A2 = [
 { unit:"u8", id:"u8-selejtezheto", type:"mcq",
   title:"Selejtezhető-e 2026-ban?",
   lead:"A selejtezés nem takarítás, hanem jogi eljárás. Melyik irat mehet, és melyik nem?",
-  task:"A mintatábla tételei alapján döntsd el, selejtezhető-e az irat 2026-ban. Egyszerűsítés: az őrzési időt az ügy lezárásának évétől számoljuk, és 2026-ban az selejtezhető, amelynek őrzési ideje 2025 végéig letelt.",
+  task:"A mintatábla tételei alapján döntsd el, selejtezhető-e az irat 2026-ban. Számítás: az őrzési idő az ügy lezárását követő év elején indul. Például a 2020-ban lezárt, 5 éves tétel 2021–2025 között őrzendő, így 2026-ban már selejtezhető.",
   ctx:`<span class="label">Mintatábla</span><p>A101 alapdokumentumok – nem selejtezhető · A205 belső szabályzatok – nem selejtezhető · B312 közérdekű adatigénylések – 5 év · B418 panaszok – 5 év · C520 beszerzés – 8 év · C611 bér- és illetményügyek – 50 év</p>`,
   options:["Selejtezhető","Még nem selejtezhető","Nem selejtezhető"],
   items:[
-    { q:"B418 – panaszügy, lezárva 2019-ben.", a:0, why:"2019 + 5 = 2024: az őrzési idő letelt." },
-    { q:"C520 – beszerzési ügy, lezárva 2020-ban.", a:1, why:"2020 + 8 = 2028: még nem telt le." },
+    { q:"B418 – panaszügy, lezárva 2019-ben.", a:0, why:"2020–2024 között őrzendő: az őrzési idő letelt." },
+    { q:"C520 – beszerzési ügy, lezárva 2020-ban.", a:1, why:"2021–2028 között őrzendő: még nem telt le." },
     { q:"A205 – vezetői utasítás 2008-ból.", a:2, why:"Nem selejtezhető tétel: levéltárba adandó." },
-    { q:"C611 – illetményügy, lezárva 1990-ben.", a:1, why:"1990 + 50 = 2040: még nem telt le." },
-    { q:"B312 – adatigénylés, lezárva 2020-ban.", a:0, why:"2020 + 5 = 2025: az őrzési idő letelt." },
+    { q:"C611 – illetményügy, lezárva 1990-ben.", a:1, why:"1991–2040 között őrzendő: még nem telt le." },
+    { q:"B312 – adatigénylés, lezárva 2020-ban.", a:0, why:"2021–2025 között őrzendő: 2026-ban már selejtezhető." },
     { q:"B312 – adatigénylés, lezárva 2018-ban, de az irat egy folyamatban lévő perrel függ össze.", a:1, why:"A folyamatban lévő üggyel összefüggő irat nem selejtezhető, amíg az ügy tart." },
     { q:"Egy 2015-ös selejtezési jegyzőkönyv.", a:2, why:"A selejtezési jegyzőkönyv maga nem selejtezhető: a selejtezés utólagos ellenőrizhetőségének záloga." }
   ]
@@ -1121,7 +1121,7 @@ const A2 = [
     { t:"Jogalap: (nincs kitöltve)", bad:true, why:"Meg kell jelölni a selejtezés alapjául szolgáló irattári tervet (kiadás, hatály)." },
     { t:"Tétel: B418 Panaszok, közérdekű bejelentések – évkör 2018–2019 – 2 iratfolyóméter", bad:false, why:"5 év letelt: selejtezhető." },
     { t:"Tétel: A205 Belső szabályzatok, vezetői utasítások – évkör 2010 – 0,5 iratfolyóméter", bad:true, why:"Nem selejtezhető tétel – levéltárba adandó." },
-    { t:"Tétel: C520 Beszerzési ügyek – évkör 2021 – 1 iratfolyóméter", bad:true, why:"2021 + 8 = 2029: az őrzési idő nem telt le." },
+    { t:"Tétel: C520 Beszerzési ügyek – évkör 2021 – 1 iratfolyóméter", bad:true, why:"2022–2029 között őrzendő: az őrzési idő nem telt le." },
     { t:"A megsemmisítés módja: iratmegsemmisítő szolgáltató, adatfeldolgozói szerződés alapján, megsemmisítési igazolással", bad:false, why:"Szabályos: az adatbiztonságot garantáló mód, igazolással." },
     { t:"Záradék: a megsemmisítés 2026. 09. 20-án megtörtént; a jegyzőkönyvet utólag megküldjük a levéltárnak", bad:true, why:"A megsemmisítés csak a levéltári jóváhagyás birtokában kezdhető meg." },
     { t:"Megjegyzés: a jegyzőkönyvet a megsemmisítés után a többi irattal együtt selejtezzük", bad:true, why:"A selejtezési jegyzőkönyv nem selejtezhető." }
@@ -1228,11 +1228,11 @@ const A2 = [
   note:"Az eset kitalált; a szabályok az 1–8. alkalom anyagán alapulnak.",
   start:"e1",
   nodes:{
-    e1:{ when:"péntek 22:10", short:"Beérkezés hivatali kapun.", text:"Pénteken 22:10-kor hivatali kapun közérdekű adatigénylés érkezik a hivatal 2025. évi szerződéseire. Mikor indul az Infotv. szerinti 15 napos határidő?",
+    e1:{ when:"péntek 22:10", short:"Beérkezés hivatali kapun.", text:"Pénteken 22:10-kor hivatali kapun közérdekű adatigénylés érkezik a hivatal 2025. évi szerződéseire. Az Infotv. 29. § (1) szerint az igénylést a beérkezését követő legrövidebb idő alatt, legfeljebb 15 napon belül kell teljesíteni. Melyik az első nap, amely beleszámít a 15 napba?",
       choices:[
-        { t:"Szombaton, a beérkezést követő napon.", ok:true, next:"e2", fb:"Helyes. A határidő a beérkezés rendszeridőpontjához igazodik, nem a hétfői megnyitáshoz." },
-        { t:"Hétfőn, amikor az ügykezelő megnyitja.", ok:false, next:"e2", fb:"A „nem néztük meg” nem mentesít: a beérkezés rendszeridőpontja számít." },
-        { t:"Az iktatás napján.", ok:false, next:"e2", fb:"A határidő az érkezéstől számít, nem az iktatástól." }
+        { t:"A szombat, a beérkezést követő nap.", ok:true, next:"e2", fb:"Helyes. A kiindulópont a beérkezés rendszeridőpontja, nem a hétfői megnyitás. Az Infotv. nem tartalmaz számítási szabályt; az általános elv szerint (vö. Ákr. 52. § (1)) a kezdő nap – itt a beérkezés napja – nem számít bele, és naptári napokban számolunk." },
+        { t:"A hétfő, amikor az ügykezelő megnyitja.", ok:false, next:"e2", fb:"A „nem néztük meg” nem mentesít: a beérkezés rendszeridőpontja számít." },
+        { t:"Az iktatás napja.", ok:false, next:"e2", fb:"Az Infotv. a beérkezéshez köti a határidőt, nem az iktatáshoz." }
       ]},
     e2:{ when:"hétfő 08:10", short:"Érkeztetés.", text:"Hétfő reggel nyitod meg a rendszert. A küldemény már érkeztetve van. Ki végezte az érkeztetést?",
       choices:[
@@ -1391,7 +1391,7 @@ const A3 = [
       text:"Az ügyben további intézkedés nem várható, az ügyet 2026-ban lezárjátok.",
       fields:[
         { label:"Mit ellenőrzöl irattárba helyezés előtt?", type:"select", options:["Az ügyirat teljességét (minden alszám, melléklet, tértivevény) és a tételszám helyességét","Csak az utolsó alszámot","Semmit, ez az irattáros dolga"], answer:"Az ügyirat teljességét (minden alszám, melléklet, tértivevény) és a tételszám helyességét" },
-        { label:"Melyik évtől selejtezhető (a lezárás évétől számolva)?", type:"select", options:["2028","2031","2034","Nem selejtezhető"], answer:"2031", hint:"B418: hány év az őrzési idő?", why:"B418: 5 év, 2026 + 5 = 2031 – és akkor is csak jegyzőkönyvvel, levéltári jóváhagyással." }
+        { label:"Melyik évtől selejtezhető legkorábban?", type:"select", options:["2031","2032","2035","Nem selejtezhető"], answer:"2032", hint:"B418: 5 év, és az őrzési idő a lezárást követő év elején indul.", why:"Az 5 éves őrzési idő a lezárást követő évtől fut (2027–2031), így 2032-től selejtezhető – és akkor is csak jegyzőkönyvvel, levéltári jóváhagyással." }
       ],
       done:"Az ügyirat irattárba került; a rendszer kiszámolta a megőrzési idő lejártát.",
       fx:{ iktSet:{ id:"PLD/1875/2026", cells:[[6,"Irattárban"]] } } }
@@ -1475,7 +1475,7 @@ const A3 = [
     { short:"Irattár", role:"Ügykezelő", title:"Irattárba helyezés",
       text:"Az ügy 2026-ban lezárul.",
       fields:[
-        { label:"Melyik évtől selejtezhető (a lezárás évétől számolva)?", type:"select", options:["2031","2034","2076","Nem selejtezhető"], answer:"2034", hint:"C520: hány év az őrzési idő?", why:"C520: 8 év, 2026 + 8 = 2034." },
+        { label:"Melyik évtől selejtezhető legkorábban?", type:"select", options:["2034","2035","2077","Nem selejtezhető"], answer:"2035", hint:"C520: 8 év, és az őrzési idő a lezárást követő év elején indul.", why:"A 8 éves őrzési idő 2027–2034, így 2035-től selejtezhető." },
         { label:"Mi kerül irattárba?", type:"select", options:["A teljes ügyirat: a kérelem, a felhívás, a hiánypótlás, a döntés és az igazolások","Csak a döntés","Csak a hiánypótlás"], answer:"A teljes ügyirat: a kérelem, a felhívás, a hiánypótlás, a döntés és az igazolások", why:"Egy ügy iratai egy irategységet alkotnak." }
       ],
       done:"Az ügyirat irattárban.",
@@ -1494,9 +1494,9 @@ const A3 = [
   endText:"Az adatigénylést határidőben, anonimizált másolattal teljesítettétek. A mérlegelés indokolása is az ügyirat része lett.",
   stages:[
     { short:"Beérkezés", role:"Központi ügykezelő", title:"Hétfő reggel: mi történt hétvégén?",
-      text:"Hétfőn 08:00-kor nyitod meg a rendszert. Az üzenet péntek este érkezett.",
+      text:"Hétfőn 08:00-kor nyitod meg a rendszert. Az üzenet péntek este érkezett. Az Infotv. 29. § (1) szerint az igénylést a beérkezését követő legrövidebb idő alatt, legfeljebb 15 napon belül kell teljesíteni.",
       fields:[
-        { label:"Mikor indul a 15 napos határidő?", type:"select", options:["2026. 10. 10-én, szombaton – a beérkezést követő napon","2026. 10. 12-én, hétfőn, amikor megnyitom","Az iktatás napján"], answer:"2026. 10. 10-én, szombaton – a beérkezést követő napon", hint:"A beérkezés rendszeridőpontja számít, nem a megnyitás.", why:"A határidő a beérkezést követő napon indul." },
+        { label:"Melyik az első nap, amely beleszámít a 15 napba?", type:"select", options:["2026. 10. 10., szombat – a beérkezést követő nap","2026. 10. 12., hétfő – amikor megnyitom","Az iktatás napja"], answer:"2026. 10. 10., szombat – a beérkezést követő nap", hint:"A beérkezés rendszeridőpontja számít, nem a megnyitás.", why:"Az Infotv. 29. § (1) a beérkezéshez köti a 15 napot, de számítási szabályt nem ad. Az általános elv szerint (vö. Ákr. 52. § (1)) a beérkezés napja nem számít bele, és naptári napokban számolunk." },
         { label:"Legkésőbb melyik napon teljesítsd, hogy biztosan határidőben legyél?", type:"date", answer:"2026-10-22", show:"2026. 10. 22. (csütörtök)", hint:"A 15. nap szombatra esik – és nézd meg a naptárt: mi van október 23-án?", why:"A 15. nap október 24., szombat. Az átcsúszásra nincs biztos jogszabályi alap, október 23. (péntek) pedig nemzeti ünnep – így az utolsó biztos munkanap csütörtök, október 22." }
       ],
       done:"A teljesítés legkésőbbi biztonságos napja 2026. 10. 22. A hétvége már elvitt két napot, az ünnep még egyet – ezért kell a tárhelyet folyamatosan figyelni. Az Infotv. amúgy is a „legrövidebb idő alatti” teljesítést várja el.",
@@ -1560,7 +1560,7 @@ const A3 = [
     { short:"Irattár", role:"Ügykezelő", title:"Irattárba helyezés",
       text:"Az ügy 2026-ban lezárul.",
       fields:[
-        { label:"Melyik évtől selejtezhető (a lezárás évétől számolva)?", type:"select", options:["2028","2031","2034","Nem selejtezhető"], answer:"2031", why:"B312: 5 év, 2026 + 5 = 2031." },
+        { label:"Melyik évtől selejtezhető legkorábban?", type:"select", options:["2031","2032","2035","Nem selejtezhető"], answer:"2032", hint:"B312: 5 év, és az őrzési idő a lezárást követő év elején indul.", why:"Az 5 éves őrzési idő 2027–2031, így 2032-től selejtezhető." },
         { label:"Mi történik az őrzési idő leteltével?", type:"select", options:["Selejtezési jegyzőkönyv, levéltári jóváhagyás, majd megsemmisítés","A rendszer magától törli","Örökre megőrizzük, a biztonság kedvéért"], answer:"Selejtezési jegyzőkönyv, levéltári jóváhagyás, majd megsemmisítés", why:"A lejárt őrzési idejű irat selejtezése adatvédelmi kötelezettség is." }
       ],
       done:"Az ügyirat irattárban.",
@@ -1645,7 +1645,7 @@ const A4 = [
       done:"Expediálva, a tértivevény az ügyiratban.", fx:{ iktSet:{ id:"PLD/37-1/2027", cells:[[6,"Expediálva, tértivevény visszaérkezett"]] } } },
     { short:"Irattár", role:"Ügykezelő", title:"Irattárba helyezés", text:"Az ügy 2027-ben lezárul.",
       fields:[
-        { label:"Melyik évtől selejtezhető (a lezárás évétől számolva)?", type:"select", options:["2031","2032","2035","Nem selejtezhető"], answer:"2032", why:"B418: 5 év, 2027 + 5 = 2032." },
+        { label:"Melyik évtől selejtezhető legkorábban?", type:"select", options:["2032","2033","2036","Nem selejtezhető"], answer:"2033", hint:"Az ügy 2027-ben zárul; az őrzési idő a lezárást követő év elején indul.", why:"Az 5 éves őrzési idő 2028–2032, így 2033-tól selejtezhető." },
         { label:"Mi lesz a szerelt 2026-os előzmény sorsa?", type:"select", options:["A befogadó ügyirattal együtt, annak sorsát követi","Külön, a 2026-os lezárástól számítva selejtezhető","Azonnal selejtezhető, mert lezárt"], answer:"A befogadó ügyirattal együtt, annak sorsát követi", why:"A szerelés végleges egyesítés: az előzmény az új ügyirat részévé vált." }
       ],
       done:"Az ügyirat a szerelt előzménnyel együtt irattárban.", fx:{ iktSet:{ id:"PLD/37/2027", cells:[[6,"Irattárban"]] } } }
@@ -1683,18 +1683,18 @@ const A4 = [
       text:"A jegyző felbontja a levelet. Kiderül: Nagy Ernő bejelentést tesz arról, hogy a hivatal parkolási ügyfélszolgálatán napok óta nem veszik fel a telefont, és kéri a helyzet kivizsgálását.",
       fields:[
         { label:"Mi a teendő a levéllel?", type:"select", options:["Hivatalos irat: a jegyző visszaadja iktatásra, az érkeztetési bejegyzéshez kapcsolva","Magánlevélként a jegyzőnél marad","Megsemmisíthető, mert s. k. volt"], answer:"Hivatalos irat: a jegyző visszaadja iktatásra, az érkeztetési bejegyzéshez kapcsolva", why:"Ha az s. k. küldemény hivatalos, iktatandó irat, a címzett köteles visszaadni nyilvántartásba." },
-        { label:"Hány melléklet van benne?", type:"number", answer:0 }
       ],
-      done:"A levél visszakerült az ügykezelőhöz iktatásra.",
-      fx:{ erkSet:{ id:"É-2026/2451", cells:[[6,"0"],[7,"A címzett felbontotta, iktatásra visszaadta"]] }, doc: env("A levél tartalma", `<p>Tisztelt Jegyző Asszony! Bejelentem, hogy a parkolási ügyfélszolgálat telefonszámán egy hete senki nem veszi fel a telefont. Kérem a helyzet kivizsgálását. – Nagy Ernő</p>`) } },
+      done:"A levél visszakerült az ügykezelőhöz iktatásra. A tartalma megjelent a jobb oldalon.",
+      fx:{ erkSet:{ id:"É-2026/2451", cells:[[7,"A címzett felbontotta, iktatásra visszaadta"]] }, doc: env("A levél tartalma", `<p>Tisztelt Jegyző Asszony! Bejelentem, hogy a parkolási ügyfélszolgálat telefonszámán egy hete senki nem veszi fel a telefont. Kérem a helyzet kivizsgálását. – Nagy Ernő</p>`) } },
     { short:"Iktatás", role:"Ügykezelő", title:"Iktatás", text:"Előzménykeresés: nincs találat.", ctx: TETEL_CTX,
       fields:[
         { label:"Iktatószám", type:"select", options:["PLD/1874-1/2026","PLD/1875/2026","PLD/1875-1/2026","É-2026/2451"], answer:"PLD/1875/2026" },
+        { label:"Hány melléklet van a levélben?", type:"number", answer:0, hint:"Nézd meg a levél tartalmát a jobb oldalon.", why:"A levél csak szöveget tartalmaz; a bontatlanul érkeztetett bejegyzésben ezt most pótolni kell." },
         { label:"Tárgy", type:"select", options:["S. k. levél a jegyzőnek","Közérdekű bejelentés – parkolási ügyfélszolgálat elérhetetlensége","Nagy Ernő levele"], answer:"Közérdekű bejelentés – parkolási ügyfélszolgálat elérhetetlensége", why:"A tárgy az ügy tartalmát írja le, nem a küldemény formáját." },
         { label:"Irattári tételszám", type:"select", options:TETELEK, answer:"B418" }
       ],
       done:"Iktatva: PLD/1875/2026.",
-      fx:{ ikt:["PLD/1875/2026","Nagy Ernő","Közérdekű bejelentés – parkolási ügyfélszolgálat elérhetetlensége","–","–","B418","Iktatva"], erkSet:{ id:"É-2026/2451", cells:[[7,"Iktatva: PLD/1875/2026"]] }, doc: rubber("PLD/1875/2026") } },
+      fx:{ ikt:["PLD/1875/2026","Nagy Ernő","Közérdekű bejelentés – parkolási ügyfélszolgálat elérhetetlensége","–","–","B418","Iktatva"], erkSet:{ id:"É-2026/2451", cells:[[6,"0"],[7,"Iktatva: PLD/1875/2026"]] }, doc: rubber("PLD/1875/2026") } },
     { short:"Szignálás", role:"Osztályvezető", title:"Szignálás",
       text:"A bejelentést 30 napon belül kell elbírálni. Figyelj: a határidő a hivatalhoz érkezéstől számít, nem attól, hogy a jegyző mikor bontotta fel.",
       ctx: STAFF_CTX,
@@ -1747,17 +1747,17 @@ const A4 = [
       fields:[
         { label:"Hogyan történik a bontás?", type:"select", options:["A bontási időpontban, bizottság előtt, jegyzőkönyvvel","Az ügykezelő bontja fel, amikor ráér","A korábban beérkezett ajánlatokat előbb bontjuk, hogy időt nyerjünk"], answer:"A bontási időpontban, bizottság előtt, jegyzőkönyvvel" },
         { label:"Ha a borítékot idő előtt felbontották volna?", type:"select", options:["Jogorvoslati ok lehet; a tényt dokumentálni kell","Nincs jelentősége"], answer:"Jogorvoslati ok lehet; a tényt dokumentálni kell" },
-        { label:"Hány melléklet van az ajánlatban?", type:"number", answer:2, hint:"Bontás után már látod a tartalmat? Nézd meg az irat végét.", why:"Árlista és cégkivonat." }
       ],
-      done:"Az ajánlat felbontva, a bontási jegyzőkönyv elkészült.",
-      fx:{ erkSet:{ id:"É-2026/2451", cells:[[6,"2"],[7,"Felbontva a bontáson (2026. 10. 20.), iktatásra átadva"]] }, doc: env("Az ajánlat", `<p>Ajánlat irodaszer szállítására 2027-re. Ajánlati ár: bruttó 2 480 000 Ft.</p><p>Mellékletek: árlista (1 db), cégkivonat (1 db)</p><p>Papír-Pont Kft., Szűts Géza ügyvezető</p>`) } },
+      done:"Az ajánlat felbontva, a bontási jegyzőkönyv elkészült. A tartalom megjelent a jobb oldalon.",
+      fx:{ erkSet:{ id:"É-2026/2451", cells:[[7,"Felbontva a bontáson (2026. 10. 20.), iktatásra átadva"]] }, doc: env("Az ajánlat", `<p>Ajánlat irodaszer szállítására 2027-re. Ajánlati ár: bruttó 2 480 000 Ft.</p><p>Mellékletek: árlista (1 db), cégkivonat (1 db)</p><p>Papír-Pont Kft., Szűts Géza ügyvezető</p>`) } },
     { short:"Iktatás", role:"Ügykezelő", title:"Előzményezés és iktatás", text:"Előzménykeresés a tárgyra („irodaszer-beszerzés 2027”): van találat. Nézd meg az iktatókönyvet.", ctx: TETEL_CTX,
       fields:[
+        { label:"Hány melléklet van az ajánlatban?", type:"number", answer:2, hint:"Nézd meg az ajánlat végét a jobb oldalon.", why:"Árlista és cégkivonat – ezt most pótolni kell a bontatlanul érkeztetett bejegyzésben." },
         { label:"Iktatószám", type:"select", options:["PLD/1875/2026","PLD/1702-1/2026","PLD/1702-2/2026","PLD/1703/2026"], answer:"PLD/1702-2/2026", hint:"Az ajánlat egy futó beszerzési eljárás része.", why:"Az ajánlat a beszerzési ügyirat következő alszáma." },
         { label:"Irattári tételszám", type:"select", options:TETELEK, answer:"C520", why:"Azonos ügy iratai nem sorolhatók különböző tételekbe." }
       ],
       done:"Iktatva: PLD/1702-2/2026.",
-      fx:{ ikt:["PLD/1702-2/2026","Papír-Pont Kft.","Ajánlat – irodaszer-beszerzés 2027","Molnár Réka","2026. 11. 05.","C520","Iktatva"], erkSet:{ id:"É-2026/2451", cells:[[7,"Iktatva: PLD/1702-2/2026"]] }, doc: rubber("PLD/1702-2/2026") } },
+      fx:{ ikt:["PLD/1702-2/2026","Papír-Pont Kft.","Ajánlat – irodaszer-beszerzés 2027","Molnár Réka","2026. 11. 05.","C520","Iktatva"], erkSet:{ id:"É-2026/2451", cells:[[6,"2"],[7,"Iktatva: PLD/1702-2/2026"]] }, doc: rubber("PLD/1702-2/2026") } },
     { short:"Tervezet", role:"Ügyintéző", title:"Az eredményről szóló értesítés", text:"Az értékelés lezárult: a Papír-Pont Kft. ajánlata nyert. Molnár Réka elkészíti az értesítést.",
       fields:[
         { label:"Ki intézi az ügyet?", type:"select", options:MUNKATARSAK, answer:"Molnár Réka – ügyintéző (beszerzési ügyek)", why:"Az alszámon érkező irat a meglévő ügyintézőhöz kerül." },
@@ -1924,8 +1924,8 @@ const A4 = [
       fields:[{ label:"Hogyan közlöd?", type:"select", options:["Személyes átadás átvételi elismervénnyel","Cégkapu","Egyszerű e-mail a magáncímére"], answer:"Személyes átadás átvételi elismervénnyel", why:"Az átvételi elismervény a közlés bizonyítéka; az elismervényt az ügyirathoz kell kapcsolni." }],
       done:"Átadva, az elismervény az ügyiratban.", fx:{ iktSet:{ id:"PLD/1875-1/2026", cells:[[6,"Átadva, átvételi elismervény"]] } } },
     { short:"Irattár", role:"Ügykezelő", title:"Irattárba helyezés", text:"Az ügy 2026-ban lezárul.",
-      fields:[{ label:"Melyik évtől selejtezhető (a lezárás évétől számolva)?", type:"select", options:["2031","2034","2076","Nem selejtezhető"], answer:"2076", why:"C611: 50 év – a nyugellátás megállapíthatósága miatt." }],
-      done:"Irattárban, 2076-ig.", fx:{ iktSet:{ id:"PLD/1875/2026", cells:[[6,"Irattárban"]] } } }
+      fields:[{ label:"Melyik évtől selejtezhető legkorábban?", type:"select", options:["2032","2035","2077","Nem selejtezhető"], answer:"2077", why:"C611: 50 év (2027–2076) – a nyugellátás megállapíthatósága miatt; 2077-től selejtezhető." }],
+      done:"Irattárban, 2076 végéig.", fx:{ iktSet:{ id:"PLD/1875/2026", cells:[[6,"Irattárban"]] } } }
   ]
 }
 ];
