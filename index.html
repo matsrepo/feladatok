@@ -25,7 +25,7 @@
 
 *{box-sizing:border-box}
 body{background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--f-body);margin:0}
-.wrap{max-width:64rem;margin:0 auto;padding-inline:clamp(16px,4vw,40px);padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+.wrap{max-width:72rem;margin:0 auto;padding-inline:clamp(16px,4vw,40px);padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
 h1,h2,h3{font-family:var(--f-display);font-weight:600;text-wrap:balance;margin:0;line-height:1.15}
 p{margin:0}
 .mono{font-family:var(--f-mono);font-weight:500;font-variant-numeric:tabular-nums}
@@ -71,6 +71,9 @@ button{font:inherit;color:inherit;cursor:pointer}
 .unit-title{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--line);padding-bottom:6px}
 .unit-title h3{font-size:1.15rem}
 .unit-title .mono{color:var(--stamp);font-size:.85rem}
+.unit-title{flex-wrap:wrap}
+.unit-title .rnd{margin-left:auto;align-self:center}
+.unit-desc{color:var(--muted);font-size:.92rem;max-width:72ch}
 
 .sheet{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:clamp(18px,3vw,32px);display:flex;flex-direction:column;gap:22px}
 .sheet-top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}
@@ -168,6 +171,41 @@ select,input{font:inherit;padding:6px 8px;border:1px solid var(--line);border-ra
 .dots i.ok{background:var(--ok)}
 .dots i.no{background:var(--warn)}
 .dots i.cur{outline:2px solid var(--stamp);outline-offset:1px}
+
+/* teljes ügymenet */
+.flow{display:flex;flex-direction:column;gap:16px}
+.stepper{list-style:none;margin:0;padding:0;display:flex;gap:6px;flex-wrap:wrap}
+.stepper li{font-size:.78rem;border:1px solid var(--line);border-radius:99px;padding:3px 10px 3px 4px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.stepper li .mono{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--paper);font-size:.72rem}
+.stepper li.cur{border-color:var(--stamp);color:var(--ink)}
+.stepper li.cur .mono{background:var(--stamp);color:var(--surface)}
+.stepper li.done{border-color:var(--ok);color:var(--ok)}
+.stepper li.done .mono{background:var(--ok);color:var(--surface)}
+.flow-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;align-items:start}
+.books{display:flex;flex-direction:column;gap:12px}
+@media (max-width:820px){.flow-grid{grid-template-columns:minmax(0,1fr)}}
+.stage{border:1px solid var(--stamp);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.stage h3{font-size:1.3rem}
+.stage .fields{grid-template-columns:minmax(0,1fr)}
+.side{display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.panel h4{margin:0;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.book{font-size:.85rem}
+.book td,.book th{padding:6px 9px}
+.book td:nth-child(2),.book td:nth-child(4),.book td:nth-child(5){white-space:nowrap}
+@media (max-width:640px){
+  .book thead{display:none}
+  .book,.book tbody,.book tr,.book td{display:block;width:100%}
+  .book tr{border:1px solid var(--line);border-radius:6px;margin-bottom:8px;padding:4px 0}
+  .book td{border:0;display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:8px;padding:3px 10px;white-space:normal!important}
+  .book td::before{content:attr(data-l);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-family:var(--f-body);padding-top:2px}
+}
+.book tr.fresh td{background:var(--stamp-soft)}
+.paper{background:var(--paper);border-radius:4px;padding:12px 14px;display:flex;flex-direction:column;gap:10px;font-size:.88rem}
+.paper .env{border:1px solid var(--line);background:var(--surface);border-radius:4px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.paper .env .lbl{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.paper .rubber{align-self:flex-start;border:2px solid var(--stamp);color:var(--stamp);border-radius:4px;padding:4px 10px;font-family:var(--f-mono);font-size:.75rem;transform:rotate(-2deg)}
+.paper .rubber.red{border-color:var(--bad);color:var(--bad)}
 
 footer{font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
@@ -624,7 +662,7 @@ const A1 = [
   lead:"Egy adatigénylő a szerv szerződéseit kéri. Mit kell kiadni, és mit kell kitakarni?",
   task:"Jelöld meg a szerződésrészletben azokat az adatokat, amelyeket a kiadott másolaton ki kell takarni. A közfeladattal összefüggő adatokat ne jelöld.",
   note:"Az eredeti irat változatlan marad, a kiadásra szánt példány külön, dokumentáltan készül. A kitakarás legyen visszafejthetetlen: figyelj a PDF-rétegekre és a metaadatokra is.",
-  docTitle:"Megbízási szerződés – PLD/904-1/2025 (részlet)",
+  docTitle:"Megbízási szerződés – PLD/904/2025 (részlet)",
   doc:[
     "Megbízó: Példaváros Polgármesteri Hivatal",
     { t:"Megbízott: Kovács István egyéni vállalkozó", bad:false, why:"A szerződő fél neve a közpénz-felhasználással összefüggő adat, kiadandó." },
@@ -680,12 +718,12 @@ const LOG_CTX = `<span class="label">Rendszernapló – PLD/611/2026 (kivonat)</
 <thead><tr><th>Időpont</th><th>Felhasználó</th><th>Művelet</th><th>Adat</th></tr></thead>
 <tbody>
 <tr><td class="nowrap">2026. 03. 10. 09:41</td><td>Rendszer</td><td>Érkeztetés (hivatali kapu)</td><td class="nowrap">É-2026/1203</td></tr>
-<tr><td class="nowrap">2026. 03. 10. 10:15</td><td>Kiss Éva, ügykezelő</td><td>Iktatás</td><td class="nowrap">PLD/611-1/2026</td></tr>
+<tr><td class="nowrap">2026. 03. 10. 10:15</td><td>Kiss Éva, ügykezelő</td><td>Iktatás</td><td class="nowrap">PLD/611/2026</td></tr>
 <tr><td class="nowrap">2026. 03. 11. 08:30</td><td>dr. Nagy Gábor, osztályvezető</td><td>Szignálás</td><td>ügyintéző: Tóth Bence; határidő: 2026. 03. 25.</td></tr>
-<tr><td class="nowrap">2026. 03. 12. 13:02</td><td>Tóth Bence, ügyintéző</td><td>Megtekintés</td><td class="nowrap">PLD/611-1/2026</td></tr>
-<tr><td class="nowrap">2026. 03. 24. 15:40</td><td>dr. Nagy Gábor, osztályvezető</td><td>Kiadmányozás</td><td class="nowrap">PLD/611-2/2026</td></tr>
-<tr><td class="nowrap">2026. 03. 24. 15:52</td><td>Kiss Éva, ügykezelő</td><td>Expediálás (ügyfél tárhelye)</td><td class="nowrap">PLD/611-2/2026</td></tr>
-<tr><td class="nowrap">2026. 04. 02. 18:11</td><td>Rendszer</td><td>Letöltési igazolás beérkezése</td><td class="nowrap">PLD/611-2/2026</td></tr>
+<tr><td class="nowrap">2026. 03. 12. 13:02</td><td>Tóth Bence, ügyintéző</td><td>Megtekintés</td><td class="nowrap">PLD/611/2026</td></tr>
+<tr><td class="nowrap">2026. 03. 24. 15:40</td><td>dr. Nagy Gábor, osztályvezető</td><td>Kiadmányozás</td><td class="nowrap">PLD/611-1/2026</td></tr>
+<tr><td class="nowrap">2026. 03. 24. 15:52</td><td>Kiss Éva, ügykezelő</td><td>Expediálás (ügyfél tárhelye)</td><td class="nowrap">PLD/611-1/2026</td></tr>
+<tr><td class="nowrap">2026. 04. 02. 18:11</td><td>Rendszer</td><td>Letöltési igazolás beérkezése</td><td class="nowrap">PLD/611-1/2026</td></tr>
 </tbody></table></div>
 <p>Az ügyfél panasza: „a beadványomat elfektették, a hivatal elmulasztotta a 15 napos határidőt”.</p>`;
 
@@ -695,7 +733,7 @@ const A2 = [
   title:"Az iktatószám anatómiája",
   lead:"Azonosító, főszám, alszám, évszám: olvasd ki, mit árul el egy iktatószám az ügyről.",
   task:"Töltsd ki a mezőket, majd ellenőrizd. Számokat számjegyekkel írj.",
-  note:"A pontos formátum szervenként eltérhet, a főszám–alszám logika azonban egységes követelmény. PLD = kitalált példaszerv.",
+  note:"Ebben a feladattárban az ügy kezdőirata alszám nélkül, a főszámon szerepel (pl. PLD/1875/2026), a további iratai kapnak alszámot (PLD/1875-1/2026, PLD/1875-2/2026…). A pontos formátum szervenként eltérhet. PLD = kitalált példaszerv.",
   cases:[
     { prompt:"Bontsd elemeire: NKE/1234-5/2026", fields:[
       { label:"Azonosító", type:"text", answer:"NKE", why:"A szerv, az iktatóhely vagy az iktatókönyv jele." },
@@ -703,15 +741,15 @@ const A2 = [
       { label:"Alszám", type:"number", answer:5, why:"Az ügyiraton belüli irat sorszáma." },
       { label:"Évszám", type:"number", answer:2026, why:"Az iktatás éve." }
     ]},
-    { prompt:"Az ügyben a PLD/2051-1/2026 után a következő ismert irat a PLD/2051-7/2026.", fields:[
-      { label:"Hány iratmozgás történt a kettő között (közbenső alszámok)?", type:"number", answer:5, wide:true, why:"A 2–6. alszám: öt közbenső irat." },
-      { label:"Mi a PLD/2051-1/2026?", type:"select", options:["Az ügy kezdőirata 2026-ban","Az ügy utolsó irata","Egy másik ügy irata"], answer:"Az ügy kezdőirata 2026-ban", wide:true, why:"Az 1-es alszám az ügy első irata." }
+    { prompt:"Egy ügy kezdőirata a PLD/2051/2026, a legutóbbi irata a PLD/2051-7/2026.", fields:[
+      { label:"Hány irata van az ügynek összesen?", type:"number", answer:8, wide:true, why:"A főszámon iktatott kezdőirat és hét alszámos irat." },
+      { label:"Mi a PLD/2051/2026?", type:"select", options:["Az ügy kezdőirata (főszámon, alszám nélkül)","Az ügy utolsó irata","Hibás iktatószám, mert hiányzik az alszám"], answer:"Az ügy kezdőirata (főszámon, alszám nélkül)", wide:true, why:"Az új ügy első irata a főszámot kapja, alszám nélkül." }
     ]},
-    { prompt:"Ugyanarra az ügyfélre és tárgyra két iktatószám: PLD/318-2/2025 és PLD/95-1/2026.", fields:[
+    { prompt:"Ugyanarra az ügyfélre és tárgyra két iktatószám: PLD/318-2/2025 és PLD/95/2026.", fields:[
       { label:"Mi történhetett, és mi a helyes kezelés?", type:"select", options:["Évváltásnál új főszámra került az ügy; a 2025-ös előzményt szerelni kell","Hibás iktatás, a 2026-os számot törölni kell","Két külön ügy, nincs teendő","A 2026-os iratot a 2025-ös iktatókönyvbe kell átvezetni"], answer:"Évváltásnál új főszámra került az ügy; a 2025-ös előzményt szerelni kell", wide:true, why:"A lezárt évbe új irat nem kerülhet; az ügy az új évben új főszámon, az előzmény szerelésével folytatódik." }
     ]},
     { prompt:"Mit jelent a PLD/1420-3/2026 iktatószám?", fields:[
-      { label:"Jelentése", type:"select", options:["Az 1420. ügy 3. irata 2026-ban","A 3. ügy 1420. irata","Az 1420. irat 3. példánya"], answer:"Az 1420. ügy 3. irata 2026-ban", wide:true, why:"Főszám = ügy, alszám = irat az ügyön belül." }
+      { label:"Jelentése", type:"select", options:["Az 1420. ügy 3. alszámos irata 2026-ban","A 3. ügy 1420. irata","Az 1420. irat 3. példánya"], answer:"Az 1420. ügy 3. alszámos irata 2026-ban", wide:true, why:"Főszám = az ügy (és a kezdőirata), alszám = az ügy további iratai." }
     ]}
   ]
 },
@@ -783,7 +821,7 @@ const A2 = [
     { q:"Sorolj fel négy adatot, amelyet az érkeztetési nyilvántartás rögzít!", options:["Érkeztetési azonosító, a beérkezés ideje és módja, a küldő, a küldemény azonosítói", "Iktatószám, irattári tételszám, ügyintéző, határidő", "Kiadmányozó, aláírási szint, címzett, expediálás módja"], ans:0, a:"Érkeztetési azonosító; a beérkezés ideje és módja; a küldő; a küldemény azonosítói; a mellékletek." },
     { q:"Miért nem kerülhet új főszám a lezárt évi iktatókönyvbe?", options:["Mert a hiteles zárás a nyilvántartás megváltoztathatatlanságának garanciája", "Mert a szoftver technikailag nem tudja kezelni", "Mert a lezárt évet a levéltár már átvette"], ans:0, a:"Mert a hiteles zárás a nyilvántartás megváltoztathatatlanságának garanciája." },
     { q:"Mely két jogszabály rendezi az iratkezelési szoftverek követelményeit és tanúsítását?", options:["A 335/2005. Korm. rendelet és az Ltv.", "A 3/2018. BM rendelet és a 43/2013. Korm. rendelet", "A Dáptv. és az eIDAS rendelet"], ans:1, a:"A 3/2018. (II. 21.) BM rendelet és a 43/2013. (II. 19.) Korm. rendelet." },
-    { q:"Mit jelent a PLD/1420-3/2026 iktatószám?", options:["Az 1420. ügy 3. irata 2026-ban", "A 3. ügy 1420. irata 2026-ban", "Az 1420. irat 3. példánya"], ans:0, a:"Az 1420. ügy 3. irata 2026-ban." },
+    { q:"Mit jelent a PLD/1420-3/2026 iktatószám?", options:["Az 1420. ügy 3. alszámos irata 2026-ban", "A 3. ügy 1420. irata 2026-ban", "Az 1420. irat 3. példánya"], ans:0, a:"Az 1420. ügy 3. alszámos irata 2026-ban (a főszámos kezdőirat után)." },
     { q:"Milyen műveleteket naplóz a rendszer, és ki törölheti a naplót?", options:["Minden érdemi műveletet; senki, a rendszergazda sem törölheti", "Csak a módosításokat; a rendszergazda törölheti", "Csak a belépéseket; az iratkezelésért felelős vezető törölheti"], ans:0, a:"Minden érdemi műveletet; a naplót senki nem törölheti, a rendszergazda sem." },
     { q:"Mi a hiteles elektronikus másolat két kötelező hitelesítési eleme?", options:["Elektronikus aláírás vagy bélyegző és időbélyegző, egyezőségi záradékkal", "Beszkennelt aláírás és pecsétlenyomat", "Ügyintézői láttamozás és iktatószám"], ans:0, a:"Elektronikus hitelesítés (aláírás vagy bélyegző) és időbélyegző, egyezőségi záradékkal." }
   ]
@@ -869,10 +907,10 @@ const A2 = [
   task:"Olvasd el a küldemény adatait és az iktatókönyv állását, majd töltsd ki a mezőket. Az irattári tételszámhoz a 3. alkalom mintatábláját használd.",
   note:"A tételszám-hozzárendelés már iktatáskor megtörténik – itt lép működésbe az irattári terv. Mintatábla: A101 alapdokumentumok · A205 belső szabályzatok · B312 közérdekű adatigénylések · B418 panaszok, közérdekű bejelentések · C520 beszerzés · C611 bér- és illetményügyek.",
   cases:[
-    { ctx:`<span class="label">1. küldemény</span><p>Postán érkezett 2026. 10. 05-én. Feladó: Horváth Lajos. A levél a „PLD/1310-2/2026 számú hiánypótlási felhívásukra” hivatkozik, és két mellékletet tartalmaz. A PLD/1310/2026 ügy egy panaszügy; eddigi iratai: -1 (a panasz), -2 (a hiánypótlási felhívás).</p>`,
+    { ctx:`<span class="label">1. küldemény</span><p>Postán érkezett 2026. 10. 05-én. Feladó: Horváth Lajos. A levél a „PLD/1310-1/2026 számú hiánypótlási felhívásukra” hivatkozik, és két mellékletet tartalmaz. A PLD/1310/2026 ügy egy panaszügy; eddigi iratai: PLD/1310/2026 (a panasz) és PLD/1310-1/2026 (a hiánypótlási felhívás).</p>`,
       fields:[
         { label:"Beérkezés módja", type:"select", options:["Hivatali kapu","Postai küldemény","Személyes benyújtás","E-mail"], answer:"Postai küldemény" },
-        { label:"Iktatószám", type:"select", options:["PLD/1310-2/2026","PLD/1310-3/2026","Új főszám (következő szabad)","PLD/1311-1/2026"], answer:"PLD/1310-3/2026", why:"A beérkező hiánypótlás az ügyirat következő alszáma." },
+        { label:"Iktatószám", type:"select", options:["PLD/1310-1/2026","PLD/1310-2/2026","Új főszám (következő szabad)","PLD/1311/2026"], answer:"PLD/1310-2/2026", why:"A beérkező hiánypótlás az ügyirat következő alszáma." },
         { label:"Küldő", type:"text", answer:"Horváth Lajos" },
         { label:"Mellékletek száma", type:"number", answer:2 },
         { label:"Irattári tételszám", type:"select", options:["A101","A205","B312","B418","C520","C611"], answer:"B418", why:"Panaszügy: B418, 5 év." }
@@ -880,7 +918,7 @@ const A2 = [
     { ctx:`<span class="label">2. küldemény</span><p>Hivatali kapun érkezett 2026. 10. 07-én 09:41-kor. Feladó: Kovács Anna (ügyfélkapus azonosítással). Közérdekű adatigénylés a hivatal 2025. évi szerződésállományára. Előzménye nincs. Az iktatókönyvben az utolsó főszám: PLD/1874/2026.</p>`,
       fields:[
         { label:"Beérkezés módja", type:"select", options:["Hivatali kapu","Postai küldemény","Személyes benyújtás","E-mail"], answer:"Hivatali kapu" },
-        { label:"Iktatószám", type:"select", options:["PLD/1874-2/2026","PLD/1875-1/2026","PLD/1875-0/2026","PLD/1/2026"], answer:"PLD/1875-1/2026", why:"Új ügy: a következő főszám, első alszám." },
+        { label:"Iktatószám", type:"select", options:["PLD/1874-1/2026","PLD/1875/2026","PLD/1875-1/2026","PLD/1/2026"], answer:"PLD/1875/2026", why:"Új ügy kezdőirata: a következő főszám, alszám nélkül." },
         { label:"Irattári tételszám", type:"select", options:["A101","A205","B312","B418","C520","C611"], answer:"B312", why:"Közérdekű adatigénylés: B312, 5 év." },
         { label:"Az Infotv. szerinti elintézési határidő", type:"select", options:["8 nap","15 nap","30 nap","60 nap"], answer:"15 nap", why:"A közérdekű adatigénylés rövid, 15 napos határideje miatt kiemelt jelzés indokolt." }
       ]}
@@ -975,7 +1013,7 @@ const A2 = [
   docTitle:"Expediálási adatlap – PLD/772-4/2026",
   doc:[
     { t:"Iktatószám a kiadmányon: PLD/772-4/2026", bad:false, why:"Egyezik az ügyirattal." },
-    { t:"Hivatkozás: az Ön 2026. 09. 14-én kelt kérelmére (PLD/772-1/2026)", bad:false, why:"Pontos hivatkozás az ügyfél beadványára." },
+    { t:"Hivatkozás: az Ön 2026. 09. 14-én kelt kérelmére (PLD/772/2026)", bad:false, why:"Pontos hivatkozás az ügyfél beadványára." },
     { t:"Címzett: Varga és Társa Kft.", bad:false, why:"A címzett adatai egyeznek az ügyiratéval." },
     { t:"Kézbesítési mód: postai tértivevényes levél", bad:true, why:"Gazdálkodó szervezet elektronikus ügyintézésre kötelezett: cégkapura kell kézbesíteni. A módválasztás nem célszerűségi döntés." },
     { t:"Melléklet: 1 db – a Molnár-ügy helyszíni szemléjének jegyzőkönyve", bad:true, why:"Más ügy irata a küldeményben: téves adattovábbítás, adatvédelmi incidens." },
@@ -1198,7 +1236,7 @@ const A2 = [
       ]},
     e3:{ when:"hétfő 08:20", short:"Előzményezés és iktatás.", text:"Előzménykeresést végzel tárgyszóra, partnerre: nincs előzmény. Hogyan iktatsz?",
       choices:[
-        { t:"Új főszámra, első alszámmal.", ok:true, next:"e4", fb:"Helyes. Új ügy első irata főszámra kerül." },
+        { t:"Új főszámra, alszám nélkül – ez lesz az ügy kezdőirata.", ok:true, next:"e4", fb:"Helyes. Az új ügy első irata a főszámot kapja; a további iratok alszámra kerülnek." },
         { t:"Egy tavalyi, hasonló tárgyú adatigénylés alszámára.", ok:false, next:"e4", fb:"Más ügyfél, más ügy: alszámra csak ugyanazon ügy iratai kerülnek." }
       ]},
     e4:{ when:"hétfő 08:25", short:"Irattári tételszám.", text:"Melyik irattári tételszámot rendeled hozzá a mintatábla alapján?",
@@ -1244,6 +1282,649 @@ const A2 = [
 }
 ];
 
+/* ===== Teljes ügymenet a gyakorló ügyiratkezelőben ===== */
+const FLOW_ERK0 = [
+  ["É-2026/2449","2026. 10. 09. 14:05","Posta","Bíró Kata","RL 0098 1122 3HU","–","0","Iktatva: PLD/1874/2026"],
+  ["É-2026/2450","2026. 10. 09. 15:30","Posta","Reklám Kft.","– (sima levél)","–","0","Iktatás nélkül (reklámanyag)"]
+];
+const FLOW_IKT0 = [
+  ["PLD/1310/2026","Varga és Társa Kft.","Szolgáltatási szerződés módosítása – kérelem","Molnár Réka","2026. 10. 30.","C520","Folyamatban"],
+  ["PLD/1310-1/2026","Varga és Társa Kft. (címzett)","Hiánypótlási felhívás","Molnár Réka","–","C520","Expediálva"],
+  ["PLD/1873/2026","Szűcs Ádám","Közérdekű bejelentés – közterület-használat","Tóth Bence","2026. 11. 02.","B418","Folyamatban"],
+  ["PLD/1874/2026","Bíró Kata","Panasz – ügyfélfogadási rend","Tóth Bence","2026. 11. 06.","B418","Folyamatban"]
+];
+const MUNKATARSAK = ["Kiss Éva – ügykezelő","Tóth Bence – ügyintéző (panaszok, bejelentések)","Molnár Réka – ügyintéző (beszerzési ügyek)","dr. Szabó Péter – ügyintéző (közérdekű adatigénylések)","Varró Dániel – ügyintéző (közterület-használat)","Fekete Judit – ügyintéző (humánerőforrás)"];
+const KIADMANYOZOK = ["dr. Nagy Gábor – osztályvezető","Horváth Zsolt – gazdasági igazgató","dr. Fehér Ilona – jegyző","Az ügyintéző maga"];
+const TETELEK = ["A101","A205","B312","B418","B530","C520","C611"];
+const TETEL_CTX = `<span class="label">Irattári terv (kivonat)</span><p>A101 alapdokumentumok – nem selejtezhető · A205 belső szabályzatok – nem selejtezhető · B312 közérdekű adatigénylések – 5 év · B418 panaszok, közérdekű bejelentések – 5 év · B530 közterület-használati engedélyek – 10 év · C520 beszerzési ügyek – 8 év · C611 bér- és illetményügyek – 50 év</p>`;
+const REND_CTX = `<span class="label">Kiadmányozási rend (kivonat)</span><p>Panaszok, közérdekű bejelentések: osztályvezető (dr. Nagy Gábor) · Beszerzési ügyek: gazdasági igazgató (Horváth Zsolt) · Közérdekű adatigénylések: jegyző (dr. Fehér Ilona) · Közterület-használati ügyek: osztályvezető (dr. Nagy Gábor) · Munkáltatói intézkedések: jegyző (dr. Fehér Ilona)</p>`;
+const STAFF_CTX = `<span class="label">Munkatársak</span><p>${MUNKATARSAK.join(" · ")} · dr. Nagy Gábor – osztályvezető</p>`;
+const HITELESITES = ["Beszkennelt aláíráskép a kiadmányon","Legalább fokozott biztonságú e-aláírás vagy a szerv e-bélyegzője, időbélyegzővel","Nem kell hitelesítés, ha a tervezetet láttamozták"];
+const KEZBESITES = ["Ügyfél tárhelye (biztonságos kézbesítés)","Cégkapu (biztonságos kézbesítés)","Postai tértivevényes küldemény","Egyszerű e-mail"];
+const env = (lbl, body) => `<div class="env"><span class="lbl">${lbl}</span>${body}</div>`;
+const rubber = (t, red) => `<span class="rubber${red?" red":""}">${t}</span>`;
+
+const A3 = [
+/* ---------- 1. eset: postai bejelentés ---------- */
+{ unit:"gy", id:"gy-bejelentes", type:"flow",
+  title:"Postai levél: közérdekű bejelentés",
+  lead:"Egy ajánlott levél a postán. Vidd végig a bontástól az irattárig: érkeztetés, iktatás, szignálás, kiadmányozás, expediálás.",
+  task:"Nyolc lépésben te kezeled az ügyet, hol ügykezelőként, hol vezetőként. Jobb oldalon látod az iratot és a nyilvántartásokat: minden helyes lépés után beírja a rendszer a bejegyzést. Ha elakadsz, kérheted a megoldást, de az eredménybe csak az elsőre jó mezők számítanak.",
+  note:"Kitalált, egyszerűsített gyakorló rendszer a Példaváros Polgármesteri Hivatalról (PLD). A valódi rendszerben, a 9–11. alkalmon a Poszeidonban ugyanezek a lépések várnak.",
+  erk0: FLOW_ERK0, ikt0: FLOW_IKT0,
+  envelope: env("Boríték", `<p><b>Címzett:</b> Példaváros Polgármesteri Hivatal, 1234 Példaváros, Fő tér 1.</p><p><b>Feladó:</b> Szilágyi Márta, 1234 Példaváros, Akác utca 7.</p><p>Ajánlott levél · ragszám: RL 0123 4567 8HU</p><p>A posta átadta: 2026. 10. 12. (hétfő) 09:10 · a boríték sértetlen, jelzés nincs rajta</p>`),
+  endText:"A bejelentés a beérkezéstől az irattárig végigment a teljes iratéletúton. Az iktatókönyvben minden lépés nyomon követhető: ki, mikor, mit tett az irattal.",
+  stages:[
+    { short:"Átvétel, bontás", role:"Központi ügykezelő", title:"A küldemény átvétele és felbontása",
+      text:"Hétfő 09:10, a posta átadja a küldeményt. Nézd meg a borítékot a jobb oldalon, és döntsd el, hogyan kezeled.",
+      fields:[
+        { label:"Hogyan kezeled a küldeményt?", type:"select", options:["Felbontom, ellenőrzöm a mellékleteket, érkeztetem","Felbontás nélkül továbbítom a címzettnek","Zártan őrzöm a bontási időpontig","Nem bontom fel, biztonsági eljárást kezdeményezek"], answer:"Felbontom, ellenőrzöm a mellékleteket, érkeztetem", hint:"A hivatalnak címzett, sértetlen, jelzés nélküli levélről van szó.", why:"A hivatalnak címzett, s. k. jelzés nélküli, sértetlen küldemény felbontható." }
+      ],
+      done:"A levél felbontva, a tartalma megjelent a jobb oldalon.",
+      fx:{ doc: env("A levél tartalma", `<p>Kelt: Példaváros, 2026. 10. 08.</p><p>Tisztelt Hivatal! Bejelentem, hogy a Nyárfa utca végén, a buszforduló mellett hetek óta illegálisan lerakott építési törmelék és háztartási hulladék halmozódik. Kérem, intézkedjenek, és tájékoztassanak a megtett lépésekről.</p><p>Melléklet: 1 db fénykép a lerakóhelyről</p><p>Tisztelettel: Szilágyi Márta</p>`) } },
+    { short:"Érkeztetés", role:"Központi ügykezelő", title:"Érkeztetés",
+      text:"Rögzítsd a küldeményt az érkeztetési nyilvántartásban. A rendszer a következő szabad azonosítót adja: É-2026/2451. Ellenőrizd a mellékleteket is.",
+      fields:[
+        { label:"Beérkezés módja", type:"select", options:["Postai küldemény","Hivatali kapu","Személyes benyújtás","E-mail"], answer:"Postai küldemény" },
+        { label:"Beérkezés napja", type:"date", answer:"2026-10-12", show:"2026. 10. 12.", hint:"A hivatalhoz érkezés napja számít, nem a levél kelte." },
+        { label:"Küldő", type:"text", answer:"Szilágyi Márta" },
+        { label:"Ragszám", type:"text", answer:"RL 0123 4567 8HU", ph:"pl. RL 0000 0000 0HU", hint:"Az ajánlott küldemény ragszáma a borítékon van.", why:"Könyvelt postai küldeménynél a postai azonosító (ragszám) kötelező érkeztetési adat (335/2005. Korm. r. 34. § (2))." },
+        { label:"A küldő hivatkozási száma", type:"select", options:["Nincs (a levélen nem szerepel)","RL 0123 4567 8HU","É-2026/2451"], answer:"Nincs (a levélen nem szerepel)", hint:"A ragszám a posta azonosítója, az érkeztetési azonosító a miénk – egyik sem a küldő hivatkozási száma.", why:"Magánszemély levelén jellemzően nincs saját iktatószám; ha van, rögzíteni kell." },
+        { label:"Mellékletek száma", type:"number", answer:1, hint:"Nézd meg a levél végét." },
+        { label:"Meddig kell érkeztetni?", type:"select", options:["A beérkezés napján, legkésőbb a következő munkanapon","Egy héten belül","Az iktatással együtt, bármikor"], answer:"A beérkezés napján, legkésőbb a következő munkanapon" }
+      ],
+      done:"A küldemény érkeztetve: É-2026/2451.",
+      fx:{ erk:["É-2026/2451","2026. 10. 12. 09:10","Posta","Szilágyi Márta","RL 0123 4567 8HU","–","1","Iktatásra átadva"], doc: rubber("ÉRKEZETT · 2026. 10. 12. · É-2026/2451") } },
+    { short:"Iktatás", role:"Ügykezelő", title:"Előzményezés és iktatás",
+      text:"Iktatás előtt előzménykeresést végzel a küldő nevére és a tárgyszavakra („hulladék”, „Nyárfa utca”): nincs találat. Nézd meg az iktatókönyv kivonatát is, majd iktass.",
+      ctx: TETEL_CTX,
+      fields:[
+        { label:"Iktatás módja", type:"select", options:["Új főszám","Alszám egy meglévő ügyiratra","Nem iktatandó"], answer:"Új főszám", hint:"Van-e előzménye az ügynek?", why:"Új ügy első irata főszámra kerül." },
+        { label:"Iktatószám", type:"select", options:["PLD/1874-1/2026","PLD/1875/2026","PLD/1875-1/2026","É-2026/2451"], answer:"PLD/1875/2026", hint:"Mi az utolsó főszám az iktatókönyvben? Az új ügy kezdőirata alszám nélkül kerül a főszámra.", why:"A következő szabad főszám, alszám nélkül: ez az ügy kezdőirata." },
+        { label:"Tárgy", type:"select", options:["Levél","Szilágyi Márta beadványa","Közérdekű bejelentés – illegális hulladéklerakás, Nyárfa utca","Bejelentés"], answer:"Közérdekű bejelentés – illegális hulladéklerakás, Nyárfa utca", hint:"A tárgy legyen informatív és egységes: ezen múlik a visszakereshetőség.", why:"Informatív tárgy, a hivatal szóhasználatával." },
+        { label:"Irattári tételszám", type:"select", options:TETELEK, answer:"B418", hint:"Panasz vagy közérdekű bejelentés?", why:"B418: panaszok, közérdekű bejelentések, 5 év." }
+      ],
+      done:"Iktatva: PLD/1875/2026. Az érkeztetési bejegyzésben is megjelent a kapott iktatószám.",
+      fx:{ ikt:["PLD/1875/2026","Szilágyi Márta","Közérdekű bejelentés – illegális hulladéklerakás, Nyárfa utca","–","–","B418","Iktatva, szignálásra vár"], erkSet:{ id:"É-2026/2451", cells:[[7,"Iktatva: PLD/1875/2026"]] }, doc: rubber("PLD/1875/2026") } },
+    { short:"Szignálás", role:"Osztályvezető (szignáló)", title:"Szignálás",
+      text:"Az ügy megjelent a szignálási listádon. Jelöld ki az ügyintézőt, és add meg az elintézési határidőt. A közérdekű bejelentést 30 napon belül kell elbírálni; a határidő a beérkezést követő napon indul, és ha hétvégére esik, a következő munkanapon jár le.",
+      ctx: STAFF_CTX,
+      fields:[
+        { label:"Ügyintéző", type:"select", options:MUNKATARSAK, answer:"Tóth Bence – ügyintéző (panaszok, bejelentések)", hint:"Az ügykezelő az iratot kezeli, nem az ügyet.", why:"A bejelentések ügyintézője." },
+        { label:"Elintézési határidő", type:"date", answer:"2026-11-11", show:"2026. 11. 11. (szerda)", hint:"A beérkezés 2026. 10. 12. volt; a számolás másnap indul.", why:"Október 13-án indul, a 30. nap november 11., szerda." },
+        { label:"Mit rögzít a rendszer a szignálásról?", type:"select", options:["A szignálás tényét, idejét és tartalmát (ügyintéző, határidő, utasítás)","Csak az ügyintéző nevét","Semmit, a szignálás szóbeli"], answer:"A szignálás tényét, idejét és tartalmát (ügyintéző, határidő, utasítás)", why:"Felelősségi szempontból kulcsadat." }
+      ],
+      done:"Szignálva: Tóth Bence, határidő 2026. 11. 11. Az ügy az ügyintéző feladatlistájába került.",
+      fx:{ iktSet:{ id:"PLD/1875/2026", cells:[[3,"Tóth Bence"],[4,"2026. 11. 11."],[6,"Ügyintézés alatt"]] } } },
+    { short:"Tervezet", role:"Ügyintéző", title:"Ügyintézés és a válasz tervezete",
+      text:"A helyszíni szemle megtörtént, a hulladékot elszállíttattátok. Elkészíted a bejelentőnek szóló válasz tervezetét.",
+      fields:[
+        { label:"A válasz iktatószáma", type:"select", options:["PLD/1875/2026","PLD/1875-1/2026","PLD/1876/2026"], answer:"PLD/1875-1/2026", hint:"Ugyanabban az ügyben vagy.", why:"A kimenő irat az ügyirat következő alszáma." },
+        { label:"Hivatkozás a válasz elején", type:"select", options:["Az Ön 2026. 10. 08-án kelt bejelentésére (PLD/1875/2026)","Hivatkozott levelére","Nem kell hivatkozás"], answer:"Az Ön 2026. 10. 08-án kelt bejelentésére (PLD/1875/2026)", why:"A pontos hivatkozással látható az ügyfélkapcsolati lánc." },
+        { label:"Ki láttamozza a tervezetet?", type:"select", options:["A szakmai felettes (osztályvezető)","Az ügykezelő","A bejelentő"], answer:"A szakmai felettes (osztályvezető)", why:"A láttamozás minőségbiztosítás, joghatást nem keletkeztet." }
+      ],
+      done:"A tervezet elkészült és láttamozták. Jöhet a kiadmányozás.",
+      fx:{ ikt:["PLD/1875-1/2026","Szilágyi Márta (címzett)","Válasz közérdekű bejelentésre","Tóth Bence","–","B418","Tervezet, láttamozva"], doc: env("Választervezet – PLD/1875-1/2026", `<p>Tisztelt Szilágyi Márta! Az Ön 2026. 10. 08-án kelt bejelentésére (PLD/1875/2026) tájékoztatom, hogy a helyszíni szemlét követően a Nyárfa utcai lerakott hulladékot elszállíttattuk, és a területet rendszeres ellenőrzés alá vontuk.</p>`) } },
+    { short:"Kiadmányozás", role:"Kiadmányozó", title:"Kiadmányozás",
+      text:"A láttamozott tervezet a kiadmányozó elé kerül. Ki jogosult kiadmányozni, és hogyan kell hitelesíteni az elektronikus kiadmányt?",
+      ctx: REND_CTX,
+      fields:[
+        { label:"Kiadmányozó", type:"select", options:KIADMANYOZOK, answer:"dr. Nagy Gábor – osztályvezető", hint:"Nézd meg a kiadmányozási rendet.", why:"Panaszok, közérdekű bejelentések: osztályvezető." },
+        { label:"Hitelesítés", type:"select", options:HITELESITES, answer:"Legalább fokozott biztonságú e-aláírás vagy a szerv e-bélyegzője, időbélyegzővel", hint:"A beszkennelt aláírás egyszerű szint, a láttamozás pedig nem hitelesítés.", why:"Elektronikus ügyintézésben a hitelesített elektronikus példány az eredeti." }
+      ],
+      done:"Kiadmányozva és hitelesítve.",
+      fx:{ iktSet:{ id:"PLD/1875-1/2026", cells:[[6,"Kiadmányozva"]] }, doc: rubber("Kiadmányozta: dr. Nagy Gábor · fokozott biztonságú e-aláírás · időbélyeg 2026. 10. 27.") } },
+    { short:"Expediálás", role:"Ügykezelő", title:"Expediálás",
+      text:"Szilágyi Márta magánszemély, a bejelentését postán tette, elektronikus kapcsolattartást nem választott. Hogyan juttatod el hozzá a választ?",
+      fields:[
+        { label:"Kézbesítési mód", type:"select", options:KEZBESITES, answer:"Postai tértivevényes küldemény", hint:"Kötelezhető-e egy magánszemély elektronikus ügyintézésre?", why:"Természetes személy főszabályként csak törvényben kötelezhető elektronikus ügyintézésre; a papíralapú példány az elektronikus kiadmány hiteles papírmásolata." },
+        { label:"Mi lesz a visszaérkező tértivevénnyel?", type:"select", options:["Önálló főszámon iktatom","A kiadmányhoz, az ügyirathoz kapcsolom","Nem kell megőrizni"], answer:"A kiadmányhoz, az ügyirathoz kapcsolom", hint:"A tértivevény nem önálló ügy.", why:"A kézbesítési vélelem miatt a tértivevény bizonyíték." }
+      ],
+      done:"Expediálva tértivevényes levélként. A tértivevény visszaérkezett, és az ügyirathoz került.",
+      fx:{ iktSet:{ id:"PLD/1875-1/2026", cells:[[6,"Expediálva, tértivevény visszaérkezett"]] }, doc: rubber("EXPEDIÁLVA · 2026. 10. 27. · tértivevényes") } },
+    { short:"Irattár", role:"Ügykezelő", title:"Irattárba helyezés",
+      text:"Az ügyben további intézkedés nem várható, az ügyet 2026-ban lezárjátok.",
+      fields:[
+        { label:"Mit ellenőrzöl irattárba helyezés előtt?", type:"select", options:["Az ügyirat teljességét (minden alszám, melléklet, tértivevény) és a tételszám helyességét","Csak az utolsó alszámot","Semmit, ez az irattáros dolga"], answer:"Az ügyirat teljességét (minden alszám, melléklet, tértivevény) és a tételszám helyességét" },
+        { label:"Melyik évtől selejtezhető (a lezárás évétől számolva)?", type:"select", options:["2028","2031","2034","Nem selejtezhető"], answer:"2031", hint:"B418: hány év az őrzési idő?", why:"B418: 5 év, 2026 + 5 = 2031 – és akkor is csak jegyzőkönyvvel, levéltári jóváhagyással." }
+      ],
+      done:"Az ügyirat irattárba került; a rendszer kiszámolta a megőrzési idő lejártát.",
+      fx:{ iktSet:{ id:"PLD/1875/2026", cells:[[6,"Irattárban"]] } } }
+  ]
+},
+
+/* ---------- 2. eset: hiánypótlás cégkapun ---------- */
+{ unit:"gy", id:"gy-hianypotlas", type:"flow",
+  title:"Cégkapu: hiánypótlás egy futó ügyben",
+  lead:"Egy cég hivatali kapun pótolja a hiányt egy meglévő ügyben. Előzményezés, alszám, öröklött tételszám, kiadmányozás, cégkapus expediálás.",
+  task:"Nyolc lépésben te kezeled az ügyet. Jobb oldalon az irat és a nyilvántartások: figyeld meg, hogy az ügy már szerepel az iktatókönyvben. Ha elakadsz, kérheted a megoldást.",
+  note:"Kitalált, egyszerűsített gyakorló rendszer. Az azonos ügyhöz tartozó iratok nem sorolhatók különböző irattári tételekbe.",
+  erk0: FLOW_ERK0, ikt0: FLOW_IKT0,
+  envelope: env("Hivatali kapu – beérkezett üzenet", `<p><b>Feladó:</b> Varga és Társa Kft. (cégkapu)</p><p><b>Beérkezés (rendszeridő):</b> 2026. 10. 13. (kedd) 10:22</p><p><b>Tárgy:</b> Hiánypótlás a PLD/1310-1/2026 számú felhívásra</p><p><b>Kézbesítési azonosító:</b> KR-20261013-0458821</p><p><b>Csatolmányok:</b> kisero_level.pdf, alairasi_cimpeldany.pdf</p><p>Feladási igazolás: kiállítva</p>`),
+  endText:"A hiánypótlás a meglévő ügyirat alszámaként futott végig – nem keletkezett párhuzamos ügyirat. Ezt véd ki a gondos előzményezés.",
+  stages:[
+    { short:"Megnyitás", role:"Központi ügykezelő", title:"Az elektronikus küldemény megnyitása",
+      text:"Az üzenet a hivatali kapun érkezett. Mi az elektronikus küldemény „felbontásának” megfelelője, és mikor kezdődnek a határidők?",
+      fields:[
+        { label:"Mit teszel az üzenettel?", type:"select", options:["Ellenőrzöm, hogy az üzenet és a csatolmányok megnyithatók, olvashatók és vírusmentesek","Kinyomtatom, és papíron érkeztetem","Megvárom, amíg az ügyintéző megnézi"], answer:"Ellenőrzöm, hogy az üzenet és a csatolmányok megnyithatók, olvashatók és vírusmentesek", why:"Ez a felbontás elektronikus megfelelője." },
+        { label:"Melyik időponttól futnak a határidők?", type:"select", options:["2026. 10. 13. 10:22 – a beérkezés rendszeridőpontja","Amikor megnyitom az üzenetet","Az iktatás időpontja"], answer:"2026. 10. 13. 10:22 – a beérkezés rendszeridőpontja", why:"A „nem néztük meg” nem mentesít a határidők alól." }
+      ],
+      done:"A csatolmányok rendben megnyílnak. A tartalom a jobb oldalon látható.",
+      fx:{ doc: env("A kísérőlevél tartalma", `<p>Iktatószámunk: VT/117/2026</p><p>Hivatkozással a PLD/1310-1/2026 számú hiánypótlási felhívásukra csatoltan megküldjük társaságunk aláírási címpéldányát.</p><p>Melléklet: 1 db aláírási címpéldány</p><p>Varga Péter ügyvezető</p>`) } },
+    { short:"Érkeztetés", role:"Rendszer + ügykezelő", title:"Az automatikus érkeztetés ellenőrzése",
+      text:"A rendszer a hivatali kapu metaadataiból automatikusan érkeztette a küldeményt az É-2026/2451 azonosítóval. Ellenőrizd a bejegyzés adatait.",
+      fields:[
+        { label:"Ki végezte az érkeztetést?", type:"select", options:["A rendszer automatikusan, a metaadatokból","Nekem kell kézzel","Az ügyintéző"], answer:"A rendszer automatikusan, a metaadatokból", why:"Elektronikus beérkezésnél az érkeztetés automatikus; az ellenőrzés emberi feladat marad." },
+        { label:"Beérkezés módja", type:"select", options:["Postai küldemény","Hivatali kapu","Személyes benyújtás","E-mail"], answer:"Hivatali kapu" },
+        { label:"Küldő", type:"text", answer:"Varga és Társa Kft.", accept:["Varga és Társa Kft","Varga és Társa"] },
+        { label:"Elektronikus küldeményazonosító", type:"text", answer:"KR-20261013-0458821", hint:"Az üzenet fejlécében, a kézbesítési azonosítónál.", why:"Elektronikus küldeménynél a kézbesítési szolgáltatás által adott azonosító kötelező érkeztetési adat." },
+        { label:"A küldő hivatkozási száma (saját iktatószáma)", type:"text", answer:"VT/117/2026", hint:"Nézd meg a kísérőlevél tetejét.", why:"Az idegen iktatószámot rögzíteni kell: a válaszban erre is hivatkozunk." },
+        { label:"Mellékletek száma (a kísérőlevél szerint)", type:"number", answer:1 }
+      ],
+      done:"Az érkeztetési bejegyzés rendben.",
+      fx:{ erk:["É-2026/2451","2026. 10. 13. 10:22","Hivatali kapu","Varga és Társa Kft.","KR-20261013-0458821","VT/117/2026","1","Iktatásra átadva"], doc: rubber("ÉRKEZETT · 2026. 10. 13. 10:22 · É-2026/2451") } },
+    { short:"Iktatás", role:"Ügykezelő", title:"Előzményezés és iktatás",
+      text:"Előzménykeresést végzel a hivatkozási számra: PLD/1310-1/2026 – van találat. Nézd meg az iktatókönyvben, mi tartozik ehhez az ügyhöz.",
+      ctx: TETEL_CTX,
+      fields:[
+        { label:"Iktatás módja", type:"select", options:["Új főszám","Alszám a meglévő ügyiratra","Nem iktatandó"], answer:"Alszám a meglévő ügyiratra", hint:"Az irat egy futó ügy folytatása.", why:"Ugyanazon ügy idei irata alszámra kerül." },
+        { label:"Iktatószám", type:"select", options:["PLD/1310-1/2026","PLD/1310-2/2026","PLD/1875/2026","PLD/1311/2026"], answer:"PLD/1310-2/2026", hint:"Mi az ügy utolsó alszáma?", why:"Az ügyirat következő alszáma." },
+        { label:"Irattári tételszám", type:"select", options:TETELEK, answer:"C520", hint:"Melyik tételben van már az ügy?", why:"Az azonos ügyhöz tartozó iratok nem sorolhatók különböző tételekbe." }
+      ],
+      done:"Iktatva: PLD/1310-2/2026, a meglévő ügyiratban.",
+      fx:{ ikt:["PLD/1310-2/2026","Varga és Társa Kft.","Hiánypótlás – aláírási címpéldány","Molnár Réka","2026. 10. 30.","C520","Iktatva"], erkSet:{ id:"É-2026/2451", cells:[[7,"Iktatva: PLD/1310-2/2026"]] }, doc: rubber("PLD/1310-2/2026") } },
+    { short:"Szignálás", role:"Osztályvezető", title:"Kell-e újra szignálni?",
+      text:"A hiánypótlás egy már szignált, folyamatban lévő ügy alszámára került.",
+      fields:[
+        { label:"Mi a teendő?", type:"select", options:["Nem kell új ügyintézőt kijelölni: az irat a meglévő ügyintézőhöz kerül","Minden új irat új szignálást igényel","Az ügykezelő dönt az ügy érdemében"], answer:"Nem kell új ügyintézőt kijelölni: az irat a meglévő ügyintézőhöz kerül", why:"Az alszámon érkező irat követi az ügyirat ügyintézőjét; átszignálás csak indokolt esetben, dokumentáltan." },
+        { label:"Ki az ügy ügyintézője?", type:"select", options:MUNKATARSAK, answer:"Molnár Réka – ügyintéző (beszerzési ügyek)", hint:"Nézd meg az iktatókönyvet." }
+      ],
+      done:"A hiánypótlás Molnár Réka feladatlistájába került.",
+      fx:{ iktSet:{ id:"PLD/1310-2/2026", cells:[[6,"Ügyintézőnél"]] } } },
+    { short:"Tervezet", role:"Ügyintéző", title:"A döntés tervezete",
+      text:"A hiánypótlás teljes. Molnár Réka elkészíti a szerződésmódosítást jóváhagyó levél tervezetét. A módosítás növeli a szerződés értékét.",
+      fields:[
+        { label:"A válasz iktatószáma", type:"select", options:["PLD/1310-2/2026","PLD/1310-3/2026","PLD/1875/2026"], answer:"PLD/1310-3/2026", why:"A kimenő döntés a következő alszám." },
+        { label:"Ki láttamozza a tervezetet?", type:"select", options:["A szakmai felettes","Az ügykezelő","A Varga és Társa Kft."], answer:"A szakmai felettes" },
+        { label:"Kell-e pénzügyi ellenjegyzés?", type:"select", options:["Igen, ha jogszabály vagy belső szabály előírja: a fedezet igazolása ilyenkor érvényességi kellék","Nem, a láttamozás elég"], answer:"Igen, ha jogszabály vagy belső szabály előírja: a fedezet igazolása ilyenkor érvényességi kellék", why:"A láttamozás minőségbiztosítás, az ellenjegyzés érvényességi kellék." }
+      ],
+      done:"A tervezet láttamozva, a fedezet ellenjegyezve.",
+      fx:{ ikt:["PLD/1310-3/2026","Varga és Társa Kft. (címzett)","Szerződésmódosítás jóváhagyása","Molnár Réka","–","C520","Tervezet, ellenjegyezve"], doc: env("Tervezet – PLD/1310-3/2026", `<p>Tisztelt Varga Péter Úr! A 2026. 09. 22-én kelt kérelmükre (PLD/1310/2026) és a 2026. 10. 13-án teljesített hiánypótlásra (PLD/1310-2/2026) tájékoztatom, hogy a szolgáltatási szerződés módosítását jóváhagyjuk.</p>`) } },
+    { short:"Kiadmányozás", role:"Kiadmányozó", title:"Kiadmányozás",
+      text:"Ki kiadmányozza a beszerzési ügyben hozott döntést, és hogyan hitelesíti?",
+      ctx: REND_CTX,
+      fields:[
+        { label:"Kiadmányozó", type:"select", options:KIADMANYOZOK, answer:"Horváth Zsolt – gazdasági igazgató", hint:"Beszerzési ügyről van szó.", why:"Beszerzési ügyek: gazdasági igazgató." },
+        { label:"Hitelesítés", type:"select", options:HITELESITES, answer:"Legalább fokozott biztonságú e-aláírás vagy a szerv e-bélyegzője, időbélyegzővel" }
+      ],
+      done:"Kiadmányozva és hitelesítve.",
+      fx:{ iktSet:{ id:"PLD/1310-3/2026", cells:[[6,"Kiadmányozva"]] }, doc: rubber("Kiadmányozta: Horváth Zsolt · e-aláírás + időbélyeg · 2026. 10. 20.") } },
+    { short:"Expediálás", role:"Ügykezelő", title:"Expediálás",
+      text:"A címzett gazdálkodó szervezet.",
+      fields:[
+        { label:"Kézbesítési mód", type:"select", options:KEZBESITES, answer:"Cégkapu (biztonságos kézbesítés)", hint:"Kötelezett-e a cég elektronikus ügyintézésre?", why:"Gazdálkodó szervezet elektronikus ügyintézésre kötelezett: a módválasztás nem célszerűségi döntés." },
+        { label:"Mi igazolja a kézbesítést?", type:"select", options:["A letöltési (átvételi) igazolás, amelyet az ügyirathoz kapcsolok","Egy telefonhívás a cégnek","Semmi, az elküldés elég"], answer:"A letöltési (átvételi) igazolás, amelyet az ügyirathoz kapcsolok", why:"A kézbesítési vélelem miatt az igazolás bizonyítási kulcskérdés." }
+      ],
+      done:"Expediálva cégkapura; a letöltési igazolás az ügyirathoz került.",
+      fx:{ iktSet:{ id:"PLD/1310-3/2026", cells:[[6,"Expediálva, letöltve"]] }, doc: rubber("EXPEDIÁLVA · cégkapu · letöltési igazolás 2026. 10. 21.") } },
+    { short:"Irattár", role:"Ügykezelő", title:"Irattárba helyezés",
+      text:"Az ügy 2026-ban lezárul.",
+      fields:[
+        { label:"Melyik évtől selejtezhető (a lezárás évétől számolva)?", type:"select", options:["2031","2034","2076","Nem selejtezhető"], answer:"2034", hint:"C520: hány év az őrzési idő?", why:"C520: 8 év, 2026 + 8 = 2034." },
+        { label:"Mi kerül irattárba?", type:"select", options:["A teljes ügyirat: a kérelem, a felhívás, a hiánypótlás, a döntés és az igazolások","Csak a döntés","Csak a hiánypótlás"], answer:"A teljes ügyirat: a kérelem, a felhívás, a hiánypótlás, a döntés és az igazolások", why:"Egy ügy iratai egy irategységet alkotnak." }
+      ],
+      done:"Az ügyirat irattárban.",
+      fx:{ iktSet:{ id:"PLD/1310/2026", cells:[[6,"Irattárban"]] } } }
+  ]
+},
+
+/* ---------- 3. eset: közérdekű adatigénylés hivatali kapun ---------- */
+{ unit:"gy", id:"gy-adatigenyles", type:"flow",
+  title:"Péntek este: közérdekű adatigénylés",
+  lead:"Péntek 21:47-kor adatigénylés érkezik az ügyfél tárhelyéről. Határidő-számítás, anonimizálás, jegyzői kiadmányozás.",
+  task:"Nyolc lépésben te kezeled az ügyet. Figyelj a határidőre: a közérdekű adatigénylést 15 napon belül kell teljesíteni. Ha elakadsz, kérheted a megoldást.",
+  note:"Kitalált, egyszerűsített gyakorló rendszer. A határidő-számításnál a beérkezést követő naptól számolunk naptári napokban, hétvégi átcsúszással.",
+  erk0: FLOW_ERK0, ikt0: FLOW_IKT0,
+  envelope: env("Hivatali kapu – beérkezett üzenet", `<p><b>Feladó:</b> Kovács Anna (azonosított ügyfél, ügyfélkapuval)</p><p><b>Beérkezés (rendszeridő):</b> 2026. 10. 09. (péntek) 21:47</p><p><b>Kézbesítési azonosító:</b> KR-20261009-0451377</p><p><b>Tárgy:</b> Közérdekű adatigénylés</p><p>„Kérem a hivatal 2025-ben kötött megbízási szerződéseinek másolatát elektronikus úton.”</p><p>Elektronikus kapcsolattartást választott.</p>`),
+  endText:"Az adatigénylést határidőben, anonimizált másolattal teljesítettétek. A mérlegelés indokolása is az ügyirat része lett.",
+  stages:[
+    { short:"Beérkezés", role:"Központi ügykezelő", title:"Hétfő reggel: mi történt hétvégén?",
+      text:"Hétfőn 08:00-kor nyitod meg a rendszert. Az üzenet péntek este érkezett.",
+      fields:[
+        { label:"Mikor indul a 15 napos határidő?", type:"select", options:["2026. 10. 10-én, szombaton – a beérkezést követő napon","2026. 10. 12-én, hétfőn, amikor megnyitom","Az iktatás napján"], answer:"2026. 10. 10-én, szombaton – a beérkezést követő napon", hint:"A beérkezés rendszeridőpontja számít, nem a megnyitás.", why:"A határidő a beérkezést követő napon indul." },
+        { label:"Mikor jár le?", type:"date", answer:"2026-10-26", show:"2026. 10. 26. (hétfő)", hint:"A 15. nap hétvégére esik.", why:"A 15. nap október 24., szombat, ezért hétfőn, október 26-án jár le." }
+      ],
+      done:"A határidő 2026. 10. 26. A hétvége már elvitt két napot – ezért kell a tárhelyet folyamatosan figyelni.",
+      fx:{} },
+    { short:"Érkeztetés", role:"Rendszer + ügykezelő", title:"Az automatikus érkeztetés ellenőrzése",
+      text:"A rendszer pénteken automatikusan érkeztette a küldeményt az É-2026/2451 azonosítóval.",
+      fields:[
+        { label:"Beérkezés módja", type:"select", options:["Postai küldemény","Hivatali kapu","Személyes benyújtás","E-mail"], answer:"Hivatali kapu" },
+        { label:"A bejegyzésben a beérkezés időpontja", type:"select", options:["2026. 10. 09. 21:47","2026. 10. 12. 08:00","2026. 10. 12. 08:15"], answer:"2026. 10. 09. 21:47", why:"A rendszeridőpont, nem a megnyitás ideje." },
+        { label:"Küldő", type:"text", answer:"Kovács Anna" },
+        { label:"Elektronikus küldeményazonosító", type:"text", answer:"KR-20261009-0451377", hint:"Az üzenet fejlécében, a kézbesítési azonosítónál.", why:"A kézbesítési szolgáltatás azonosítója kötelező érkeztetési adat." }
+      ],
+      done:"Az érkeztetési bejegyzés rendben.",
+      fx:{ erk:["É-2026/2451","2026. 10. 09. 21:47","Hivatali kapu","Kovács Anna","KR-20261009-0451377","–","0","Iktatásra átadva"], doc: rubber("ÉRKEZETT · 2026. 10. 09. 21:47 · É-2026/2451") } },
+    { short:"Iktatás", role:"Ügykezelő", title:"Előzményezés és iktatás",
+      text:"Előzménykeresés Kovács Anna nevére és az „adatigénylés” tárgyszóra: nincs találat.",
+      ctx: TETEL_CTX,
+      fields:[
+        { label:"Iktatószám", type:"select", options:["PLD/1874-1/2026","PLD/1875/2026","PLD/1310-2/2026","É-2026/2451"], answer:"PLD/1875/2026", why:"Új ügy kezdőirata: a következő főszám, alszám nélkül." },
+        { label:"Tárgy", type:"select", options:["Kovács Anna levele","Közérdekű adatigénylés – 2025. évi megbízási szerződések","Kérelem","Szerződések"], answer:"Közérdekű adatigénylés – 2025. évi megbízási szerződések", why:"Informatív, egységes tárgy." },
+        { label:"Irattári tételszám", type:"select", options:TETELEK, answer:"B312", hint:"Nem beszerzési ügy: az ügy tárgya az adatigénylés.", why:"B312: közérdekű adatigénylések, 5 év." },
+        { label:"Kezelési jelzés", type:"select", options:["Nincs szükség rá","Kiemelt jelzés a rövid, 15 napos határidő miatt"], answer:"Kiemelt jelzés a rövid, 15 napos határidő miatt", why:"A rövid határidő miatt gyorsított útvonal indokolt." }
+      ],
+      done:"Iktatva: PLD/1875/2026, kiemelt jelzéssel.",
+      fx:{ ikt:["PLD/1875/2026","Kovács Anna","Közérdekű adatigénylés – 2025. évi megbízási szerződések","–","–","B312","Iktatva, SÜRGŐS"], erkSet:{ id:"É-2026/2451", cells:[[7,"Iktatva: PLD/1875/2026"]] }, doc: rubber("PLD/1875/2026 · SÜRGŐS", true) } },
+    { short:"Szignálás", role:"Osztályvezető", title:"Szignálás",
+      text:"Jelöld ki az ügyintézőt, és rögzítsd a határidőt.",
+      ctx: STAFF_CTX,
+      fields:[
+        { label:"Ügyintéző", type:"select", options:MUNKATARSAK, answer:"dr. Szabó Péter – ügyintéző (közérdekű adatigénylések)" },
+        { label:"Határidő", type:"date", answer:"2026-10-26", show:"2026. 10. 26.", hint:"Már kiszámoltad az első lépésben." }
+      ],
+      done:"Szignálva: dr. Szabó Péter, határidő 2026. 10. 26.",
+      fx:{ iktSet:{ id:"PLD/1875/2026", cells:[[3,"dr. Szabó Péter"],[4,"2026. 10. 26."],[6,"Ügyintézés alatt"]] } } },
+    { short:"Tervezet", role:"Ügyintéző", title:"Anonimizálás és a válasz tervezete",
+      text:"Összegyűjtöd a 2025-ös megbízási szerződéseket. Magánszemély vállalkozók neve, lakcíme, születési adatai és bankszámlaszáma is szerepel bennük.",
+      fields:[
+        { label:"Mi kerül a kiadott másolatra?", type:"select", options:["Minden adat változatlanul, mert közpénzről van szó","A név, a tárgy, az érték és a határidő; a lakcím, a születési adatok és a bankszámlaszám visszafejthetetlenül kitakarva","Semmi, a kérést adatvédelmi okból elutasítjuk"], answer:"A név, a tárgy, az érték és a határidő; a lakcím, a születési adatok és a bankszámlaszám visszafejthetetlenül kitakarva", why:"A közfeladattal összefüggő adat nyilvános, a magánszférához tartozó többletadat nem." },
+        { label:"Mi lesz az eredeti szerződésekkel?", type:"select", options:["Változatlanok maradnak; a kitakart példány külön, dokumentáltan készül","Az eredetiben takarjuk ki az adatokat"], answer:"Változatlanok maradnak; a kitakart példány külön, dokumentáltan készül" },
+        { label:"A válasz iktatószáma", type:"select", options:["PLD/1875/2026","PLD/1875-1/2026","PLD/1876/2026"], answer:"PLD/1875-1/2026" }
+      ],
+      done:"A válasz és az anonimizált másolatok elkészültek; a mérlegelés indokolása az ügyiratba került.",
+      fx:{ ikt:["PLD/1875-1/2026","Kovács Anna (címzett)","Válasz adatigénylésre, anonimizált másolatokkal","dr. Szabó Péter","–","B312","Tervezet"], doc: env("Tervezet – PLD/1875-1/2026", `<p>Tisztelt Kovács Anna! 2026. 10. 09-én érkezett adatigénylésére (PLD/1875/2026) mellékelten megküldöm a hivatal 2025. évi megbízási szerződéseinek másolatát. A magánszemély szerződő felek személyes adatait – a közfeladattal összefüggő adatok kivételével – kitakartuk.</p>`) } },
+    { short:"Kiadmányozás", role:"Kiadmányozó", title:"Kiadmányozás",
+      text:"Ki jogosult kiadmányozni a közérdekű adatigénylésre adott választ?",
+      ctx: REND_CTX,
+      fields:[
+        { label:"Kiadmányozó", type:"select", options:KIADMANYOZOK, answer:"dr. Fehér Ilona – jegyző", why:"Közérdekű adatigénylések: jegyző." },
+        { label:"Hitelesítés", type:"select", options:HITELESITES, answer:"Legalább fokozott biztonságú e-aláírás vagy a szerv e-bélyegzője, időbélyegzővel" }
+      ],
+      done:"Kiadmányozva 2026. 10. 22-én, határidőn belül.",
+      fx:{ iktSet:{ id:"PLD/1875-1/2026", cells:[[6,"Kiadmányozva"]] }, doc: rubber("Kiadmányozta: dr. Fehér Ilona jegyző · e-aláírás + időbélyeg · 2026. 10. 22.") } },
+    { short:"Expediálás", role:"Ügykezelő", title:"Expediálás",
+      text:"Kovács Anna ügyfélkapuval nyújtotta be az igénylést, és elektronikus kapcsolattartást választott.",
+      fields:[
+        { label:"Kézbesítési mód", type:"select", options:KEZBESITES, answer:"Ügyfél tárhelye (biztonságos kézbesítés)", why:"Az ügyfél választotta az elektronikus kapcsolattartást." },
+        { label:"Mi bizonyítja a teljesítést, ha az igénylő később vitatja?", type:"select", options:["A feladási és a letöltési igazolás, az ügyirathoz kapcsolva","Az ügyintéző emlékezete","A kimenő e-mail másolata"], answer:"A feladási és a letöltési igazolás, az ügyirathoz kapcsolva", why:"A bizonyíték nem emlékezet, hanem napló és igazolás." }
+      ],
+      done:"Expediálva az ügyfél tárhelyére; az igazolások az ügyiratban.",
+      fx:{ iktSet:{ id:"PLD/1875-1/2026", cells:[[6,"Expediálva, letöltve"]] }, doc: rubber("EXPEDIÁLVA · ügyfél tárhelye · 2026. 10. 22.") } },
+    { short:"Irattár", role:"Ügykezelő", title:"Irattárba helyezés",
+      text:"Az ügy 2026-ban lezárul.",
+      fields:[
+        { label:"Melyik évtől selejtezhető (a lezárás évétől számolva)?", type:"select", options:["2028","2031","2034","Nem selejtezhető"], answer:"2031", why:"B312: 5 év, 2026 + 5 = 2031." },
+        { label:"Mi történik az őrzési idő leteltével?", type:"select", options:["Selejtezési jegyzőkönyv, levéltári jóváhagyás, majd megsemmisítés","A rendszer magától törli","Örökre megőrizzük, a biztonság kedvéért"], answer:"Selejtezési jegyzőkönyv, levéltári jóváhagyás, majd megsemmisítés", why:"A lejárt őrzési idejű irat selejtezése adatvédelmi kötelezettség is." }
+      ],
+      done:"Az ügyirat irattárban.",
+      fx:{ iktSet:{ id:"PLD/1875/2026", cells:[[6,"Irattárban"]] } } }
+  ]
+}
+];
+
+/* ===== Önálló gyakorlás: további ügymenetek ===== */
+const FIELD_HITELESITES = { label:"Hitelesítés", type:"select", options:HITELESITES, answer:"Legalább fokozott biztonságú e-aláírás vagy a szerv e-bélyegzője, időbélyegzővel", hint:"A beszkennelt aláírás egyszerű szint, a láttamozás pedig nem hitelesítés." };
+const FIELD_LATTAMOZAS = { label:"Ki láttamozza a tervezetet?", type:"select", options:["A szakmai felettes","Az ügykezelő","Az ügyfél"], answer:"A szakmai felettes", why:"A láttamozás minőségbiztosítás, joghatást nem keletkeztet." };
+const FIELD_MOD = (ans) => ({ label:"Beérkezés módja", type:"select", options:["Postai küldemény","Hivatali kapu","Személyes benyújtás","E-mail"], answer:ans });
+const ONALLO_NOTE = "Önálló gyakorló ügy. Kitalált, egyszerűsített gyakorló rendszer a Példaváros Polgármesteri Hivatalról (PLD).";
+const ONALLO_TASK = "Vidd végig az ügyet lépésről lépésre. Jobb oldalon az irat, alatta a nyilvántartások: minden helyes lépés után beírja a rendszer a bejegyzést. Ha elakadsz, kérheted a megoldást, de az eredménybe csak az elsőre jó mezők számítanak.";
+
+const A4 = [
+/* ---------- Évváltás: tavalyi panasz folytatása ---------- */
+{ unit:"gyo", id:"gyo-evvaltas", type:"flow",
+  title:"Évváltás: egy tavalyi panasz folytatódik",
+  lead:"Januárban levél érkezik egy 2026-ban lezárt ügyre hivatkozva. Új évi iktatókönyv, új főszám, szerelés.",
+  task: ONALLO_TASK, note: ONALLO_NOTE,
+  bookTitle:"Iktatókönyv – PLD 2027 (kivonat)",
+  erk0:[["É-2027/0102","2027. 01. 08. 10:40","Posta","Lakatos Béla","RL 0201 7788 1HU","–","0","Iktatva: PLD/36/2027"]],
+  ikt0:[["PLD/35/2027","Gál Ferenc","Panasz – parkolási rend","Tóth Bence","2027. 02. 05.","B418","Folyamatban"],
+        ["PLD/36/2027","Lakatos Béla","Közérdekű bejelentés – közvilágítás","Tóth Bence","2027. 02. 08.","B418","Folyamatban"]],
+  envelope: env("Boríték", `<p><b>Címzett:</b> Példaváros Polgármesteri Hivatal, 1234 Példaváros, Fő tér 1.</p><p><b>Feladó:</b> Bíró Kata, 1234 Példaváros, Szil utca 9.</p><p>Ajánlott levél · ragszám: RL 0311 2244 5HU</p><p>A posta átadta: 2027. 01. 11. (hétfő) 09:20 · sértetlen, jelzés nélkül</p>`),
+  endText:"Az ügy az új évben új főszámon folytatódott, a tavalyi előzmény szerelve lett: egy ügy, egy teljes történet, két év iktatókönyvében visszakövethetően.",
+  stages:[
+    { short:"Bontás", role:"Központi ügykezelő", title:"A küldemény felbontása",
+      text:"Nézd meg a borítékot, és döntsd el, hogyan kezeled.",
+      fields:[{ label:"Hogyan kezeled a küldeményt?", type:"select", options:["Felbontom, ellenőrzöm a mellékleteket, érkeztetem","Felbontás nélkül továbbítom a címzettnek","Zártan őrzöm a bontási időpontig"], answer:"Felbontom, ellenőrzöm a mellékleteket, érkeztetem" }],
+      done:"A levél felbontva.",
+      fx:{ doc: env("A levél tartalma", `<p>Kelt: Példaváros, 2027. 01. 07.</p><p>Tisztelt Hivatal! Tavaly októberi panaszomra (az Önök száma: PLD/1874/2026) választ kaptam, de az ügyfélfogadási rend azóta sem változott. Kérem, vizsgálják ki ismét.</p><p>Melléklet: nincs</p><p>Bíró Kata</p>`) } },
+    { short:"Érkeztetés", role:"Központi ügykezelő", title:"Érkeztetés",
+      text:"Rögzítsd a küldeményt. A rendszer a következő szabad azonosítót adja: É-2027/0103.",
+      fields:[
+        FIELD_MOD("Postai küldemény"),
+        { label:"Beérkezés napja", type:"date", answer:"2027-01-11", show:"2027. 01. 11." },
+        { label:"Küldő", type:"text", answer:"Bíró Kata" },
+        { label:"Ragszám", type:"text", answer:"RL 0311 2244 5HU", hint:"A borítékon." },
+        { label:"Hivatkozási szám", type:"select", options:["Saját száma nincs; a mi korábbi iktatószámunkra (PLD/1874/2026) hivatkozik","RL 0311 2244 5HU","É-2027/0103"], answer:"Saját száma nincs; a mi korábbi iktatószámunkra (PLD/1874/2026) hivatkozik", why:"A hivatkozott számot rögzíteni kell: ez vezet el az előzményhez." },
+        { label:"Mellékletek száma", type:"number", answer:0 }
+      ],
+      done:"Érkeztetve: É-2027/0103.",
+      fx:{ erk:["É-2027/0103","2027. 01. 11. 09:20","Posta","Bíró Kata","RL 0311 2244 5HU","PLD/1874/2026 (hivatkozott)","0","Iktatásra átadva"], doc: rubber("ÉRKEZETT · 2027. 01. 11. · É-2027/0103") } },
+    { short:"Iktatás", role:"Ügykezelő", title:"Előzményezés évváltáskor",
+      text:"Az előzménykeresés megtalálja a hivatkozott ügyet – a 2026-os, már lezárt iktatókönyvben.",
+      ctx:`<span class="label">Előzménykeresés eredménye</span><p>PLD/1874/2026 · Bíró Kata · Panasz – ügyfélfogadási rend · ügyintéző: Tóth Bence · B418 · a 2026-os iktatókönyv lezárva</p>` + TETEL_CTX,
+      fields:[
+        { label:"Hova iktatod?", type:"select", options:["Alszámra a 2026-os PLD/1874/2026 ügyiratba","Új főszámra a 2027-es iktatókönyvbe, a 2026-os előzmény szerelésével","Új főszámra, előzmény nélkül","Nem iktatandó, mert az ügy már lezárult"], answer:"Új főszámra a 2027-es iktatókönyvbe, a 2026-os előzmény szerelésével", hint:"A lezárt évbe új irat nem kerülhet – de az előzményt sem hagyhatod el.", why:"Évváltásnál új főszám, az előzmény szerelésével: végleges egyesítés, a kapcsolat mindkét nyilvántartásban jelölve." },
+        { label:"Iktatószám", type:"select", options:["PLD/1874-2/2026","PLD/37/2027","PLD/37-1/2027","PLD/36-1/2027"], answer:"PLD/37/2027", hint:"Mi az utolsó főszám a 2027-es iktatókönyvben?", why:"Új ügy kezdőirata a 2027-es könyvben: a következő főszám, alszám nélkül." },
+        { label:"Irattári tételszám", type:"select", options:TETELEK, answer:"B418" }
+      ],
+      done:"Iktatva: PLD/37/2027, a PLD/1874/2026 előzmény szerelve.",
+      fx:{ ikt:["PLD/37/2027","Bíró Kata","Panasz – ügyfélfogadási rend (ismételt); szerelt előzmény: PLD/1874/2026","–","–","B418","Iktatva, előzmény szerelve"], erkSet:{ id:"É-2027/0103", cells:[[7,"Iktatva: PLD/37/2027"]] }, doc: rubber("PLD/37/2027 · szerelve: PLD/1874/2026") } },
+    { short:"Szignálás", role:"Osztályvezető", title:"Szignálás",
+      text:"A panaszt 30 napon belül kell elbírálni. A határidő a beérkezést követő napon indul; ha az utolsó nap hétvégére esik, a következő munkanapon jár le.",
+      ctx: STAFF_CTX,
+      fields:[
+        { label:"Ügyintéző", type:"select", options:MUNKATARSAK, answer:"Tóth Bence – ügyintéző (panaszok, bejelentések)", why:"Ő ismeri az előzményt is." },
+        { label:"Elintézési határidő", type:"date", answer:"2027-02-10", show:"2027. 02. 10. (szerda)", why:"Január 12-én indul, a 30. nap február 10., szerda." }
+      ],
+      done:"Szignálva.",
+      fx:{ iktSet:{ id:"PLD/37/2027", cells:[[3,"Tóth Bence"],[4,"2027. 02. 10."],[6,"Ügyintézés alatt"]] } } },
+    { short:"Tervezet", role:"Ügyintéző", title:"A válasz tervezete",
+      text:"Kivizsgáltad a panaszt; az ügyfélfogadási rendet februártól módosítják. Elkészíted a választ.",
+      fields:[
+        { label:"A válasz iktatószáma", type:"select", options:["PLD/37/2027","PLD/37-1/2027","PLD/1874-2/2026"], answer:"PLD/37-1/2027", hint:"Melyik évben és melyik ügyben vagy?", why:"Az idei ügyirat első alszáma." },
+        { label:"Hivatkozás a válasz elején", type:"select", options:["Az Ön 2027. 01. 07-én kelt levelére (PLD/37/2027)","Az Ön tavalyi panaszára (PLD/1874/2026)","Nem kell hivatkozás"], answer:"Az Ön 2027. 01. 07-én kelt levelére (PLD/37/2027)", why:"A válasz arra a beadványra hivatkozik, amelyre válaszol; az előzmény a szerelés révén az ügyirat része." },
+        FIELD_LATTAMOZAS
+      ],
+      done:"A tervezet láttamozva.",
+      fx:{ ikt:["PLD/37-1/2027","Bíró Kata (címzett)","Válasz ismételt panaszra","Tóth Bence","–","B418","Tervezet, láttamozva"] } },
+    { short:"Kiadmányozás", role:"Kiadmányozó", title:"Kiadmányozás", text:"Ki kiadmányozza a panaszra adott választ?", ctx: REND_CTX,
+      fields:[{ label:"Kiadmányozó", type:"select", options:KIADMANYOZOK, answer:"dr. Nagy Gábor – osztályvezető" }, FIELD_HITELESITES],
+      done:"Kiadmányozva.", fx:{ iktSet:{ id:"PLD/37-1/2027", cells:[[6,"Kiadmányozva"]] }, doc: rubber("Kiadmányozta: dr. Nagy Gábor · 2027. 01. 28.") } },
+    { short:"Expediálás", role:"Ügykezelő", title:"Expediálás", text:"Bíró Kata magánszemély, postán írt, elektronikus kapcsolattartást nem választott.",
+      fields:[
+        { label:"Kézbesítési mód", type:"select", options:KEZBESITES, answer:"Postai tértivevényes küldemény" },
+        { label:"Mi lesz a visszaérkező tértivevénnyel?", type:"select", options:["Önálló főszámon iktatom","A kiadmányhoz, az ügyirathoz kapcsolom","Nem kell megőrizni"], answer:"A kiadmányhoz, az ügyirathoz kapcsolom" }
+      ],
+      done:"Expediálva, a tértivevény az ügyiratban.", fx:{ iktSet:{ id:"PLD/37-1/2027", cells:[[6,"Expediálva, tértivevény visszaérkezett"]] } } },
+    { short:"Irattár", role:"Ügykezelő", title:"Irattárba helyezés", text:"Az ügy 2027-ben lezárul.",
+      fields:[
+        { label:"Melyik évtől selejtezhető (a lezárás évétől számolva)?", type:"select", options:["2031","2032","2035","Nem selejtezhető"], answer:"2032", why:"B418: 5 év, 2027 + 5 = 2032." },
+        { label:"Mi lesz a szerelt 2026-os előzmény sorsa?", type:"select", options:["A befogadó ügyirattal együtt, annak sorsát követi","Külön, a 2026-os lezárástól számítva selejtezhető","Azonnal selejtezhető, mert lezárt"], answer:"A befogadó ügyirattal együtt, annak sorsát követi", why:"A szerelés végleges egyesítés: az előzmény az új ügyirat részévé vált." }
+      ],
+      done:"Az ügyirat a szerelt előzménnyel együtt irattárban.", fx:{ iktSet:{ id:"PLD/37/2027", cells:[[6,"Irattárban"]] } } }
+  ]
+},
+
+/* ---------- S. k. levél ---------- */
+{ unit:"gyo", id:"gyo-sk", type:"flow",
+  title:"„S. k. felbontásra”: levél a jegyzőnek",
+  lead:"Saját kezű felbontásra jelölt levél érkezik a jegyzőnek. Bontatlan továbbítás, majd kiderül: hivatalos bejelentés.",
+  task: ONALLO_TASK, note: ONALLO_NOTE,
+  erk0: FLOW_ERK0, ikt0: FLOW_IKT0,
+  envelope: env("Boríték", `<p><b>Címzett:</b> dr. Fehér Ilona jegyző részére, Példaváros Polgármesteri Hivatal</p><p><b>Jelzés:</b> „S. K. FELBONTÁSRA!”</p><p><b>Feladó:</b> Nagy Ernő, 1234 Példaváros, Tölgy utca 3.</p><p>Ajánlott levél · ragszám: RL 0456 1212 9HU</p><p>A posta átadta: 2026. 10. 14. (szerda) 09:05</p>`),
+  endText:"Az s. k. levél bontatlanul jutott el a címzetthez, mégsem maradt nyilvántartáson kívül: az érkeztetés a borítékadatokkal megtörtént, a hivatalos tartalom pedig visszakerült iktatásra.",
+  stages:[
+    { short:"Átvétel", role:"Központi ügykezelő", title:"Az s. k. jelzésű küldemény",
+      text:"Nézd meg a borítékot.",
+      fields:[
+        { label:"Hogyan kezeled?", type:"select", options:["Felbontom, ellenőrzöm a mellékleteket, érkeztetem","Felbontás nélkül, dokumentáltan továbbítom a címzettnek","Zártan őrzöm a bontási időpontig","Visszaküldöm a feladónak"], answer:"Felbontás nélkül, dokumentáltan továbbítom a címzettnek", why:"Az s. k. jelzésű küldeményt az ügykezelő nem bonthatja fel." },
+        { label:"Kerül-e nyilvántartásba?", type:"select", options:["Igen: érkeztetem a borítékadatok alapján, a felbontás nélküli továbbítás jelzésével","Nem, az s. k. levél kívül marad a nyilvántartáson","Csak ha a jegyző kéri"], answer:"Igen: érkeztetem a borítékadatok alapján, a felbontás nélküli továbbítás jelzésével", why:"Az érkeztetési nyilvántartás a felbontás nélküli továbbítást is rögzíti – így a küldemény útja követhető." }
+      ],
+      done:"A küldemény bontatlan marad." },
+    { short:"Érkeztetés", role:"Központi ügykezelő", title:"Érkeztetés bontatlanul",
+      text:"Rögzítsd, ami a borítékról leolvasható. A rendszer az É-2026/2451 azonosítót adja.",
+      fields:[
+        FIELD_MOD("Postai küldemény"),
+        { label:"Küldő", type:"text", answer:"Nagy Ernő" },
+        { label:"Ragszám", type:"text", answer:"RL 0456 1212 9HU" },
+        { label:"Mellékletek", type:"select", options:["Nem állapítható meg (bontatlan)","0","1"], answer:"Nem állapítható meg (bontatlan)", why:"Bontatlan küldeménynél a mellékleteket a címzett ellenőrzi." },
+        { label:"További sors", type:"select", options:["Felbontás nélkül továbbítva a címzettnek","Iktatásra átadva","Iktatás nélkül"], answer:"Felbontás nélkül továbbítva a címzettnek" }
+      ],
+      done:"Érkeztetve és dokumentáltan átadva a jegyzőnek.",
+      fx:{ erk:["É-2026/2451","2026. 10. 14. 09:05","Posta","Nagy Ernő","RL 0456 1212 9HU","–","bontatlan","Felbontás nélkül továbbítva: dr. Fehér Ilona"], doc: rubber("ÉRKEZETT · 2026. 10. 14. · É-2026/2451 · S. K. – bontatlanul továbbítva") } },
+    { short:"Címzett bont", role:"Jegyző (címzett)", title:"A címzett felbontja",
+      text:"A jegyző felbontja a levelet. Kiderül: Nagy Ernő bejelentést tesz arról, hogy a hivatal parkolási ügyfélszolgálatán napok óta nem veszik fel a telefont, és kéri a helyzet kivizsgálását.",
+      fields:[
+        { label:"Mi a teendő a levéllel?", type:"select", options:["Hivatalos irat: a jegyző visszaadja iktatásra, az érkeztetési bejegyzéshez kapcsolva","Magánlevélként a jegyzőnél marad","Megsemmisíthető, mert s. k. volt"], answer:"Hivatalos irat: a jegyző visszaadja iktatásra, az érkeztetési bejegyzéshez kapcsolva", why:"Ha az s. k. küldemény hivatalos, iktatandó irat, a címzett köteles visszaadni nyilvántartásba." },
+        { label:"Hány melléklet van benne?", type:"number", answer:0 }
+      ],
+      done:"A levél visszakerült az ügykezelőhöz iktatásra.",
+      fx:{ erkSet:{ id:"É-2026/2451", cells:[[6,"0"],[7,"A címzett felbontotta, iktatásra visszaadta"]] }, doc: env("A levél tartalma", `<p>Tisztelt Jegyző Asszony! Bejelentem, hogy a parkolási ügyfélszolgálat telefonszámán egy hete senki nem veszi fel a telefont. Kérem a helyzet kivizsgálását. – Nagy Ernő</p>`) } },
+    { short:"Iktatás", role:"Ügykezelő", title:"Iktatás", text:"Előzménykeresés: nincs találat.", ctx: TETEL_CTX,
+      fields:[
+        { label:"Iktatószám", type:"select", options:["PLD/1874-1/2026","PLD/1875/2026","PLD/1875-1/2026","É-2026/2451"], answer:"PLD/1875/2026" },
+        { label:"Tárgy", type:"select", options:["S. k. levél a jegyzőnek","Közérdekű bejelentés – parkolási ügyfélszolgálat elérhetetlensége","Nagy Ernő levele"], answer:"Közérdekű bejelentés – parkolási ügyfélszolgálat elérhetetlensége", why:"A tárgy az ügy tartalmát írja le, nem a küldemény formáját." },
+        { label:"Irattári tételszám", type:"select", options:TETELEK, answer:"B418" }
+      ],
+      done:"Iktatva: PLD/1875/2026.",
+      fx:{ ikt:["PLD/1875/2026","Nagy Ernő","Közérdekű bejelentés – parkolási ügyfélszolgálat elérhetetlensége","–","–","B418","Iktatva"], erkSet:{ id:"É-2026/2451", cells:[[7,"Iktatva: PLD/1875/2026"]] }, doc: rubber("PLD/1875/2026") } },
+    { short:"Szignálás", role:"Osztályvezető", title:"Szignálás",
+      text:"A bejelentést 30 napon belül kell elbírálni. Figyelj: a határidő a hivatalhoz érkezéstől számít, nem attól, hogy a jegyző mikor bontotta fel.",
+      ctx: STAFF_CTX,
+      fields:[
+        { label:"Ügyintéző", type:"select", options:MUNKATARSAK, answer:"Tóth Bence – ügyintéző (panaszok, bejelentések)" },
+        { label:"Elintézési határidő", type:"date", answer:"2026-11-13", show:"2026. 11. 13. (péntek)", hint:"A küldemény 2026. 10. 14-én érkezett a hivatalhoz.", why:"Október 15-én indul, a 30. nap november 13., péntek." }
+      ],
+      done:"Szignálva.", fx:{ iktSet:{ id:"PLD/1875/2026", cells:[[3,"Tóth Bence"],[4,"2026. 11. 13."],[6,"Ügyintézés alatt"]] } } },
+    { short:"Kiadmányozás", role:"Ügyintéző + kiadmányozó", title:"Válasz és kiadmányozás",
+      text:"A kivizsgálás után elkészül a bejelentőnek szóló válasz.", ctx: REND_CTX,
+      fields:[
+        { label:"A válasz iktatószáma", type:"select", options:["PLD/1875/2026","PLD/1875-1/2026","PLD/1876/2026"], answer:"PLD/1875-1/2026" },
+        { label:"Kiadmányozó", type:"select", options:KIADMANYOZOK, answer:"dr. Nagy Gábor – osztályvezető", hint:"Nem az számít, kinek címezték a levelet, hanem a kiadmányozási rend.", why:"A kiadmányozási rend szerint a bejelentésekben az osztályvezető kiadmányoz." },
+        FIELD_HITELESITES
+      ],
+      done:"Kiadmányozva.", fx:{ ikt:["PLD/1875-1/2026","Nagy Ernő (címzett)","Válasz közérdekű bejelentésre","Tóth Bence","–","B418","Kiadmányozva"] } },
+    { short:"Expediálás", role:"Ügykezelő", title:"Expediálás", text:"Nagy Ernő magánszemély, postán írt.",
+      fields:[{ label:"Kézbesítési mód", type:"select", options:KEZBESITES, answer:"Postai tértivevényes küldemény" }],
+      done:"Expediálva.", fx:{ iktSet:{ id:"PLD/1875-1/2026", cells:[[6,"Expediálva"]] } } }
+  ]
+},
+
+/* ---------- Bontási időpontos ajánlat ---------- */
+{ unit:"gyo", id:"gyo-ajanlat", type:"flow",
+  title:"Ajánlat bontási időponttal",
+  lead:"Beszerzési ajánlat érkezik lezárt borítékban. Zárt őrzés, bontás bizottság előtt, iktatás a beszerzési ügyiratba.",
+  task: ONALLO_TASK, note: ONALLO_NOTE,
+  erk0: FLOW_ERK0,
+  ikt0: FLOW_IKT0.concat([
+    ["PLD/1702/2026","Példaváros Polgármesteri Hivatal (belső)","Irodaszer-beszerzés 2027 – ajánlattételi felhívás","Molnár Réka","2026. 11. 05.","C520","Folyamatban"],
+    ["PLD/1702-1/2026","Három ajánlattevő (címzett)","Ajánlattételi felhívás megküldése","Molnár Réka","–","C520","Expediálva"]
+  ]),
+  envelope: env("Boríték", `<p><b>Címzett:</b> Példaváros Polgármesteri Hivatal – Gazdasági Igazgatóság</p><p><b>Felirat:</b> „AJÁNLAT – Irodaszer-beszerzés 2027 – Bontási időpont: 2026. 10. 20. 10:00 – Ne bontsa fel!”</p><p><b>Feladó:</b> Papír-Pont Kft., 1234 Példaváros, Ipari út 5.</p><p>Ajánlott levél · ragszám: RL 0789 3434 2HU</p><p>A posta átadta: 2026. 10. 15. (csütörtök) 11:20</p>`),
+  endText:"Az ajánlat a beszerzési ügyirat alszámaként került nyilvántartásba, a bontásig zártan őrizve. Az idő előtti felbontás jogorvoslati ok lehetett volna.",
+  stages:[
+    { short:"Átvétel", role:"Központi ügykezelő", title:"Ajánlat bontási időponttal", text:"Nézd meg a borítékot.",
+      fields:[
+        { label:"Hogyan kezeled?", type:"select", options:["Felbontom, ellenőrzöm a mellékleteket, érkeztetem","Felbontás nélkül továbbítom a címzettnek","Zártan őrzöm a bontási időpontig","Nem bontom fel, biztonsági eljárást kezdeményezek"], answer:"Zártan őrzöm a bontási időpontig" },
+        { label:"Hogyan rögzíted az átvétel idejét?", type:"select", options:["Óra, perc pontossággal – a határidőben érkezésnek bizonyítási jelentősége van","Elég a nap","Nem kell rögzíteni"], answer:"Óra, perc pontossággal – a határidőben érkezésnek bizonyítási jelentősége van" }
+      ], done:"Az ajánlat zártan, elkülönítve őrizve." },
+    { short:"Érkeztetés", role:"Központi ügykezelő", title:"Érkeztetés bontatlanul", text:"A rendszer az É-2026/2451 azonosítót adja.",
+      fields:[
+        { label:"Küldő", type:"text", answer:"Papír-Pont Kft.", accept:["Papír-Pont Kft","Papír-Pont"] },
+        { label:"Ragszám", type:"text", answer:"RL 0789 3434 2HU" },
+        { label:"Mellékletek", type:"select", options:["Nem állapítható meg (bontatlan)","0","2"], answer:"Nem állapítható meg (bontatlan)" },
+        { label:"További sors", type:"select", options:["Zártan őrizve a bontásig","Iktatásra átadva","Felbontás nélkül továbbítva a címzettnek"], answer:"Zártan őrizve a bontásig" }
+      ],
+      done:"Érkeztetve.", fx:{ erk:["É-2026/2451","2026. 10. 15. 11:20","Posta","Papír-Pont Kft.","RL 0789 3434 2HU","–","bontatlan","Zártan őrizve a bontásig (2026. 10. 20. 10:00)"], doc: rubber("ÉRKEZETT · 2026. 10. 15. 11:20 · É-2026/2451") } },
+    { short:"Bontás", role:"Bontóbizottság", title:"Bontás a bontási időpontban", text:"2026. 10. 20., 10:00. A bizottság összeül.",
+      fields:[
+        { label:"Hogyan történik a bontás?", type:"select", options:["A bontási időpontban, bizottság előtt, jegyzőkönyvvel","Az ügykezelő bontja fel, amikor ráér","A korábban beérkezett ajánlatokat előbb bontjuk, hogy időt nyerjünk"], answer:"A bontási időpontban, bizottság előtt, jegyzőkönyvvel" },
+        { label:"Ha a borítékot idő előtt felbontották volna?", type:"select", options:["Jogorvoslati ok lehet; a tényt dokumentálni kell","Nincs jelentősége"], answer:"Jogorvoslati ok lehet; a tényt dokumentálni kell" },
+        { label:"Hány melléklet van az ajánlatban?", type:"number", answer:2, hint:"Bontás után már látod a tartalmat? Nézd meg az irat végét.", why:"Árlista és cégkivonat." }
+      ],
+      done:"Az ajánlat felbontva, a bontási jegyzőkönyv elkészült.",
+      fx:{ erkSet:{ id:"É-2026/2451", cells:[[6,"2"],[7,"Felbontva a bontáson (2026. 10. 20.), iktatásra átadva"]] }, doc: env("Az ajánlat", `<p>Ajánlat irodaszer szállítására 2027-re. Ajánlati ár: bruttó 2 480 000 Ft.</p><p>Mellékletek: árlista (1 db), cégkivonat (1 db)</p><p>Papír-Pont Kft., Szűts Géza ügyvezető</p>`) } },
+    { short:"Iktatás", role:"Ügykezelő", title:"Előzményezés és iktatás", text:"Előzménykeresés a tárgyra („irodaszer-beszerzés 2027”): van találat. Nézd meg az iktatókönyvet.", ctx: TETEL_CTX,
+      fields:[
+        { label:"Iktatószám", type:"select", options:["PLD/1875/2026","PLD/1702-1/2026","PLD/1702-2/2026","PLD/1703/2026"], answer:"PLD/1702-2/2026", hint:"Az ajánlat egy futó beszerzési eljárás része.", why:"Az ajánlat a beszerzési ügyirat következő alszáma." },
+        { label:"Irattári tételszám", type:"select", options:TETELEK, answer:"C520", why:"Azonos ügy iratai nem sorolhatók különböző tételekbe." }
+      ],
+      done:"Iktatva: PLD/1702-2/2026.",
+      fx:{ ikt:["PLD/1702-2/2026","Papír-Pont Kft.","Ajánlat – irodaszer-beszerzés 2027","Molnár Réka","2026. 11. 05.","C520","Iktatva"], erkSet:{ id:"É-2026/2451", cells:[[7,"Iktatva: PLD/1702-2/2026"]] }, doc: rubber("PLD/1702-2/2026") } },
+    { short:"Tervezet", role:"Ügyintéző", title:"Az eredményről szóló értesítés", text:"Az értékelés lezárult: a Papír-Pont Kft. ajánlata nyert. Molnár Réka elkészíti az értesítést.",
+      fields:[
+        { label:"Ki intézi az ügyet?", type:"select", options:MUNKATARSAK, answer:"Molnár Réka – ügyintéző (beszerzési ügyek)", why:"Az alszámon érkező irat a meglévő ügyintézőhöz kerül." },
+        { label:"Az értesítés iktatószáma", type:"select", options:["PLD/1702-2/2026","PLD/1702-3/2026","PLD/1876/2026"], answer:"PLD/1702-3/2026" },
+        FIELD_LATTAMOZAS
+      ],
+      done:"A tervezet láttamozva.", fx:{ ikt:["PLD/1702-3/2026","Papír-Pont Kft. (címzett)","Értesítés az ajánlat elfogadásáról","Molnár Réka","–","C520","Tervezet"] } },
+    { short:"Kiadmányozás", role:"Kiadmányozó", title:"Kiadmányozás", text:"Ki kiadmányozza a beszerzési ügyben?", ctx: REND_CTX,
+      fields:[{ label:"Kiadmányozó", type:"select", options:KIADMANYOZOK, answer:"Horváth Zsolt – gazdasági igazgató" }, FIELD_HITELESITES],
+      done:"Kiadmányozva.", fx:{ iktSet:{ id:"PLD/1702-3/2026", cells:[[6,"Kiadmányozva"]] }, doc: rubber("Kiadmányozta: Horváth Zsolt · 2026. 11. 03.") } },
+    { short:"Expediálás", role:"Ügykezelő", title:"Expediálás", text:"A címzett gazdálkodó szervezet.",
+      fields:[
+        { label:"Kézbesítési mód", type:"select", options:KEZBESITES, answer:"Cégkapu (biztonságos kézbesítés)" },
+        { label:"Mi igazolja a kézbesítést?", type:"select", options:["A letöltési (átvételi) igazolás, az ügyirathoz kapcsolva","A kimenő e-mail másolata","Semmi, az elküldés elég"], answer:"A letöltési (átvételi) igazolás, az ügyirathoz kapcsolva" }
+      ],
+      done:"Expediálva cégkapura.", fx:{ iktSet:{ id:"PLD/1702-3/2026", cells:[[6,"Expediálva, letöltve"]] } } }
+  ]
+},
+
+/* ---------- Hiányos e-Papír kérelem ---------- */
+{ unit:"gyo", id:"gyo-hianyos", type:"flow",
+  title:"Hiányos kérelem e-Papíron",
+  lead:"Teraszengedély iránti kérelem érkezik péntek délután, kötelező melléklet nélkül. Iktatás, szignálás, hiánypótlási felhívás.",
+  task: ONALLO_TASK, note: ONALLO_NOTE + " Az ügyintézési határidőt a példában 60 naposnak vesszük.",
+  erk0: FLOW_ERK0, ikt0: FLOW_IKT0,
+  envelope: env("Hivatali kapu – e-Papír", `<p><b>Feladó:</b> Oláh Tímea (azonosított ügyfél, ügyfélkapuval)</p><p><b>Beérkezés (rendszeridő):</b> 2026. 10. 16. (péntek) 16:05</p><p><b>Kézbesítési azonosító:</b> KR-20261016-0463390</p><p><b>Tárgy:</b> Közterület-használati engedély iránti kérelem</p><p><b>Csatolmány:</b> kerelem.pdf</p><p>Elektronikus kapcsolattartást választott.</p>`),
+  endText:"A hiányos kérelem is szabályosan bekerült a nyilvántartásba, a hiánypótlási felhívás az ügyirat alszámaként ment ki, a pótlás pedig ugyanide fog érkezni.",
+  stages:[
+    { short:"Megnyitás", role:"Központi ügykezelő", title:"Megnyitás és a tartalom",
+      text:"Hétfő reggel nyitod meg az üzenetet. A csatolmány olvasható.",
+      fields:[{ label:"Mikor indul az ügyintézési határidő?", type:"select", options:["2026. 10. 17-én, a beérkezést követő napon","2026. 10. 19-én, hétfőn, a megnyitáskor","Az iktatás napján"], answer:"2026. 10. 17-én, a beérkezést követő napon" }],
+      done:"A kérelem tartalma megjelent.",
+      fx:{ doc: env("A kérelem (kerelem.pdf)", `<p>Kérem, engedélyezzék a Fő tér 4. előtti 24 m² közterület használatát kávézóterasz céljára, 2027. 04. 01. és 09. 30. között.</p><p>Melléklet: –</p><p>Oláh Tímea</p>`) + `<div class="env"><span class="lbl">Ügyintézői segédlet</span><p>A közterület-használati kérelemhez kötelező melléklet: helyszínrajz a használni kívánt területről.</p></div>` } },
+    { short:"Érkeztetés", role:"Rendszer + ügykezelő", title:"Az automatikus érkeztetés ellenőrzése", text:"A rendszer pénteken az É-2026/2451 azonosítóval érkeztetett.",
+      fields:[
+        FIELD_MOD("Hivatali kapu"),
+        { label:"Elektronikus küldeményazonosító", type:"text", answer:"KR-20261016-0463390" },
+        { label:"A kérelem hiányos. Érkeztetni és iktatni kell?", type:"select", options:["Igen: a hiányos beadvány is beadvány","Nem, előbb pótolni kell","Csak érkeztetni, iktatni nem"], answer:"Igen: a hiányos beadvány is beadvány", why:"A hiányosság az ügyintézés kérdése, nem az iratkezelésé." }
+      ],
+      done:"Az érkeztetés rendben.",
+      fx:{ erk:["É-2026/2451","2026. 10. 16. 16:05","Hivatali kapu","Oláh Tímea","KR-20261016-0463390","–","0","Iktatásra átadva"], doc: rubber("ÉRKEZETT · 2026. 10. 16. 16:05 · É-2026/2451") } },
+    { short:"Iktatás", role:"Ügykezelő", title:"Iktatás", text:"Előzmény nincs.", ctx: TETEL_CTX,
+      fields:[
+        { label:"Iktatószám", type:"select", options:["PLD/1874-1/2026","PLD/1875/2026","PLD/1875-1/2026"], answer:"PLD/1875/2026" },
+        { label:"Tárgy", type:"select", options:["Kérelem","Közterület-használati engedély iránti kérelem – kávézóterasz, Fő tér 4.","Oláh Tímea e-Papírja"], answer:"Közterület-használati engedély iránti kérelem – kávézóterasz, Fő tér 4." },
+        { label:"Irattári tételszám", type:"select", options:TETELEK, answer:"B530", why:"B530: közterület-használati engedélyek, 10 év." }
+      ],
+      done:"Iktatva: PLD/1875/2026.",
+      fx:{ ikt:["PLD/1875/2026","Oláh Tímea","Közterület-használati engedély iránti kérelem – kávézóterasz, Fő tér 4.","–","–","B530","Iktatva"], erkSet:{ id:"É-2026/2451", cells:[[7,"Iktatva: PLD/1875/2026"]] }, doc: rubber("PLD/1875/2026") } },
+    { short:"Szignálás", role:"Osztályvezető", title:"Szignálás", text:"Az ügyintézési határidő 60 nap; hétvégi lejáratnál a következő munkanapon jár le.", ctx: STAFF_CTX,
+      fields:[
+        { label:"Ügyintéző", type:"select", options:MUNKATARSAK, answer:"Varró Dániel – ügyintéző (közterület-használat)" },
+        { label:"Elintézési határidő", type:"date", answer:"2026-12-15", show:"2026. 12. 15. (kedd)", why:"Október 17-én indul, a 60. nap december 15., kedd." }
+      ],
+      done:"Szignálva.", fx:{ iktSet:{ id:"PLD/1875/2026", cells:[[3,"Varró Dániel"],[4,"2026. 12. 15."],[6,"Ügyintézés alatt"]] } } },
+    { short:"Hiánypótlás", role:"Ügyintéző", title:"Hiánypótlási felhívás", text:"Varró Dániel észreveszi a hiányt, és hiánypótlási felhívást készít.",
+      fields:[
+        { label:"Mi hiányzik?", type:"select", options:["A helyszínrajz","Az ügyfél aláírása","Semmi"], answer:"A helyszínrajz", hint:"Nézd meg az ügyintézői segédletet az iratnál." },
+        { label:"A felhívás iktatószáma", type:"select", options:["PLD/1875/2026","PLD/1875-1/2026","PLD/1876/2026"], answer:"PLD/1875-1/2026", why:"Kimenő irat az ügyirat következő alszámán." },
+        { label:"Mit rögzítesz még a rendszerben?", type:"select", options:["A hiánypótlás határidejét, hogy a rendszer figyelje","Semmit, a felhívás elküldése elég"], answer:"A hiánypótlás határidejét, hogy a rendszer figyelje", why:"Határidő-tűzés: a rendszer csak azt figyeli, amit beírtak." }
+      ],
+      done:"A felhívás tervezete kész.", fx:{ ikt:["PLD/1875-1/2026","Oláh Tímea (címzett)","Hiánypótlási felhívás – helyszínrajz","Varró Dániel","–","B530","Tervezet"] } },
+    { short:"Kiadmányozás", role:"Kiadmányozó", title:"Kiadmányozás", text:"Ki kiadmányozza a közterület-használati ügyben?", ctx: REND_CTX,
+      fields:[{ label:"Kiadmányozó", type:"select", options:KIADMANYOZOK, answer:"dr. Nagy Gábor – osztályvezető" }, FIELD_HITELESITES],
+      done:"Kiadmányozva.", fx:{ iktSet:{ id:"PLD/1875-1/2026", cells:[[6,"Kiadmányozva"]] } } },
+    { short:"Expediálás", role:"Ügykezelő", title:"Expediálás", text:"Oláh Tímea ügyfélkapuval nyújtotta be a kérelmet, és elektronikus kapcsolattartást választott.",
+      fields:[
+        { label:"Kézbesítési mód", type:"select", options:KEZBESITES, answer:"Ügyfél tárhelye (biztonságos kézbesítés)" },
+        { label:"Ha nem veszi át a tárhelyről?", type:"select", options:["A jogszabályban meghatározott idő elteltével beáll a kézbesítési vélelem","Soha nem tekinthető kézbesítettnek","Azonnal postán is el kell küldeni"], answer:"A jogszabályban meghatározott idő elteltével beáll a kézbesítési vélelem" }
+      ],
+      done:"Expediálva.", fx:{ iktSet:{ id:"PLD/1875-1/2026", cells:[[6,"Expediálva"]] }, doc: rubber("EXPEDIÁLVA · ügyfél tárhelye") } },
+    { short:"Mi következik?", role:"Ügykezelő", title:"A pótlás érkezése előtt", text:"Az ügy most a hiánypótlásra vár.",
+      fields:[
+        { label:"Hova kerül majd a beérkező pótlás?", type:"select", options:["PLD/1875-2/2026 alszámra","Új főszámra","A PLD/1875/2026 felülírásával"], answer:"PLD/1875-2/2026 alszámra" },
+        { label:"Az ügy állapota addig", type:"select", options:["Folyamatban, határidő-figyeléssel – nem kerül irattárba","Irattárba helyezhető"], answer:"Folyamatban, határidő-figyeléssel – nem kerül irattárba" }
+      ],
+      done:"Az ügy folyamatban marad.", fx:{ iktSet:{ id:"PLD/1875/2026", cells:[[6,"Hiánypótlásra vár"]] } } }
+  ]
+},
+
+/* ---------- E-mail az ügyintéző fiókjában ---------- */
+{ unit:"gyo", id:"gyo-email", type:"flow",
+  title:"E-mail az ügyintéző postafiókjában",
+  lead:"Egy bejelentő az ügyintéző hivatali e-mail-címére küld új fotókat egy futó ügyhöz. Mi a teendő vele?",
+  task: ONALLO_TASK, note: ONALLO_NOTE,
+  erk0: FLOW_ERK0, ikt0: FLOW_IKT0,
+  envelope: env("E-mail – Tóth Bence hivatali postafiókja", `<p><b>Feladó:</b> szucs.adam@pelda-posta.hu (Szűcs Ádám)</p><p><b>Érkezett:</b> 2026. 10. 19. (hétfő) 08:47</p><p><b>Tárgy:</b> Közterület ügy – új fotók</p><p>„Tisztelt Tóth úr! A bejelentésemhez (PLD/1873/2026) küldök három újabb fotót. Kérem, tájékoztasson, hol tart az ügy.”</p><p><b>Csatolmányok:</b> 3 db fénykép</p>`),
+  endText:"Az e-mailben érkezett irat nem maradt nyilvántartáson kívül: bekerült a futó ügyiratba, és az ügyfelet a hivatalos csatornákra terelted.",
+  stages:[
+    { short:"Továbbítás", role:"Ügyintéző (Tóth Bence)", title:"Levél a saját postafiókban",
+      text:"Hétfő reggel megnyitod a hivatali postafiókodat.",
+      fields:[
+        { label:"Mit teszel az e-maillel?", type:"select", options:["Továbbítom érkeztetésre, hogy nyilvántartásba kerüljön","Elmentem a saját mappámba, és e-mailben válaszolok","Törlöm, mert az e-mail nem hivatalos csatorna"], answer:"Továbbítom érkeztetésre, hogy nyilvántartásba kerüljön", why:"Az érdemi tartalmú irat nem maradhat nyilvántartáson kívül." },
+        { label:"Hivatalos benyújtásnak minősül az egyszerű e-mail?", type:"select", options:["Általában nem (nincs azonosítás, kézbesítési igazolás), de nyilvántartáson kívül nem maradhat","Igen, ugyanúgy, mint a hivatali kapu"], answer:"Általában nem (nincs azonosítás, kézbesítési igazolás), de nyilvántartáson kívül nem maradhat" }
+      ], done:"Az e-mail az érkeztetéshez került." },
+    { short:"Érkeztetés", role:"Központi ügykezelő", title:"Érkeztetés", text:"A rendszer az É-2026/2451 azonosítót adja.",
+      fields:[
+        FIELD_MOD("E-mail"),
+        { label:"Beérkezés napja", type:"date", answer:"2026-10-19", show:"2026. 10. 19.", why:"A hivatali postafiókba érkezés napja, nem a továbbításé." },
+        { label:"Küldő", type:"text", answer:"Szűcs Ádám" },
+        { label:"Küldeményazonosító", type:"select", options:["Nincs ragszám vagy kézbesítési azonosító; az e-mail adatai (feladó címe, időpont) rögzítendők","KR-azonosító","Ragszám"], answer:"Nincs ragszám vagy kézbesítési azonosító; az e-mail adatai (feladó címe, időpont) rögzítendők" },
+        { label:"Mellékletek száma", type:"number", answer:3 }
+      ],
+      done:"Érkeztetve.", fx:{ erk:["É-2026/2451","2026. 10. 19. 08:47","E-mail (ügyintézőtől továbbítva)","Szűcs Ádám","– (e-mail)","PLD/1873/2026 (hivatkozott)","3","Iktatásra átadva"], doc: rubber("ÉRKEZETT · 2026. 10. 19. · É-2026/2451") } },
+    { short:"Iktatás", role:"Ügykezelő", title:"Iktatás", text:"Az e-mail a PLD/1873/2026 számú ügyre hivatkozik. Nézd meg az iktatókönyvet.",
+      fields:[
+        { label:"Iktatószám", type:"select", options:["PLD/1873/2026","PLD/1873-1/2026","PLD/1875/2026","PLD/1874-1/2026"], answer:"PLD/1873-1/2026", why:"A futó ügy következő alszáma." },
+        { label:"Irattári tételszám", type:"select", options:TETELEK, answer:"B418" }
+      ],
+      done:"Iktatva: PLD/1873-1/2026.",
+      fx:{ ikt:["PLD/1873-1/2026","Szűcs Ádám","Kiegészítés: fényképek (e-mailben érkezett)","Tóth Bence","2026. 11. 02.","B418","Ügyintézőnél"], erkSet:{ id:"É-2026/2451", cells:[[7,"Iktatva: PLD/1873-1/2026"]] }, doc: rubber("PLD/1873-1/2026") } },
+    { short:"Határidő", role:"Ügyintéző", title:"Változik a határidő?", text:"Az ügy már szignálva van, határideje 2026. 11. 02.",
+      fields:[{ label:"Mi a helyes?", type:"select", options:["Az eredeti határidő marad: a kiegészítés nem indít új ügyet","Új 30 napos határidő indul a mai naptól","Új szignálás kell"], answer:"Az eredeti határidő marad: a kiegészítés nem indít új ügyet" }],
+      done:"A határidő változatlan." },
+    { short:"Válasz", role:"Ügyintéző + kiadmányozó", title:"Tájékoztató válasz", text:"Tájékoztatod Szűcs Ádámot az ügy állásáról.", ctx: REND_CTX,
+      fields:[
+        { label:"A válasz iktatószáma", type:"select", options:["PLD/1873-1/2026","PLD/1873-2/2026","PLD/1876/2026"], answer:"PLD/1873-2/2026" },
+        { label:"Mit írsz a beadványok csatornájáról?", type:"select", options:["Tájékoztatom, hogy hivatalos beadványt ügyfélkapun, e-Papíron vagy postán tehet","Semmit, az e-mail is megfelel","Hogy e-mailjeit a jövőben nem vesszük figyelembe"], answer:"Tájékoztatom, hogy hivatalos beadványt ügyfélkapun, e-Papíron vagy postán tehet", why:"Az ügyfelet a hivatalos csatornára kell terelni." },
+        { label:"Kiadmányozó", type:"select", options:KIADMANYOZOK, answer:"dr. Nagy Gábor – osztályvezető" }
+      ],
+      done:"A válasz kiadmányozva.", fx:{ ikt:["PLD/1873-2/2026","Szűcs Ádám (címzett)","Tájékoztatás az ügy állásáról","Tóth Bence","–","B418","Kiadmányozva"] } },
+    { short:"Expediálás", role:"Ügykezelő", title:"Expediálás", text:"Szűcs Ádám eredeti bejelentését postán tette, elektronikus kapcsolattartást nem választott.",
+      fields:[{ label:"Kézbesítési mód", type:"select", options:["Válasz egyszerű e-mailben a feladó címére","Postai küldemény a bejelentésben megadott címre","Cégkapu"], answer:"Postai küldemény a bejelentésben megadott címre", why:"Az egyszerű e-mail nem biztonságos kézbesítési út; a kiadmányt a hivatalos úton kell kézbesíteni." }],
+      done:"Expediálva.", fx:{ iktSet:{ id:"PLD/1873-2/2026", cells:[[6,"Expediálva"]] } } }
+  ]
+},
+
+/* ---------- Belső keletkezésű irat ---------- */
+{ unit:"gyo", id:"gyo-belso", type:"flow",
+  title:"Belső irat: munkáltatói intézkedés",
+  lead:"Nem érkezik küldemény: a hivatalban keletkezik egy illetményemelésről szóló irat. Mi marad ki, és mi lesz másképp?",
+  task: ONALLO_TASK, note: ONALLO_NOTE,
+  erk0: FLOW_ERK0, ikt0: FLOW_IKT0,
+  envelope: env("Belső feljegyzés", `<p>2026. 10. 21. (szerda) – A jegyző döntött: Kun Dóra ügyintéző illetményét 2026. 11. 01-jével emeli. Fekete Judit (humánerőforrás) elkészíti a munkáltatói intézkedést.</p>`),
+  endText:"A belső keletkezésű irat érkeztetés nélkül, közvetlenül iktatással került nyilvántartásba – és mivel illetményügy, 50 évig őrzik.",
+  stages:[
+    { short:"Nyilvántartás", role:"Ügykezelő", title:"Érkeztetni vagy iktatni?", text:"A feljegyzés a hivatalban keletkezett.",
+      fields:[
+        { label:"Kell-e érkeztetni?", type:"select", options:["Nem: nem beérkezett küldemény, hanem a szervnél keletkezett irat","Igen, mint minden iratot"], answer:"Nem: nem beérkezett küldemény, hanem a szervnél keletkezett irat", why:"Az érkeztetés a beérkezett küldemények nyilvántartása." },
+        { label:"Kell-e iktatni?", type:"select", options:["Igen: belső keletkezésű, érdemi irat","Nem, mert belső irat"], answer:"Igen: belső keletkezésű, érdemi irat" }
+      ], done:"Az irat közvetlenül iktatásra kerül." },
+    { short:"Iktatás", role:"Ügykezelő", title:"Iktatás", text:"Előzmény nincs.", ctx: TETEL_CTX,
+      fields:[
+        { label:"Iktatószám", type:"select", options:["PLD/1874-1/2026","PLD/1875/2026","PLD/1875-1/2026"], answer:"PLD/1875/2026" },
+        { label:"Tárgy", type:"select", options:["Munkáltatói intézkedés – illetményemelés (Kun Dóra)","Kun Dóra","Belső irat"], answer:"Munkáltatói intézkedés – illetményemelés (Kun Dóra)" },
+        { label:"Irattári tételszám", type:"select", options:TETELEK, answer:"C611" },
+        { label:"Hozzáférés", type:"select", options:["Szűk kör: humánerőforrás és a munkáltatói jogkör gyakorlója","Az egész hivatal"], answer:"Szűk kör: humánerőforrás és a munkáltatói jogkör gyakorlója", why:"Személyügyi irat: szigorúbb hozzáférési kör." }
+      ],
+      done:"Iktatva: PLD/1875/2026.", fx:{ ikt:["PLD/1875/2026","Példaváros Polgármesteri Hivatal (belső)","Munkáltatói intézkedés – illetményemelés (Kun Dóra)","–","–","C611","Iktatva, korlátozott hozzáférés"], doc: rubber("PLD/1875/2026 · KORLÁTOZOTT", true) } },
+    { short:"Szignálás", role:"Jegyző", title:"Szignálás", text:"Ki készíti el az intézkedést, és meddig?", ctx: STAFF_CTX,
+      fields:[
+        { label:"Ügyintéző", type:"select", options:MUNKATARSAK, answer:"Fekete Judit – ügyintéző (humánerőforrás)" },
+        { label:"Határidő", type:"select", options:["2026. 11. 01. előtt, a hatálybalépés miatt","Nincs határidő"], answer:"2026. 11. 01. előtt, a hatálybalépés miatt" }
+      ],
+      done:"Szignálva.", fx:{ iktSet:{ id:"PLD/1875/2026", cells:[[3,"Fekete Judit"],[4,"2026. 10. 30."],[6,"Ügyintézés alatt"]] } } },
+    { short:"Kiadmányozás", role:"Ügyintéző + kiadmányozó", title:"Az intézkedés kiadmányozása", text:"Fekete Judit elkészíti a munkáltatói intézkedést.", ctx: REND_CTX,
+      fields:[
+        { label:"Az intézkedés iktatószáma", type:"select", options:["PLD/1875/2026","PLD/1875-1/2026","PLD/1876/2026"], answer:"PLD/1875-1/2026" },
+        { label:"Kiadmányozó", type:"select", options:KIADMANYOZOK, answer:"dr. Fehér Ilona – jegyző", why:"Munkáltatói intézkedés: a munkáltatói jogkör gyakorlója, a jegyző." },
+        FIELD_HITELESITES
+      ],
+      done:"Kiadmányozva.", fx:{ ikt:["PLD/1875-1/2026","Kun Dóra (címzett)","Munkáltatói intézkedés – illetményemelés","Fekete Judit","–","C611","Kiadmányozva"] } },
+    { short:"Átadás", role:"Ügykezelő", title:"Közlés a munkatárssal", text:"Kun Dóra a hivatal munkatársa.",
+      fields:[{ label:"Hogyan közlöd?", type:"select", options:["Személyes átadás átvételi elismervénnyel","Cégkapu","Egyszerű e-mail a magáncímére"], answer:"Személyes átadás átvételi elismervénnyel", why:"Az átvételi elismervény a közlés bizonyítéka; az elismervényt az ügyirathoz kell kapcsolni." }],
+      done:"Átadva, az elismervény az ügyiratban.", fx:{ iktSet:{ id:"PLD/1875-1/2026", cells:[[6,"Átadva, átvételi elismervény"]] } } },
+    { short:"Irattár", role:"Ügykezelő", title:"Irattárba helyezés", text:"Az ügy 2026-ban lezárul.",
+      fields:[{ label:"Melyik évtől selejtezhető (a lezárás évétől számolva)?", type:"select", options:["2031","2034","2076","Nem selejtezhető"], answer:"2076", why:"C611: 50 év – a nyugellátás megállapíthatósága miatt." }],
+      done:"Irattárban, 2076-ig.", fx:{ iktSet:{ id:"PLD/1875/2026", cells:[[6,"Irattárban"]] } } }
+  ]
+}
+];
+
 /* ============================================================
    KURZUSOK — új kurzust a tömb végére lehet felvenni.
    Feladattípusok: mcq · order · match · sim · find · form · cards
@@ -1264,9 +1945,11 @@ const COURSES = [
       { id:"u6", short:"6", label:"6. alkalom", chip:"6. Érkeztetés, iktatás", title:"Elektronikus érkeztetés és iktatás" },
       { id:"u7", short:"7", label:"7. alkalom", chip:"7. Szignálás, kiadmányozás", title:"Szignálás és kiadmányozás" },
       { id:"u8", short:"8", label:"8. alkalom", chip:"8. Selejtezés, levéltár", title:"Selejtezés és levéltárba adás" },
-      { id:"s",  short:"Ö", label:"Összegző", chip:"Összegző", title:"A teljes iratéletút" }
+      { id:"gy", short:"K", label:"Közös gyakorlás", chip:"Ügymenet: közös", title:"Teljes ügymenet – közös gyakorlás", desc:"Az órán közösen végigvett három ügy a gyakorló ügyiratkezelőben." },
+      { id:"gyo", short:"Ö", label:"Önálló gyakorlás", chip:"Ügymenet: önálló", title:"Teljes ügymenet – önálló gyakorlás", random:true, desc:"Hat további ügy önálló gyakorlásra, mindegyik más szabályt gyakoroltat. A Véletlenszerű ügy gomb egyet kisorsol – elsőként azokat, amelyeket még nem oldottál meg." },
+      { id:"s",  short:"ÖSSZ", label:"Összegző", chip:"Összegző", title:"A teljes iratéletút" }
     ],
-    activities: [...A1, ...A2]
+    activities: [...A1, ...A2, ...A3, ...A4]
   }
   /* Új kurzus mintája:
   ,{ id:"infobiz", code:"BA", title:"Információbiztonság és adatvédelem", desc:"…",
@@ -1285,7 +1968,7 @@ const store = {
   get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
   set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
 };
-const TYPE = { mcq:"Feleletválasztós", order:"Sorrend", match:"Párosítás", sim:"Szimuláció", find:"Hibakereső", form:"Kitöltős", cards:"Tanulókártya" };
+const TYPE = { mcq:"Feleletválasztós", order:"Sorrend", match:"Párosítás", sim:"Szimuláció", find:"Hibakereső", form:"Kitöltős", cards:"Tanulókártya", flow:"Teljes ügymenet" };
 let course = null, unitFilter = "all";
 
 function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
@@ -1328,7 +2011,8 @@ function renderActivities(){
   $("#activities").innerHTML = units.map(u => {
     const acts = course.activities.filter(a => a.unit===u.id);
     return `<div class="unit-block">
-      <div class="unit-title"><span class="mono">${esc(u.label)}</span><h3>${esc(u.title)}</h3></div>
+      <div class="unit-title"><span class="mono">${esc(u.label)}</span><h3>${esc(u.title)}</h3>${u.random?`<button class="btn rnd" data-random="${u.id}">Véletlenszerű ügy</button>`:""}</div>
+      ${u.desc?`<p class="unit-desc">${esc(u.desc)}</p>`:""}
       <div class="grid">${acts.map(a => {
         const b = best[key(a)];
         return `<button class="pick" data-act="${a.id}">
@@ -1372,7 +2056,7 @@ function openActivity(id){
     ${a.note?`<p class="note">${esc(a.note)}</p>`:""}`;
   $("#back").onclick = () => { s.hidden = true; renderActivities(); $("#step2").scrollIntoView({behavior:"smooth"}); };
   $("#reset").onclick = () => openActivity(id);
-  ({mcq:runMcq, order:runOrder, match:runMatch, sim:runSim, find:runFind, form:runForm, cards:runCards})[a.type](a);
+  ({mcq:runMcq, order:runOrder, match:runMatch, sim:runSim, find:runFind, form:runForm, cards:runCards, flow:runFlow})[a.type](a);
   s.scrollIntoView({behavior:"smooth", block:"start"});
 }
 
@@ -1617,11 +2301,117 @@ function runCards(a){
   draw();
 }
 
+/* ---------- teljes ügymenet (gyakorló ügyiratkezelő) ---------- */
+function fieldHTML(f, id){
+  const input = f.type==="select"
+    ? `<select id="${id}"><option value="">Válassz…</option>${f.options.map(o=>`<option value="${esc(o)}">${esc(o)}</option>`).join("")}</select>`
+    : `<input id="${id}" type="${f.type==="date"?"date":f.type==="number"?"number":"text"}" ${f.type==="number"?'inputmode="decimal" step="any"':""} autocomplete="off" placeholder="${esc(f.ph||"")}">`;
+  return `<div class="fld ${f.wide?"wide":""}"><label for="${id}">${esc(f.label)}</label>${input}</div>`;
+}
+function fieldOk(f, v){
+  if(f.type==="number"){ const n = parseFloat(String(v).replace(/\s/g,"").replace(",",".")); return !isNaN(n) && Math.abs(n - f.answer) <= (f.tol||0); }
+  return [f.answer].concat(f.accept||[]).map(norm).includes(norm(v));
+}
+function runFlow(a){
+  const ERK_HEAD = ["Érk. azonosító","Beérkezés","Mód","Küldő","Küldeményazonosító","Hivatkozási szám","Mell.","További sors"];
+  const IKT_HEAD = ["Iktatószám","Küldő / címzett","Tárgy","Ügyintéző","Határidő","Tétel","Állapot"];
+  const st = { i:0, passed:false, tries:0, ok:0, total:a.stages.reduce((s,x)=>s+x.fields.length,0),
+    erk:(a.erk0||[]).map(r=>r.slice()), ikt:(a.ikt0||[]).map(r=>r.slice()), docs:[a.envelope], fresh:new Set() };
+  setScore(0, st.total);
+  const table = (head, rows, mark) => `<div class="tablewrap"><table class="book"><thead><tr>${head.map(h=>`<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr class="${st.fresh.has(mark+r[0])?"fresh":""}">${r.map((c,k)=>`<td data-l="${esc(head[k])}" class="${k===0?"mono nowrap":""}">${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  const side = () => `<section class="panel"><h4>Az irat</h4><div class="paper">${st.docs.join("")}</div></section>`;
+  const books = () => `
+    <section class="panel"><h4>Érkeztetési nyilvántartás</h4>${table(ERK_HEAD, st.erk, "e")}</section>
+    <section class="panel"><h4>${esc(a.bookTitle||"Iktatókönyv – PLD 2026 (kivonat)")}</h4>${table(IKT_HEAD, st.ikt, "i")}</section>`;
+  const stepper = () => `<ol class="stepper">${a.stages.map((s,k)=>`<li class="${k<st.i||(k===st.i&&st.passed)?"done":k===st.i?"cur":""}"><span class="mono">${k+1}</span>${esc(s.short)}</li>`).join("")}</ol>`;
+  const apply = fx => {
+    if(!fx) return;
+    if(fx.erk){ st.erk.push(fx.erk); st.fresh.add("e"+fx.erk[0]); }
+    if(fx.erkSet){ const r = st.erk.find(r=>r[0]===fx.erkSet.id); if(r) fx.erkSet.cells.forEach(([k,v])=>r[k]=v); st.fresh.add("e"+fx.erkSet.id); }
+    if(fx.ikt){ st.ikt.push(fx.ikt); st.fresh.add("i"+fx.ikt[0]); }
+    if(fx.iktSet){ const r = st.ikt.find(r=>r[0]===fx.iktSet.id); if(r) fx.iktSet.cells.forEach(([k,v])=>r[k]=v); st.fresh.add("i"+fx.iktSet.id); }
+    if(fx.doc) st.docs.push(fx.doc);
+  };
+  const draw = () => {
+    if(st.i >= a.stages.length){
+      finish(a, st.ok, st.total);
+      $("#body").innerHTML = `<div class="flow">${stepper()}<div class="flow-grid">
+        <div class="stage"><span class="label">Ügymenet lezárva</span><h3>${esc(a.endTitle||"Az ügy végigment a teljes iratéletúton")}</h3>
+        <p class="why ${st.ok===st.total?"ok":"warn"}"><strong>${st.ok} / ${st.total} mezőt töltöttél ki elsőre helyesen.</strong> ${st.ok===st.total?"Hibátlan ügymenet.":"Az Újrakezdés gombbal hibátlanra is gyakorolhatod."}</p>
+        <p>${esc(a.endText||"")}</p>
+        ${course.units.find(u=>u.id===a.unit).random?`<div class="actions"><button class="btn" data-random="${a.unit}">Újabb véletlenszerű ügy</button></div>`:""}</div>
+        <aside class="side">${side()}</aside></div><div class="books">${books()}</div></div>`;
+      return;
+    }
+    const s = a.stages[st.i];
+    $("#body").innerHTML = `<div class="flow">${stepper()}<div class="flow-grid">
+      <div class="stage">
+        <span class="label">${st.i+1}. lépés · ${esc(s.role)}</span>
+        <h3>${esc(s.title)}</h3>
+        <p>${esc(s.text)}</p>
+        ${s.ctx?`<div class="ctx">${s.ctx}</div>`:""}
+        <div class="form"><div class="fields">${s.fields.map((f,k)=>fieldHTML(f,`w${st.i}_${k}`)).join("")}</div></div>
+        <div class="actions"><button class="btn" id="chk">Ellenőrzés</button><button class="btn ghost" id="sol" hidden>Mutasd a megoldást</button></div>
+        <div id="stfb"></div>
+      </div>
+      <aside class="side">${side()}</aside></div><div class="books">${books()}</div></div>`;
+    st.fresh.clear();
+    $("#chk").onclick = check;
+    $("#sol").onclick = () => {
+      s.fields.forEach((f,k) => { const el = $(`#w${st.i}_${k}`); el.value = f.type==="number"? f.answer : f.answer; });
+      check(true);
+    };
+  };
+  const check = (revealed) => {
+    const s = a.stages[st.i];
+    let allOk = true, okNow = 0;
+    s.fields.forEach((f,k) => {
+      const el = $(`#w${st.i}_${k}`), box = el.closest(".fld"), good = fieldOk(f, el.value);
+      if(good) okNow++; else allOk = false;
+      box.classList.toggle("right", good); box.classList.toggle("wrong", !good);
+      box.querySelector(".fb")?.remove();
+      if(good && f.why) box.insertAdjacentHTML("beforeend", `<p class="fb">${esc(f.why)}</p>`);
+      if(!good) box.insertAdjacentHTML("beforeend", `<p class="fb">${esc(f.hint||"Nézd meg újra az iratot és a segédleteket.")}</p>`);
+    });
+    if(st.tries===0 && revealed!==true) st.ok += okNow;
+    st.tries++;
+    setScore(st.ok, st.total);
+    if(allOk){
+      st.passed = true;
+      apply(s.fx);
+      $$(".stage input,.stage select").forEach(el=>el.disabled = true);
+      $("#chk").hidden = true; $("#sol").hidden = true;
+      $("#stfb").innerHTML = `<p class="why ok"><strong>${revealed===true?"Megoldás kitöltve.":"Rendben."}</strong> ${esc(s.done||"")}</p><div class="actions"><button class="btn" id="nextst">${st.i+1<a.stages.length?"Tovább: "+esc(a.stages[st.i+1].short):"Ügymenet lezárása"}</button></div>`;
+      $(".side").innerHTML = side(); $(".books").innerHTML = books();
+      $$(".stepper li")[st.i].className = "done";
+      $("#nextst").onclick = () => { st.i++; st.passed = false; st.tries = 0; draw(); $("#body").scrollIntoView({behavior:"smooth", block:"start"}); };
+      $("#nextst").focus();
+    } else {
+      $("#sol").hidden = false;
+      $("#stfb").innerHTML = `<p class="why no"><strong>${s.fields.length-okNow} mező még nem jó.</strong> Javítsd a pirosakat, vagy kérd a megoldást.</p>`;
+    }
+  };
+  draw();
+}
+
+let lastRandom = null;
+function openRandom(unitId){
+  const acts = course.activities.filter(a => a.unit===unitId);
+  const best = scores();
+  let pool = acts.filter(a => best[key(a)]==null && a.id!==lastRandom);
+  if(!pool.length) pool = acts.filter(a => a.id!==lastRandom);
+  if(!pool.length) pool = acts;
+  const pick = pool[Math.floor(Math.random()*pool.length)];
+  lastRandom = pick.id;
+  openActivity(pick.id);
+}
+
 /* ---------- indulás ---------- */
 document.addEventListener("click", e => {
   const c = e.target.closest("[data-course]"); if(c) return selectCourse(c.dataset.course, true);
   const u = e.target.closest("[data-unit]"); if(u){ unitFilter = u.dataset.unit; renderUnits(); renderActivities(); return; }
   const a = e.target.closest("[data-act]"); if(a) return openActivity(a.dataset.act);
+  const r = e.target.closest("[data-random]"); if(r) return openRandom(r.dataset.random);
 });
 renderCourses();
 if(COURSES.length===1) selectCourse(COURSES[0].id, false);
