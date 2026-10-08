@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ináncsi Mátyás feladattára</title>
+<meta name="description" content="Interaktív gyakorló feladatok hallgatóknak – Ináncsi Mátyás, NKE">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: egy hasábos, balra zárt "ügyirat" — fejléc érkeztető bélyegzővel, 1. kurzus → 2. feladat → feladatlap */
+:root{
+  --paper:#edf0f3; --surface:#ffffff; --ink:#1b2330; --muted:#586374; --line:#cfd6df;
+  --stamp:#3445a6; --stamp-soft:#e3e7f8; --ok:#2c7548; --ok-soft:#e1f1e7; --bad:#ae2f28; --bad-soft:#f8e3e1;
+  --f-display:"Newsreader", Georgia, "Times New Roman", serif;
+  --f-body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#12161c; --surface:#1a2029; --ink:#e3e8ef; --muted:#9aa5b3; --line:#2d3743;
+  --stamp:#97a5f2; --stamp-soft:#252c4a; --ok:#73c995; --ok-soft:#1b3326; --bad:#ef8a80; --bad-soft:#3a201e; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#12161c; --surface:#1a2029; --ink:#e3e8ef; --muted:#9aa5b3; --line:#2d3743;
+  --stamp:#97a5f2; --stamp-soft:#252c4a; --ok:#73c995; --ok-soft:#1b3326; --bad:#ef8a80; --bad-soft:#3a201e; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--f-body);margin:0}
+.wrap{max-width:62rem;margin:0 auto;padding-inline:clamp(16px,4vw,40px);padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;text-wrap:balance;margin:0;line-height:1.15}
+p{margin:0}
+.mono{font-family:var(--f-mono);font-weight:500;font-variant-numeric:tabular-nums}
+.label{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--stamp);outline-offset:2px}
+
+/* fejléc */
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:14px}
+.who{display:flex;align-items:center;gap:12px}
+.mark{width:40px;height:40px;border:2px solid var(--stamp);color:var(--stamp);display:grid;place-items:center;font-family:var(--f-mono);font-size:.85rem;border-radius:4px}
+.who b{display:block;font-weight:600}
+.who span{font-size:.85rem;color:var(--muted)}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end}
+.hero h1{font-size:clamp(2rem,5vw,3.25rem);max-width:16ch}
+.hero p{color:var(--muted);max-width:52ch;margin-top:14px}
+.stamp{border:2px solid var(--stamp);color:var(--stamp);border-radius:6px;padding:10px 16px;transform:rotate(-4deg);text-align:center;font-family:var(--f-mono);font-size:.78rem;line-height:1.5;opacity:.9}
+.stamp strong{display:block;font-size:1.05rem;letter-spacing:.06em}
+@media (max-width:640px){.hero{grid-template-columns:1fr}.stamp{justify-self:start}}
+
+/* lépések */
+.step{display:flex;flex-direction:column;gap:16px}
+.step-head{display:flex;align-items:baseline;gap:12px}
+.step-head .n{font-family:var(--f-mono);color:var(--stamp);font-size:.9rem}
+.step-head h2{font-size:1.5rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr));gap:12px}
+.pick{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 18px;text-align:left;display:flex;flex-direction:column;gap:6px;transition:border-color .15s}
+.pick:hover{border-color:var(--stamp)}
+.pick[aria-pressed="true"]{border-color:var(--stamp);box-shadow:inset 0 0 0 1px var(--stamp)}
+.pick .code{font-family:var(--f-mono);font-size:.78rem;color:var(--stamp)}
+.pick h3{font-size:1.15rem}
+.pick p{font-size:.9rem;color:var(--muted)}
+.pick .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.chip{font-size:.72rem;border:1px solid var(--line);border-radius:99px;padding:2px 9px;color:var(--muted)}
+.chip.done{border-color:var(--ok);color:var(--ok)}
+.empty{color:var(--muted);font-size:.95rem}
+
+/* feladatlap */
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:clamp(18px,3vw,32px);display:flex;flex-direction:column;gap:22px}
+.sheet-top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.sheet h2{font-size:1.7rem;margin-top:4px}
+.back{background:none;border:1px solid var(--line);border-radius:4px;padding:6px 12px;font-size:.9rem}
+.task{max-width:65ch;color:var(--muted)}
+.score{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:10px}
+.score .mono{font-size:1.1rem}
+.bar{flex:1;min-width:120px;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--stamp);width:0;transition:width .3s}
+.btn{background:var(--stamp);color:var(--surface);border:0;border-radius:4px;padding:8px 16px;font-weight:600}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--line)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.note{font-size:.85rem;color:var(--muted);border-left:3px solid var(--line);padding-left:12px;max-width:70ch}
+
+/* feleletválasztós */
+.items{display:flex;flex-direction:column;gap:12px;list-style:none;margin:0;padding:0}
+.item{border:1px solid var(--line);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.item .q{font-weight:500}
+.item .q .mono{color:var(--muted);font-size:.8rem;margin-right:8px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opt{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:7px 12px;text-align:left;font-size:.93rem}
+.opt:hover:not(:disabled){border-color:var(--stamp)}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.why{font-size:.9rem;padding:8px 12px;border-radius:4px}
+.why.ok{background:var(--ok-soft)}
+.why.no{background:var(--bad-soft)}
+
+/* sorrend */
+.order li{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:6px;padding:8px 10px;background:var(--surface)}
+.order .pos{font-family:var(--f-mono);color:var(--muted);width:2ch;text-align:right}
+.order .txt{flex:1;min-width:0}
+.order .mv{display:flex;gap:4px}
+.order .mv button{width:34px;height:34px;border:1px solid var(--line);background:var(--paper);border-radius:4px}
+.order .mv button:disabled{opacity:.35;cursor:default}
+.order li.right{border-color:var(--ok);background:var(--ok-soft)}
+.order li.wrong{border-color:var(--bad);background:var(--bad-soft)}
+
+/* besorolás */
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.mono{white-space:nowrap}
+.ns{color:var(--bad);font-weight:600}
+.match .row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,15rem);gap:10px;align-items:center;border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.match .row.right{border-color:var(--ok);background:var(--ok-soft)}
+.match .row.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.match select{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);width:100%}
+.match .fb{grid-column:1/-1;font-size:.88rem}
+@media (max-width:560px){.match .row{grid-template-columns:1fr}}
+
+footer{font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="who">
+      <div class="mark" aria-hidden="true">IM</div>
+      <div><b>Ináncsi Mátyás</b><span>NKE · Kiberbiztonsági és e-Közigazgatási Tanszék</span></div>
+    </div>
+    <span class="label">Gyakorló feladatok hallgatóknak</span>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>Válaszd ki a kurzust, aztán kezdd el a feladatot.</h1>
+      <p>Interaktív gyakorlatok az órák anyagához. Minden feladat azonnal visszajelez, és megmondja, miért helyes vagy hibás a válaszod. Bármikor újrakezdheted.</p>
+    </div>
+    <div class="stamp" aria-hidden="true">
+      ÉRKEZETT
+      <strong id="stampDate">2026. 10. 08.</strong>
+      Iktatószám: <span id="stampNo">GY/1/2026</span>
+    </div>
+  </section>
+
+  <section class="step" aria-labelledby="s1">
+    <div class="step-head"><span class="n">1.</span><h2 id="s1">Kurzus kiválasztása</h2></div>
+    <div class="grid" id="courses"></div>
+  </section>
+
+  <section class="step" aria-labelledby="s2" id="step2">
+    <div class="step-head"><span class="n">2.</span><h2 id="s2">Feladat kiválasztása</h2></div>
+    <div id="activities"><p class="empty">Előbb válassz kurzust.</p></div>
+  </section>
+
+  <section id="sheet" class="sheet" hidden aria-live="polite"></section>
+
+  <footer>Ináncsi Mátyás · Nemzeti Közszolgálati Egyetem · A feladatok oktatási célúak; a jogszabályi hivatkozásoknál mindig az aktuális hatályos szöveg és az intézményi iratkezelési szabályzat az irányadó.</footer>
+</div>
+
+<script>
+/* ============================================================
+   TARTALOM — új kurzust vagy feladatot itt lehet hozzáadni.
+   Feladattípusok: "mcq" (feleletválasztós), "order" (sorrend), "match" (besorolás)
+   ============================================================ */
+const COURSES = [
+  {
+    id: "iratkezeles",
+    code: "ÁTK · MA",
+    title: "Igazgatási iratkezelési gyakorlat",
+    desc: "Iktatás, ügyiratkezelés, irattári besorolás a 335/2005. Korm. rendelet és az Ltv. alapján.",
+    activities: [
+      {
+        id: "iktatni", code: "GY/1", type: "mcq",
+        title: "Iktatni kell?",
+        lead: "Postabontás egy hivatalban. Döntsd el minden küldeményről, hogy iktatni kell-e.",
+        task: "Tíz beérkezett küldemény vár feldolgozásra. Mindegyiknél válaszd ki, hogy iktatandó irat-e, vagy iktatás nélkül kezelhető.",
+        note: "Az iktatásra nem kerülő iratok körét a 335/2005. (XII. 29.) Korm. rendelet határozza meg, a részleteket az intézmény iratkezelési szabályzata rögzíti. Vitás esetben a szabályzat az irányadó.",
+        options: ["Iktatandó", "Nem iktatandó"],
+        items: [
+          { q: "Egy állampolgár kérelme hatósági bizonyítvány kiállítására.", a: 0, why: "Ügyet indít, érdemi intézkedést igényel, ezért iktatni kell." },
+          { q: "Meghívó egy szakmai konferencia megnyitójára.", a: 1, why: "A meghívó jellemzően nem igényel érdemi ügyintézést, ezért nem iktatandó." },
+          { q: "Egy beszállító reklámkiadványa új irodaszer-termékekről.", a: 1, why: "A reklámanyag nem iktatandó, nem keletkeztet ügyet." },
+          { q: "Egy hallgató írásos panasza a vizsgaértékelés ellen.", a: 0, why: "A panasz kivizsgálást és választ igényel, ezért iktatandó." },
+          { q: "A Magyar Közlöny aktuális száma papíron.", a: 1, why: "Sajtótermék, közlöny: nem iktatandó irat." },
+          { q: "Egy másik minisztérium megkeresése adatszolgáltatás iránt, határidővel.", a: 0, why: "Más szerv megkeresése érdemi intézkedést igényel, ezért iktatni kell." },
+          { q: "Üdvözlőlap egy partnerintézménytől az ünnepek alkalmából.", a: 1, why: "Az üdvözlőlap nem iktatandó." },
+          { q: "Egy ügyfél levele, amelyben egy folyamatban lévő ügyéhez újabb iratot nyújt be.", a: 0, why: "Iktatandó, mégpedig az ügy előzményéhez kapcsolva (alszámon), hogy egy ügyiratban maradjon." },
+          { q: "Számla az irodaszer-beszerzésről, amely a gazdasági egység bizonylati nyilvántartásába kerül.", a: 1, why: "A számviteli bizonylatokat a jogszabály szerinti külön nyilvántartás kezeli, nem az iktatókönyv." },
+          { q: "Szerződéstervezet egy külső partnertől, véleményezésre megküldve.", a: 0, why: "Érdemi ügyintézést (véleményezést, választ) igényel, ezért iktatandó." }
+        ]
+      },
+      {
+        id: "eletut", code: "GY/2", type: "order",
+        title: "Az irat életútja",
+        lead: "Tedd sorba az iratkezelés fő lépéseit az átvételtől a végső sorsig.",
+        task: "Rendezd a lépéseket helyes sorrendbe a nyilakkal, majd kattints az Ellenőrzés gombra. A zöld lépés a helyén van, a piros még nem.",
+        note: "Az egyes szervek szabályzatai eltérhetnek a részletekben (például a szignálás helyében). Itt a fő folyamatot rendezzük.",
+        steps: [
+          "A küldemény átvétele",
+          "Érkeztetés (a beérkezés tényének és idejének rögzítése)",
+          "Iktatás (nyilvántartásba vétel iktatószámmal)",
+          "Érdemi ügyintézés",
+          "Kiadmányozás (a döntés aláírása kiadmányozási joggal)",
+          "Expediálás (a kiadmány továbbítása a címzettnek)",
+          "Irattárba helyezés",
+          "Selejtezés vagy levéltárba adás"
+        ]
+      },
+      {
+        id: "szereles", code: "GY/3", type: "mcq",
+        title: "Szerelés vagy csatolás?",
+        lead: "Hat helyzet az ügyintézésből. Melyik iratkapcsolási mód illik rá?",
+        task: "Olvasd el a helyzetet, és válaszd ki, hogy szerelésről vagy csatolásról van-e szó.",
+        note: "Szerelés: azonos ügy iratainak végleges egyesítése (az előzményirat az utóirathoz kerül). Csatolás: különböző ügyek iratainak ideiglenes összekapcsolása, amely az ügyintézés végén megszűnik.",
+        options: ["Szerelés", "Csatolás"],
+        items: [
+          { q: "Egy kérelmező tavaly benyújtott, ugyanarra a telekre vonatkozó kérelmének iratait az idei, ugyanabban az ügyben érkezett hiánypótláshoz kell egyesíteni.", a: 0, why: "Azonos ügy iratai, végleges egyesítés: szerelés." },
+          { q: "Egy panasz elbírálásához ideiglenesen szükség van egy másik, már lezárt ügy irataira is, utána azok visszakerülnek.", a: 1, why: "Más ügy iratai, ideiglenesen: csatolás." },
+          { q: "Az ügyintéző látja, hogy az új beadvány egy korábbi, még folyamatban lévő ügy folytatása, ezért az előzményiratot az új irathoz egyesíti.", a: 0, why: "Előzményirat és utóirat ugyanabban az ügyben: szerelés." },
+          { q: "Egy fegyelmi eljárásban betekintés céljából kölcsönkérik egy munkaügyi vita iratait.", a: 1, why: "Két különböző ügy, átmeneti kapcsolat: csatolás." },
+          { q: "Egy beruházás engedélyezésekor a hatóság a szomszédos ingatlan korábbi engedélyezési iratait is áttekinti.", a: 1, why: "A szomszéd ingatlan engedélye külön ügy, ezért csatolás." },
+          { q: "Egy ügyfél ugyanabban az ügyben harmadszor ír, és az ügyintéző a korábbi két levelet és a választervezeteket egy ügyiratba rendezi.", a: 0, why: "Egy ügy iratainak végleges egyesítése: szerelés." }
+        ]
+      },
+      {
+        id: "irattariterv", code: "GY/4", type: "match",
+        title: "Irattári besorolás",
+        lead: "Sorold be az iratokat egy gyakorló irattári terv tételeibe.",
+        task: "Az alábbi irattári terv kitalált, gyakorlásra készült. Minden irathoz válaszd ki a megfelelő tételszámot, majd ellenőrizd.",
+        note: "Valódi szervnél mindig a saját, levéltárral egyeztetett irattári terv tételei és őrzési idői érvényesek. Az NS jelzés nem selejtezhető, levéltárba adandó iratot jelöl.",
+        plan: [
+          { no: "101", name: "Alapító okirat, szervezeti és működési szabályzat", keep: "NS" },
+          { no: "102", name: "Belső szabályzatok, utasítások", keep: "NS" },
+          { no: "201", name: "Munkaviszony létesítése, megszüntetése", keep: "50 év" },
+          { no: "202", name: "Szabadság-nyilvántartás, munkaidő-beosztás", keep: "5 év" },
+          { no: "301", name: "Beszerzés, szállítási és szolgáltatási szerződések", keep: "10 év" },
+          { no: "401", name: "Hallgatói kérelmek és panaszok", keep: "5 év" },
+          { no: "501", name: "Rendezvények szervezése", keep: "2 év" }
+        ],
+        items: [
+          { q: "Az intézmény új iratkezelési szabályzata", a: "102", why: "Belső szabályzat: 102, nem selejtezhető." },
+          { q: "Egy új tanársegéd munkaszerződése", a: "201", why: "Munkaviszony létesítése: 201." },
+          { q: "Keretszerződés irodaszer szállítására", a: "301", why: "Szállítási szerződés: 301." },
+          { q: "Hallgatói panasz egy vizsgajegy ellen", a: "401", why: "Hallgatói panasz: 401." },
+          { q: "A tanszéki évzáró konferencia szervezésének iratai", a: "501", why: "Rendezvényszervezés: 501." },
+          { q: "Az alapító okirat módosítása", a: "101", why: "Alapító okirat: 101, nem selejtezhető." },
+          { q: "A tanszék éves szabadságolási terve", a: "202", why: "Szabadság-nyilvántartás: 202." }
+        ]
+      },
+      {
+        id: "fogalmak", code: "GY/5", type: "mcq",
+        title: "Fogalomtár",
+        lead: "Hat alapfogalom az iratkezelésből. Ismered a pontos jelentésüket?",
+        task: "Válaszd ki minden kérdésnél a helyes meghatározást.",
+        note: "A fogalmak a 335/2005. (XII. 29.) Korm. rendelet értelmező rendelkezéseihez igazodnak, közérthető megfogalmazásban.",
+        items: [
+          { q: "Mit jelent a szignálás?", options: ["Az ügyintéző kijelölése az ügy intézésére", "A kiadmány aláírása", "Az irat lepecsételése"], a: 0, why: "A szignálással jelöli ki a vezető (vagy megbízottja) az ügy intézőjét." },
+          { q: "Mi a kiadmányozás?", options: ["A kiadmány postázása", "A döntés aláírása az erre jogosult által", "Az irat irattárba adása"], a: 1, why: "A kiadmányozási joggal rendelkező személy aláírásával válik a döntés kiadmánnyá." },
+          { q: "Mi az expediálás?", options: ["A kiadmány továbbítása a címzetthez", "A küldemény felbontása", "Az irat selejtezése"], a: 0, why: "Az expediálás a kiadmány elküldése a címzettnek." },
+          { q: "Mi az előzményirat?", options: ["Az ügyben később keletkezett irat", "Ugyanabban az ügyben korábban keletkezett irat", "Egy másik ügy irata"], a: 1, why: "Az előzményirat az adott ügyben korábban keletkezett irat; a későbbi az utóirat." },
+          { q: "Mi az érkeztetés?", options: ["Az ügyintéző kijelölése", "A beérkezés tényének és időpontjának rögzítése", "Az irat iktatószámmal ellátása"], a: 1, why: "Érkeztetéskor a küldemény beérkezését rögzítik; az iktatás ettől külön lépés." },
+          { q: "Mit jelent az NS jelzés az irattári tervben?", options: ["Nem sürgős", "Nem selejtezhető", "Nincs szignálva"], a: 1, why: "Nem selejtezhető: maradandó értékű irat, amelyet levéltárba kell adni." }
+        ]
+      }
+    ]
+  }
+  /* Új kurzus mintája:
+  ,{ id:"infobiz", code:"BA", title:"Információbiztonság és adatvédelem", desc:"...", activities:[ ... ] }
+  */
+];
+
+/* ============================================================ */
+const $ = s => document.querySelector(s);
+const store = {
+  get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+let course = null;
+
+(function stamp(){
+  const d = new Date();
+  $("#stampDate").textContent = `${d.getFullYear()}. ${String(d.getMonth()+1).padStart(2,"0")}. ${String(d.getDate()).padStart(2,"0")}.`;
+  $("#stampNo").textContent = `GY/${COURSES.reduce((n,c)=>n+c.activities.length,0)}/${d.getFullYear()}`;
+})();
+
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function shuffle(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+function renderCourses(){
+  $("#courses").innerHTML = COURSES.map(c => `
+    <button class="pick" data-course="${c.id}" aria-pressed="${course && course.id===c.id}">
+      <span class="code">${esc(c.code)}</span>
+      <h3>${esc(c.title)}</h3>
+      <p>${esc(c.desc)}</p>
+      <span class="meta"><span class="chip">${c.activities.length} feladat</span></span>
+    </button>`).join("");
+}
+
+function renderActivities(){
+  const best = store.get("scores") || {};
+  $("#activities").innerHTML = `<div class="grid">` + course.activities.map(a => {
+    const b = best[course.id+"/"+a.id];
+    return `<button class="pick" data-act="${a.id}">
+      <span class="code">${esc(a.code)}</span>
+      <h3>${esc(a.title)}</h3>
+      <p>${esc(a.lead)}</p>
+      <span class="meta"><span class="chip">${{mcq:"Feleletválasztós",order:"Sorrend",match:"Besorolás"}[a.type]}</span>${b!=null?`<span class="chip done">Legjobb: ${b}%</span>`:""}</span>
+    </button>`;}).join("") + `</div>`;
+}
+
+function selectCourse(id){
+  course = COURSES.find(c => c.id===id);
+  renderCourses(); renderActivities();
+  $("#sheet").hidden = true;
+  $("#step2").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function saveBest(act, pct){
+  const s = store.get("scores") || {}; const k = course.id+"/"+act.id;
+  if(s[k]==null || pct > s[k]){ s[k]=pct; store.set("scores", s); }
+}
+
+function scoreBox(){ return `<div class="score"><span class="label">Eredmény</span><span class="mono" id="sc">0 / 0</span><div class="bar"><i id="scbar"></i></div><button class="btn ghost" id="reset">Újrakezdés</button></div>`; }
+function setScore(ok, total, done){
+  $("#sc").textContent = `${ok} / ${total}`;
+  $("#scbar").style.width = (total? ok/total*100 : 0) + "%";
+}
+
+function openActivity(id){
+  const a = course.activities.find(x => x.id===id);
+  const s = $("#sheet");
+  s.hidden = false;
+  s.innerHTML = `
+    <div class="sheet-top">
+      <div><span class="label">${esc(course.title)} · <span class="mono">${esc(a.code)}</span></span><h2>${esc(a.title)}</h2></div>
+      <button class="back" id="back">← Vissza a feladatokhoz</button>
+    </div>
+    <p class="task">${esc(a.task)}</p>
+    ${scoreBox()}
+    <div id="body"></div>
+    ${a.note?`<p class="note">${esc(a.note)}</p>`:""}`;
+  $("#back").onclick = () => { s.hidden = true; renderActivities(); $("#step2").scrollIntoView({behavior:"smooth"}); };
+  $("#reset").onclick = () => openActivity(id);
+  ({mcq:runMcq, order:runOrder, match:runMatch})[a.type](a);
+  s.scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function runMcq(a){
+  const items = shuffle(a.items);
+  let ok = 0, answered = 0;
+  setScore(0, items.length);
+  $("#body").innerHTML = `<ol class="items">` + items.map((it,i) => {
+    const opts = it.options || a.options;
+    return `<li class="item" data-i="${i}">
+      <p class="q"><span class="mono">${String(i+1).padStart(2,"0")}</span>${esc(it.q)}</p>
+      <div class="opts">${opts.map((o,j)=>`<button class="opt" data-j="${j}">${esc(o)}</button>`).join("")}</div>
+    </li>`;}).join("") + `</ol>`;
+  $("#body").onclick = e => {
+    const b = e.target.closest(".opt"); if(!b || b.disabled) return;
+    const li = b.closest(".item"), it = items[+li.dataset.i], j = +b.dataset.j;
+    li.querySelectorAll(".opt").forEach(x => { x.disabled = true; if(+x.dataset.j===it.a) x.classList.add("right"); });
+    const good = j===it.a; if(!good) b.classList.add("wrong");
+    if(good) ok++; answered++;
+    li.insertAdjacentHTML("beforeend", `<p class="why ${good?"ok":"no"}"><strong>${good?"Helyes.":"Nem egészen."}</strong> ${esc(it.why)}</p>`);
+    setScore(ok, items.length);
+    if(answered===items.length) saveBest(a, Math.round(ok/items.length*100));
+  };
+}
+
+function runOrder(a){
+  let cur = shuffle(a.steps.map((t,i)=>({t,i})));
+  if(cur.every((x,k)=>x.i===k)) cur.reverse();
+  setScore(0, a.steps.length);
+  const draw = (marks) => {
+    $("#body").innerHTML = `<ol class="items order">` + cur.map((x,k)=>`
+      <li class="${marks?(x.i===k?"right":"wrong"):""}">
+        <span class="pos">${k+1}.</span><span class="txt">${esc(x.t)}</span>
+        <span class="mv"><button data-k="${k}" data-d="-1" aria-label="Feljebb" ${k===0?"disabled":""}>↑</button><button data-k="${k}" data-d="1" aria-label="Lejjebb" ${k===cur.length-1?"disabled":""}>↓</button></span>
+      </li>`).join("") + `</ol><div class="actions" style="margin-top:14px"><button class="btn" id="chk">Ellenőrzés</button></div>`;
+    $("#chk").onclick = () => {
+      const ok = cur.filter((x,k)=>x.i===k).length;
+      setScore(ok, cur.length); draw(true); saveBest(a, Math.round(ok/cur.length*100));
+      if(ok===cur.length) $("#body").insertAdjacentHTML("beforeend", `<p class="why ok" style="margin-top:12px"><strong>Tökéletes sorrend.</strong> Az irat végigment a teljes életútján.</p>`);
+    };
+  };
+  $("#body").onclick = e => {
+    const b = e.target.closest(".mv button"); if(!b || b.disabled) return;
+    const k = +b.dataset.k, d = +b.dataset.d;
+    [cur[k], cur[k+d]] = [cur[k+d], cur[k]]; draw(false);
+    const again = $(`.mv button[data-k="${k+d}"][data-d="${d}"]`) || $(`.mv button[data-k="${k+d}"]`); again && again.focus();
+  };
+  draw(false);
+}
+
+function runMatch(a){
+  const items = shuffle(a.items);
+  setScore(0, items.length);
+  $("#body").innerHTML = `
+    <div class="tablewrap"><table>
+      <thead><tr><th>Tételszám</th><th>Tétel megnevezése</th><th>Őrzési idő</th></tr></thead>
+      <tbody>${a.plan.map(p=>`<tr><td class="mono">${p.no}</td><td>${esc(p.name)}</td><td class="mono ${p.keep==="NS"?"ns":""}">${p.keep}</td></tr>`).join("")}</tbody>
+    </table></div>
+    <div class="items match" style="margin-top:18px">${items.map((it,i)=>`
+      <div class="row" data-i="${i}">
+        <label for="m${i}">${esc(it.q)}</label>
+        <select id="m${i}"><option value="">Válassz tételt…</option>${a.plan.map(p=>`<option value="${p.no}">${p.no} · ${esc(p.name)}</option>`).join("")}</select>
+      </div>`).join("")}</div>
+    <div class="actions" style="margin-top:14px"><button class="btn" id="chk">Ellenőrzés</button></div>`;
+  $("#chk").onclick = () => {
+    let ok = 0;
+    document.querySelectorAll(".match .row").forEach(r => {
+      const it = items[+r.dataset.i], v = r.querySelector("select").value, good = v===it.a;
+      if(good) ok++;
+      r.classList.toggle("right", good); r.classList.toggle("wrong", !good);
+      r.querySelector(".fb")?.remove();
+      r.insertAdjacentHTML("beforeend", `<p class="fb">${good?"Helyes. ":v?"Nem ez a tétel. ":"Még nem választottál. "}${good?esc(it.why):""}</p>`);
+    });
+    setScore(ok, items.length); saveBest(a, Math.round(ok/items.length*100));
+  };
+}
+
+document.addEventListener("click", e => {
+  const c = e.target.closest("[data-course]"); if(c) return selectCourse(c.dataset.course);
+  const a = e.target.closest("[data-act]"); if(a) return openActivity(a.dataset.act);
+});
+
+renderCourses();
+if(COURSES.length===1) { course = COURSES[0]; renderCourses(); renderActivities(); }
+</script>
+
+</body>
+</html>
