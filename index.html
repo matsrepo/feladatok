@@ -315,17 +315,41 @@ const A1 = [
     { q:"A saját kezű aláírással azonos joghatású", a:"Minősített", why:"Az eIDAS szerint csak a minősített aláírás egyenértékű a saját kezű aláírással." }
   ]
 },
+{ unit:"u1", id:"u1-eletut", type:"order",
+  title:"Az irat életútja",
+  lead:"A félév térképe: nyolc szakasz az érkeztetéstől a selejtezésig vagy levéltárba adásig.",
+  task:"Rendezd sorba az irat életútjának nyolc szakaszát a nyilakkal, majd ellenőrizd. A zöld szakasz a helyén van, a piros még nem.",
+  note:"Minden szakaszhoz jogszabályi követelmények tartoznak; a félév elméleti alkalmai ebben a sorrendben haladnak végig rajtuk.",
+  done:"A 9–11. alkalmon ezt a teljes folyamatot a Poszeidonban (EKEIDR) gyakoroljuk végig.",
+  steps:["Érkeztetés","Iktatás","Szignálás","Ügyintézés","Kiadmányozás","Expediálás","Irattárazás","Selejtezés vagy levéltárba adás"]
+},
+{ unit:"u1", id:"u1-szakaszok", type:"match",
+  title:"Mi történik az egyes szakaszokban?",
+  lead:"Az iratéletút nyolc szakasza tartalommal: melyik művelet melyik szakaszhoz tartozik?",
+  task:"Minden művelethez válaszd ki, az irat életútjának melyik szakaszában történik.",
+  options:["Érkeztetés","Iktatás","Szignálás","Ügyintézés","Kiadmányozás","Expediálás","Irattárazás","Selejtezés vagy levéltárba adás"],
+  items:[
+    { q:"Átvétel, felbontás, nyilvántartásba vétel", a:"Érkeztetés", why:"Az érkeztetés a küldemény első regisztrációja." },
+    { q:"Főszám vagy alszám kiosztása, ügyirathoz rendelés", a:"Iktatás", why:"Az iktatás az ügyviteli nyilvántartásba vétel." },
+    { q:"Az ügyintéző kijelölése és a határidő meghatározása", a:"Szignálás", why:"A szignálás az ügyintézés irányítása." },
+    { q:"Érdemi elintézés, a döntés tervezetének elkészítése", a:"Ügyintézés", why:"Itt születik az érdemi döntés tartalma." },
+    { q:"A döntés hitelesítése, aláírás", a:"Kiadmányozás", why:"A kiadmányozás a szerv akaratnyilvánításának hitelesítése." },
+    { q:"Kézbesítés a címzettnek, igazolások kezelése", a:"Expediálás", why:"A kimenő oldal iratkezelési művelete." },
+    { q:"Őrzés az átmeneti, majd a központi irattárban", a:"Irattárazás", why:"Az elintézett ügyirat irattárba kerül." },
+    { q:"Megsemmisítés jóváhagyással, vagy átadás a közlevéltárnak", a:"Selejtezés vagy levéltárba adás", why:"Az irat sorsát az irattári tételszám dönti el." }
+  ]
+},
 { unit:"u1", id:"u1-kviz", type:"cards",
   title:"Villámkvíz – 1. alkalom",
   lead:"Az órai villámkvíz hat kérdése, megoldással. Gyors ismétlés zárthelyi előtt.",
-  task:"Gondold végig a választ, majd fordítsd meg a kártyát.",
+  task:"Kattints a szerinted helyes válaszra. Azonnal látod, jó-e, és miért.",
   cards:[
-    { q:"Igaz vagy hamis: egy hivatali e-mail nem lehet irat, mert nem papíralapú.", a:"Hamis. Az irat fogalma technológiasemleges." },
-    { q:"Melyik törvény ad felhatalmazást a 335/2005. Korm. rendelet megalkotására?", a:"Az Ltv. 35/A. §-a." },
-    { q:"Melyik évben lépett hatályba (első lépcsőben) a Dáptv.?", a:"2024-ben (július 1.)." },
-    { q:"Az e-aláírás melyik szintje azonos joghatású a saját kezű aláírással?", a:"A minősített elektronikus aláírás." },
-    { q:"Mi a különbség a jogszabály és a normatív utasítás kötelező ereje között?", a:"A jogszabály mindenkire, a normatív utasítás a kibocsátóra és az irányított szervekre kötelező." },
-    { q:"Sorold fel az irat életútjának első három szakaszát!", a:"Érkeztetés – iktatás – szignálás." }
+    { q:"Igaz vagy hamis: egy hivatali e-mail nem lehet irat, mert nem papíralapú.", options:["Igaz","Hamis"], ans:1, a:"Hamis. Az irat fogalma technológiasemleges: ha az e-mail érdemi ügyintézéshez kapcsolódik, nyilvántartásba kell venni." },
+    { q:"Melyik törvény ad felhatalmazást a 335/2005. Korm. rendelet megalkotására?", options:["Dáptv.", "Ltv. 35/A. §", "Infotv."], ans:1, a:"Az Ltv. 35/A. §-a." },
+    { q:"Melyik évben lépett hatályba (első lépcsőben) a Dáptv.?", options:["2023", "2024", "2025"], ans:1, a:"2024-ben (július 1.)." },
+    { q:"Az e-aláírás melyik szintje azonos joghatású a saját kezű aláírással?", options:["Egyszerű", "Fokozott biztonságú", "Minősített"], ans:2, a:"A minősített elektronikus aláírás." },
+    { q:"Mi a különbség a jogszabály és a normatív utasítás kötelező ereje között?", options:["Nincs különbség, mindkettő mindenkire kötelező", "A jogszabály mindenkire, a normatív utasítás a kibocsátóra és az irányított szervekre kötelező", "A normatív utasítás erősebb, mert konkrétabb"], ans:1, a:"A jogszabály mindenkire, a normatív utasítás a kibocsátóra és az irányított szervekre kötelező." },
+    { q:"Sorold fel az irat életútjának első három szakaszát!", options:["Érkeztetés – iktatás – szignálás", "Iktatás – érkeztetés – szignálás", "Érkeztetés – szignálás – kiadmányozás"], ans:0, a:"Érkeztetés – iktatás – szignálás." }
   ]
 },
 
@@ -638,14 +662,14 @@ const A1 = [
 { unit:"u4", id:"u4-kviz", type:"cards",
   title:"Villámkvíz – 4. alkalom",
   lead:"Az órai villámkvíz kérdései megoldással: GDPR, DPIA, 72 óra, minősítési szintek.",
-  task:"Gondold végig a választ, majd fordítsd meg a kártyát.",
+  task:"Kattints a szerinted helyes válaszra. Azonnal látod, jó-e, és miért.",
   cards:[
-    { q:"Az iktatókönyv miért tartozik a GDPR hatálya alá?", a:"Mert személyes adatokat (például a beküldő nevét) tartalmazó nyilvántartási rendszer." },
-    { q:"Milyen jogalapon őrzi a szerv a lejáratig az iratokat, és miért kötelező utána selejtezni?", a:"Jogi kötelezettség, illetve közfeladat alapján; a lejárat után a tárolás jogalap nélküli." },
-    { q:"Mi a különbség az adatkezelő és az adatfeldolgozó között az iratkezelésben?", a:"Az adatkezelő a célt és az eszközt meghatározó szerv; az adatfeldolgozó a nevében eljáró szolgáltató." },
-    { q:"Mikor kötelező DPIA-t készíteni, és ki véleményezi?", a:"Valószínűsíthetően magas kockázatú adatkezelésnél; a DPO véleményével." },
-    { q:"Honnan indul a 72 órás bejelentési határidő?", a:"Az incidens észlelésétől (a tudomásszerzéstől)." },
-    { q:"Sorold fel a minősítési szinteket!", a:"„Szigorúan titkos!”, „Titkos!”, „Bizalmas!”, „Korlátozott terjesztésű!”" }
+    { q:"Az iktatókönyv miért tartozik a GDPR hatálya alá?", options:["Mert elektronikus rendszerben vezetik", "Mert személyes adatokat tartalmazó nyilvántartási rendszer", "Csak akkor tartozik alá, ha különleges adatot tartalmaz"], ans:1, a:"Mert személyes adatokat (például a beküldő nevét) tartalmazó nyilvántartási rendszer." },
+    { q:"Milyen jogalapon őrzi a szerv a lejáratig az iratokat, és miért kötelező utána selejtezni?", options:["Hozzájárulás alapján; utána a hozzájárulás lejár", "Jogi kötelezettség, illetve közfeladat alapján; a lejárat után a tárolás jogalap nélküli", "Jogos érdek alapján; utána a levéltár kéri"], ans:1, a:"Jogi kötelezettség, illetve közfeladat alapján; a lejárat után a tárolás jogalap nélküli." },
+    { q:"Mi a különbség az adatkezelő és az adatfeldolgozó között az iratkezelésben?", options:["Az adatkezelő a célt és eszközt meghatározó szerv, az adatfeldolgozó a nevében eljáró szolgáltató", "Az adatkezelő az ügykezelő, az adatfeldolgozó az ügyintéző", "Nincs különbség"], ans:0, a:"Az adatkezelő a célt és az eszközt meghatározó szerv; az adatfeldolgozó a nevében eljáró szolgáltató." },
+    { q:"Mikor kötelező DPIA-t készíteni, és ki véleményezi?", options:["Minden új iratnál, a szerv vezetőjének véleményével", "Valószínűsíthetően magas kockázatú adatkezelésnél, a DPO véleményével", "Csak a NAIH kérésére, a NAIH véleményével"], ans:1, a:"Valószínűsíthetően magas kockázatú adatkezelésnél; a DPO véleményével." },
+    { q:"Honnan indul a 72 órás bejelentési határidő?", options:["Az incidens bekövetkezésétől", "Az észleléstől (a tudomásszerzéstől)", "A DPO-nak tett belső jelentéstől"], ans:1, a:"Az incidens észlelésétől (a tudomásszerzéstől)." },
+    { q:"Sorold fel a minősítési szinteket!", options:["„Szigorúan titkos!”, „Titkos!”, „Bizalmas!”, „Korlátozott terjesztésű!”", "„Titkos!”, „Bizalmas!”, „Belső használatra!”", "„Szigorúan titkos!”, „Titkos!”, „Nyilvános!”"], ans:0, a:"„Szigorúan titkos!”, „Titkos!”, „Bizalmas!”, „Korlátozott terjesztésű!”" }
   ]
 }
 ];
@@ -754,14 +778,14 @@ const A2 = [
 { unit:"u5", id:"u5-kviz", type:"cards",
   title:"Villámkvíz – 5. alkalom",
   lead:"Nyilvántartás, évzárás, szoftvertanúsítás, iktatószám, napló, hiteles másolat.",
-  task:"Gondold végig a választ, majd fordítsd meg a kártyát.",
+  task:"Kattints a szerinted helyes válaszra. Azonnal látod, jó-e, és miért.",
   cards:[
-    { q:"Sorolj fel négy adatot, amelyet az érkeztetési nyilvántartás rögzít!", a:"Érkeztetési azonosító; a beérkezés ideje és módja; a küldő; a küldemény azonosítói; a mellékletek." },
-    { q:"Miért nem kerülhet új főszám a lezárt évi iktatókönyvbe?", a:"Mert a hiteles zárás a nyilvántartás megváltoztathatatlanságának garanciája." },
-    { q:"Mely két jogszabály rendezi az iratkezelési szoftverek követelményeit és tanúsítását?", a:"A 3/2018. (II. 21.) BM rendelet és a 43/2013. (II. 19.) Korm. rendelet." },
-    { q:"Mit jelent a PLD/1420-3/2026 iktatószám?", a:"Az 1420. ügy 3. irata 2026-ban." },
-    { q:"Milyen műveleteket naplóz a rendszer, és ki törölheti a naplót?", a:"Minden érdemi műveletet; a naplót senki nem törölheti, a rendszergazda sem." },
-    { q:"Mi a hiteles elektronikus másolat két kötelező hitelesítési eleme?", a:"Elektronikus hitelesítés (aláírás vagy bélyegző) és időbélyegző, egyezőségi záradékkal." }
+    { q:"Sorolj fel négy adatot, amelyet az érkeztetési nyilvántartás rögzít!", options:["Érkeztetési azonosító, a beérkezés ideje és módja, a küldő, a küldemény azonosítói", "Iktatószám, irattári tételszám, ügyintéző, határidő", "Kiadmányozó, aláírási szint, címzett, expediálás módja"], ans:0, a:"Érkeztetési azonosító; a beérkezés ideje és módja; a küldő; a küldemény azonosítói; a mellékletek." },
+    { q:"Miért nem kerülhet új főszám a lezárt évi iktatókönyvbe?", options:["Mert a hiteles zárás a nyilvántartás megváltoztathatatlanságának garanciája", "Mert a szoftver technikailag nem tudja kezelni", "Mert a lezárt évet a levéltár már átvette"], ans:0, a:"Mert a hiteles zárás a nyilvántartás megváltoztathatatlanságának garanciája." },
+    { q:"Mely két jogszabály rendezi az iratkezelési szoftverek követelményeit és tanúsítását?", options:["A 335/2005. Korm. rendelet és az Ltv.", "A 3/2018. BM rendelet és a 43/2013. Korm. rendelet", "A Dáptv. és az eIDAS rendelet"], ans:1, a:"A 3/2018. (II. 21.) BM rendelet és a 43/2013. (II. 19.) Korm. rendelet." },
+    { q:"Mit jelent a PLD/1420-3/2026 iktatószám?", options:["Az 1420. ügy 3. irata 2026-ban", "A 3. ügy 1420. irata 2026-ban", "Az 1420. irat 3. példánya"], ans:0, a:"Az 1420. ügy 3. irata 2026-ban." },
+    { q:"Milyen műveleteket naplóz a rendszer, és ki törölheti a naplót?", options:["Minden érdemi műveletet; senki, a rendszergazda sem törölheti", "Csak a módosításokat; a rendszergazda törölheti", "Csak a belépéseket; az iratkezelésért felelős vezető törölheti"], ans:0, a:"Minden érdemi műveletet; a naplót senki nem törölheti, a rendszergazda sem." },
+    { q:"Mi a hiteles elektronikus másolat két kötelező hitelesítési eleme?", options:["Elektronikus aláírás vagy bélyegző és időbélyegző, egyezőségi záradékkal", "Beszkennelt aláírás és pecsétlenyomat", "Ügyintézői láttamozás és iktatószám"], ans:0, a:"Elektronikus hitelesítés (aláírás vagy bélyegző) és időbélyegző, egyezőségi záradékkal." }
   ]
 },
 
@@ -879,14 +903,14 @@ const A2 = [
 { unit:"u6", id:"u6-kviz", type:"cards",
   title:"Villámkvíz – 6. alkalom",
   lead:"Igazolások, határidők, e-Papír, bontási szabályok, szerelés, e-mail.",
-  task:"Gondold végig a választ, majd fordítsd meg a kártyát.",
+  task:"Kattints a szerinted helyes válaszra. Azonnal látod, jó-e, és miért.",
   cards:[
-    { q:"Milyen igazolások keletkeznek egy hivatali kapus tranzakcióban?", a:"Feladási és letöltési (átvételi) igazolás, időbélyeggel." },
-    { q:"Melyik időponttól futnak a határidők elektronikus beérkezésnél?", a:"A kihelyezés, beérkezés rendszeridőpontjától." },
-    { q:"Mi a különbség az e-Papír és a kötött űrlap között az iratkezelés szemszögéből?", a:"Az e-Papír szabad szöveg; az űrlap strukturált, automatikusan feldolgozható adat." },
-    { q:"Hogyan kezeled a bontási időpontos pályázatot? És a gyanús küldeményt?", a:"Zártan őrzöm a bontásig, a bontás jegyzőkönyvvel történik. A gyanús küldeményt nem bontom fel: biztonsági protokoll." },
-    { q:"Csatolás vagy szerelés: évváltásnál folytatódó ügy?", a:"Szerelés." },
-    { q:"Iktatandó-e az ügyintéző e-mail-fiókjába érkezett kérelem?", a:"Igen – érkeztetésre kell továbbítani." }
+    { q:"Milyen igazolások keletkeznek egy hivatali kapus tranzakcióban?", options:["Csak feladási igazolás", "Feladási és letöltési (átvételi) igazolás, időbélyeggel", "Tértivevény"], ans:1, a:"Feladási és letöltési (átvételi) igazolás, időbélyeggel." },
+    { q:"Melyik időponttól futnak a határidők elektronikus beérkezésnél?", options:["Amikor az ügykezelő megnyitja az üzenetet", "A kihelyezés, beérkezés rendszeridőpontjától", "Az iktatás időpontjától"], ans:1, a:"A kihelyezés, beérkezés rendszeridőpontjától." },
+    { q:"Mi a különbség az e-Papír és a kötött űrlap között az iratkezelés szemszögéből?", options:["Nincs különbség", "Az e-Papír szabad szöveg, az űrlap strukturált, automatikusan feldolgozható adat", "Az e-Papír nem minősül beadványnak"], ans:1, a:"Az e-Papír szabad szöveg; az űrlap strukturált, automatikusan feldolgozható adat." },
+    { q:"Hogyan kezeled a bontási időpontos pályázatot? És a gyanús küldeményt?", options:["Mindkettőt azonnal felbontom és érkeztetem", "A pályázatot zártan őrzöm a bontásig, a gyanús küldeményt nem bontom fel", "A pályázatot felbontom, a gyanús küldeményt visszaküldöm a feladónak"], ans:1, a:"Zártan őrzöm a bontásig, a bontás jegyzőkönyvvel történik. A gyanús küldeményt nem bontom fel: biztonsági protokoll." },
+    { q:"Csatolás vagy szerelés: évváltásnál folytatódó ügy?", options:["Csatolás","Szerelés"], ans:1, a:"Szerelés: az ügy új főszámon folytatódik, a tavalyi előzményt végleg egyesíteni kell vele." },
+    { q:"Iktatandó-e az ügyintéző e-mail-fiókjába érkezett kérelem?", options:["Igen","Nem"], ans:0, a:"Igen – érkeztetésre kell továbbítani, az irat nem maradhat nyilvántartáson kívül." }
   ]
 },
 
@@ -1008,14 +1032,14 @@ const A2 = [
 { unit:"u7", id:"u7-kviz", type:"cards",
   title:"Villámkvíz – 7. alkalom",
   lead:"Szignálás, határidő, láttamozás és ellenjegyzés, hash, a hibás kiadmány orvoslása.",
-  task:"Gondold végig a választ, majd fordítsd meg a kártyát.",
+  task:"Kattints a szerinted helyes válaszra. Azonnal látod, jó-e, és miért.",
   cards:[
-    { q:"Mi a szignálás három kötelező tartalmi eleme?", a:"Ügyintéző, határidő, elintézési mód vagy utasítás." },
-    { q:"Mikor indokolt az automatikus szignálás, és mi a feltétele?", a:"Tömeges, homogén ügyeknél; karbantartott szignálási renddel." },
-    { q:"Kedden beérkezett kérelem, 8 napos határidő – mikor jár le?", a:"A beérkezést követő napon (szerdán) indul, és a 8. napon, a következő hét szerdáján jár le – ha munkaszüneti napra esne, a következő munkanapon." },
-    { q:"Mi a különbség a láttamozás és az ellenjegyzés között?", a:"A láttamozás minőségbiztosítás, az ellenjegyzés (jogszabályban meghatározott esetben) érvényességi kellék." },
-    { q:"Miért mutatható ki technikailag a hitelesített irat módosítása?", a:"Mert a lenyomat (hash) eltérése azonnal látszik." },
-    { q:"Mi a jogszerű út egy már expediált, hibás kiadmány orvoslására?", a:"Új kijavító vagy módosító döntés, új alszámon." }
+    { q:"Mi a szignálás három kötelező tartalmi eleme?", options:["Ügyintéző, határidő, elintézési mód vagy utasítás", "Iktatószám, tárgy, küldő", "Kiadmányozó, aláírás, bélyegző"], ans:0, a:"Ügyintéző, határidő, elintézési mód vagy utasítás." },
+    { q:"Mikor indokolt az automatikus szignálás, és mi a feltétele?", options:["Összetett, érzékeny ügyeknél, a vezető mérlegelésével", "Tömeges, homogén ügyeknél, karbantartott szignálási renddel", "Mindig, mert gyorsabb"], ans:1, a:"Tömeges, homogén ügyeknél; karbantartott szignálási renddel." },
+    { q:"Kedden beérkezett kérelem, 8 napos határidő – mikor jár le?", options:["A következő hét keddjén", "A következő hét szerdáján", "A következő hét csütörtökén"], ans:1, a:"A beérkezést követő napon (szerdán) indul, és a 8. napon, a következő hét szerdáján jár le – ha munkaszüneti napra esne, a következő munkanapon." },
+    { q:"Mi a különbség a láttamozás és az ellenjegyzés között?", options:["A láttamozás minőségbiztosítás, az ellenjegyzés (jogszabályban meghatározott esetben) érvényességi kellék", "A láttamozás érvényességi kellék, az ellenjegyzés minőségbiztosítás", "A kettő ugyanazt jelenti"], ans:0, a:"A láttamozás minőségbiztosítás, az ellenjegyzés (jogszabályban meghatározott esetben) érvényességi kellék." },
+    { q:"Miért mutatható ki technikailag a hitelesített irat módosítása?", options:["Mert a lenyomat (hash) eltérése azonnal látszik","Mert a rendszer nem engedi a mentést","Mert a papír példány eltér tőle"], ans:0, a:"Mert a lenyomat (hash) eltérése azonnal látszik." },
+    { q:"Mi a jogszerű út egy már expediált, hibás kiadmány orvoslására?", options:["A kiadmány kijavítása a rendszerben", "Új kijavító vagy módosító döntés, új alszámon", "Telefonos tájékoztatás az ügyfélnek"], ans:1, a:"Új kijavító vagy módosító döntés, új alszámon." }
   ]
 },
 
@@ -1135,14 +1159,14 @@ const A2 = [
 { unit:"u8", id:"u8-kviz", type:"cards",
   title:"Villámkvíz – 8. alkalom",
   lead:"Irattárak, a selejtezés lépései, jóváhagyás, Ltv. 12. §, PDF/A, a jegyzőkönyv sorsa.",
-  task:"Gondold végig a választ, majd fordítsd meg a kártyát.",
+  task:"Kattints a szerinted helyes válaszra. Azonnal látod, jó-e, és miért.",
   cards:[
-    { q:"Mi a különbség az átmeneti és a központi irattár funkciója között?", a:"A friss, lezárt anyag kéznél tartása, illetve a hosszú távú őrzés." },
-    { q:"Sorold fel a selejtezési eljárás lépéseit a kijelöléstől a nyilvántartási átvezetésig!", a:"Kijelölés – jegyzőkönyv – levéltári jóváhagyás – megsemmisítés – átvezetés." },
-    { q:"Ki hagyja jóvá a selejtezést, és mi történhet enélkül?", a:"Az illetékes közlevéltár; nélküle a megsemmisítés jogellenes." },
-    { q:"Mit mond ki az Ltv. 12. §-a?", a:"A nem selejtezhető köziratokat a keletkezés naptári évétől számított 15. év végéig át kell adni a közlevéltárnak." },
-    { q:"Miért a PDF/A az archiválás tipikus formátuma?", a:"Nyílt, önhordó (beágyazott betűk), hosszú távon olvasható." },
-    { q:"Miért nem selejtezhető maga a selejtezési jegyzőkönyv?", a:"Mert a selejtezés utólagos ellenőrizhetőségének bizonyítéka." }
+    { q:"Mi a különbség az átmeneti és a központi irattár funkciója között?", options:["A friss, lezárt anyag kéznél tartása, illetve a hosszú távú őrzés", "Nincs különbség, csak a helyiség más", "Az átmeneti a selejtezendő, a központi a levéltári anyagé"], ans:0, a:"A friss, lezárt anyag kéznél tartása, illetve a hosszú távú őrzés." },
+    { q:"Sorold fel a selejtezési eljárás lépéseit a kijelöléstől a nyilvántartási átvezetésig!", options:["Kijelölés – jegyzőkönyv – levéltári jóváhagyás – megsemmisítés – átvezetés", "Kijelölés – megsemmisítés – jegyzőkönyv – levéltári jóváhagyás – átvezetés", "Jegyzőkönyv – megsemmisítés – kijelölés – átvezetés – jóváhagyás"], ans:0, a:"Kijelölés – jegyzőkönyv – levéltári jóváhagyás – megsemmisítés – átvezetés." },
+    { q:"Ki hagyja jóvá a selejtezést, és mi történhet enélkül?", options:["A szerv vezetője; enélkül legfeljebb fegyelmi jár", "Az illetékes közlevéltár; nélküle a megsemmisítés jogellenes", "A KIF; nélküle a selejtezés csak érvénytelen"], ans:1, a:"Az illetékes közlevéltár; nélküle a megsemmisítés jogellenes." },
+    { q:"Mit mond ki az Ltv. 12. §-a?", options:["A nem selejtezhető köziratokat a keletkezés naptári évétől számított 15. év végéig át kell adni a közlevéltárnak", "Minden iratot 15 év után selejtezni kell", "A levéltár 15 évente ellenőrzi a szervet"], ans:0, a:"A nem selejtezhető köziratokat a keletkezés naptári évétől számított 15. év végéig át kell adni a közlevéltárnak." },
+    { q:"Miért a PDF/A az archiválás tipikus formátuma?", options:["Nyílt, önhordó (beágyazott betűk), hosszú távon olvasható", "Mert később is szerkeszthető", "Mert ez adja a legkisebb fájlméretet"], ans:0, a:"Nyílt, önhordó (beágyazott betűk), hosszú távon olvasható." },
+    { q:"Miért nem selejtezhető maga a selejtezési jegyzőkönyv?", options:["Mert a selejtezés utólagos ellenőrizhetőségének bizonyítéka", "Mert a levéltár tulajdona", "Mert minősített irat"], ans:0, a:"Mert a selejtezés utólagos ellenőrizhetőségének bizonyítéka." }
   ]
 },
 
@@ -1558,6 +1582,25 @@ function runCards(a){
       return;
     }
     const c = deck[pos];
+    if(c.options){
+      /* eldöntendő kártya: válaszgombokkal */
+      const picked = shown;
+      if(!c.ord) c.ord = shuffle(c.options.map((o,j)=>j));
+      $("#body").innerHTML = `${dots}<div class="card">
+        <span class="label">${pos+1}. kártya / ${deck.length}</span>
+        <p class="front">${esc(c.q)}</p>
+        <div class="opts">${c.ord.map(j=>[c.options[j],j]).map(([o,j])=>`<button class="opt ${picked!==false&&j===c.ans?"right":""} ${picked!==false&&j===picked&&j!==c.ans?"wrong":""}" data-j="${j}" ${picked!==false?"disabled":""}>${esc(o)}</button>`).join("")}</div>
+        ${picked!==false?`<p class="why ${picked===c.ans?"ok":"no"}"><strong>${picked===c.ans?"Helyes.":"Nem egészen."}</strong> ${esc(c.a)}</p>
+          <div class="actions"><button class="btn" id="nextc">Következő kártya</button></div>`:""}
+      </div>`;
+      if(picked===false){
+        $$(".card .opt").forEach(b => b.onclick = () => { shown = +b.dataset.j; res[c.i] = shown===c.ans; draw(); });
+      } else {
+        $("#nextc").onclick = () => { pos++; shown = false; draw(); };
+        $("#nextc").focus();
+      }
+      return;
+    }
     $("#body").innerHTML = `${dots}<div class="card">
       <span class="label">${pos+1}. kártya / ${deck.length}</span>
       <p class="front">${esc(c.q)}</p>
