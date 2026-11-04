@@ -215,7 +215,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .op-comments{margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
 .op-comments p{font-size:.82rem;color:var(--muted);margin:4px 0}
 .op-igprofile{display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;padding:6px 0}
-.op-igprofile>.op-ava.big{bottom:auto;margin:-4px 0 0 -6px}
+.op-igprofile>.op-ava.big{bottom:auto;margin:-4px 0 0 -16px}
 .op-igname{display:flex;align-items:center;gap:10px}.op-igname h1{margin:0;font-size:1.3rem}
 .op-igprofile strong{display:block;margin-top:4px}.op-igprofile small{color:var(--muted)}
 .op-iggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
@@ -319,7 +319,8 @@ select,input{font:inherit;padding:6px 8px;border:1px solid var(--line);border-ra
 
 /* hibakereső */
 .doc{border:1px solid var(--line);border-radius:6px;background:var(--paper);padding:10px;display:flex;flex-direction:column;gap:6px}
-.doc .doc-title{font-family:var(--f-display);font-size:1.15rem;font-weight:600;padding:4px 6px}
+.doc .doc-title{font-family:var(--f-display);font-size:1.15rem;font-weight:600;padding:4px 6px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.doc .doc-title .doc-var{font-family:var(--f-mono,monospace);font-size:.72rem;font-weight:600;color:var(--stamp);background:var(--stamp-soft);border-radius:999px;padding:2px 9px;letter-spacing:.03em}
 .seg{display:block;width:100%;text-align:left;background:var(--surface);border:1px dashed var(--line);border-radius:4px;padding:8px 10px;font-size:.93rem}
 .seg.plain{border-style:solid;border-color:transparent;background:none;cursor:default}
 .seg[aria-pressed="true"]{border:1px solid var(--stamp);background:var(--stamp-soft)}
@@ -327,6 +328,40 @@ select,input{font:inherit;padding:6px 8px;border:1px solid var(--line);border-ra
 .seg.missed{border:1px solid var(--bad);background:var(--bad-soft)}
 .seg.false{border:1px solid var(--warn);background:var(--warn-soft)}
 .seg .segfb{display:block;font-size:.85rem;margin-top:4px;color:var(--ink)}
+.seg .seg-n{color:var(--stamp);font-weight:700;font-family:var(--f-mono,monospace);font-size:.82rem;margin-right:7px}
+.seg.plain .seg-n{display:none}
+.seg .seg-t{color:var(--ink)}
+/* iktatókönyv-boncolás */
+.audit{display:flex;flex-direction:column;gap:14px}
+.audit-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+.audit-t{border-collapse:collapse;width:100%;font-size:.86rem;min-width:620px}
+.audit-t th,.audit-t td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.audit-t thead th{background:var(--stamp);color:#fff;font-weight:600;font-size:.8rem;white-space:nowrap}
+.audit-t th.hcol{min-width:210px}
+.audit-t td.hcol{white-space:normal}
+.audit-t .asel{width:100%;max-width:230px;padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);font-size:.82rem}
+.audit-t .afix{width:100%;max-width:230px;margin-top:6px;padding:5px 7px;border:1px solid var(--stamp);border-radius:6px;background:var(--surface);color:var(--ink);font-size:.82rem;font-family:var(--f-mono,monospace)}
+.audit-t .afix::placeholder{font-family:var(--f-sans,sans-serif)}
+.audit-t td:first-child{font-family:var(--f-mono,monospace);white-space:nowrap}
+.audit-t .aempty{color:var(--muted);font-style:italic}
+.audit-t tr.r-flag{background:var(--stamp-soft)}
+.audit-t tr.r-right{background:var(--ok-soft)}
+.audit-t tr.r-missed{background:var(--bad-soft)}
+.audit-t tr.r-false,.audit-t tr.r-partial{background:var(--warn-soft)}
+.audit-sol{display:flex;flex-direction:column;gap:10px}
+.audit-sol h3{margin:0;font-family:var(--f-display);font-size:1.05rem}
+.asol{border:1px solid var(--line);border-left:3px solid var(--line);border-radius:6px;padding:9px 12px;font-size:.88rem;background:var(--surface)}
+.asol.ok{border-left-color:var(--ok)}
+.asol.part{border-left-color:var(--warn)}
+.asol.no{border-left-color:var(--bad)}
+.asol .asol-mark{color:var(--muted);font-weight:400;font-size:.84rem}
+.asol .asol-mark.ok{color:var(--ok);font-weight:600}
+.asol b{display:block;margin-bottom:4px}
+.asol .asol-req,.asol .asol-fix{margin-top:2px}
+.asol em{color:var(--muted);font-style:normal;font-weight:600}
+.asol .asol-why{margin-top:5px;color:var(--muted)}
+.asol-extra{font-size:.86rem;color:var(--muted);padding:4px 2px}
+.audit-score{font-size:.9rem;margin:2px 0 0}
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--muted)}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
 
@@ -842,19 +877,62 @@ const A1 = [
   title:"Anonimizálás közérdekű adatigénylésnél",
   lead:"Egy adatigénylő a szerv szerződéseit kéri. Mit kell kiadni, és mit kell kitakarni?",
   task:"Jelöld meg a szerződésrészletben azokat az adatokat, amelyeket a kiadott másolaton ki kell takarni. A közfeladattal összefüggő adatokat ne jelöld.",
-  note:"Az eredeti irat változatlan marad, a kiadásra szánt példány külön, dokumentáltan készül. A kitakarás legyen visszafejthetetlen: figyelj a PDF-rétegekre és a metaadatokra is.",
-  docTitle:"Megbízási szerződés – PLD/904/2025 (részlet)",
-  doc:[
-    "Megbízó: Példaváros Polgármesteri Hivatal",
-    { t:"Megbízott: Kovács István egyéni vállalkozó", bad:false, why:"A szerződő fél neve a közpénz-felhasználással összefüggő adat, kiadandó." },
-    { t:"Lakcím: 1234 Példaváros, Rózsa utca 12.", bad:true, why:"Magánszférához tartozó többletadat, kitakarandó." },
-    { t:"Születési hely és idő: Szeged, 1981. 04. 17.", bad:true, why:"Személyes adat, a közfeladathoz nem szükséges, kitakarandó." },
-    { t:"A szerződés tárgya: a hivatal honlapjának akadálymentesítése", bad:false, why:"A szerződés tárgya közérdekből nyilvános." },
-    { t:"Megbízási díj: bruttó 1 850 000 Ft", bad:false, why:"A szerződés értéke közérdekből nyilvános." },
-    { t:"Bankszámlaszám: 11700000-12345678-00000000", bad:true, why:"Magánszférához tartozó adat, kitakarandó." },
-    { t:"Teljesítési határidő: 2025. 11. 30.", bad:false, why:"A szerződés lényeges eleme, kiadandó." },
-    { t:"Megbízott telefonszáma: +36 30 123 4567", bad:true, why:"Magán elérhetőség, kitakarandó." },
-    "Kelt: Példaváros, 2025. szeptember 3."
+  note:"Az eredeti irat változatlan marad, a kiadásra szánt példány külön, dokumentáltan készül. A kitakarás legyen visszafejthetetlen: figyelj a PDF-rétegekre és a metaadatokra is. Az Újrakezdés gombbal másik iraton is gyakorolhatsz – összesen három eset van.",
+  variants:[
+    { docTitle:"Megbízási szerződés – PLD/904/2025 (kivonat)",
+      doc:[
+        "Iktatószám: PLD/904-2/2025",
+        { t:"Megbízó: Példaváros Polgármesteri Hivatal (1234 Példaváros, Fő tér 1.)", bad:false, why:"A közfeladatot ellátó szerv és székhelye nyilvános, kiadandó." },
+        { t:"Megbízott: Kovács István egyéni vállalkozó", bad:false, why:"A szerződő fél neve a közpénz-felhasználással összefüggő adat, kiadandó." },
+        { t:"Megbízott székhelye (egyben lakcíme): 1234 Példaváros, Rózsa utca 12. 2/4.", bad:true, why:"A magánszemély lakcíme a magánszférához tartozik, akkor is, ha egyben a vállalkozás székhelye; kitakarandó." },
+        { t:"Nyilvántartási szám: 51234567 • adószám: 66778899-1-41", bad:false, why:"Az egyéni vállalkozói nyilvántartási szám és adószám nyilvános üzleti adat (nem a magánszemély adóazonosító jele), kiadandó." },
+        { t:"Születési hely, idő: Szeged, 1981. 04. 17. • anyja neve: Kis Mária", bad:true, why:"Születési adatok és az anyja neve személyes adat, a közfeladathoz nem szükséges, kitakarandó." },
+        { t:"Elérhetőség: +36 30 123 4567 • kovacs.istvan.magan@email.hu", bad:true, why:"Magán telefonszám és e-mail-cím, kitakarandó." },
+        { t:"Bankszámlaszám: 11700000-12345678-00000000", bad:true, why:"Magánszférához tartozó adat, kitakarandó." },
+        { t:"A szerződés tárgya: a hivatal honlapjának akadálymentesítési auditja és a javaslati dokumentáció elkészítése", bad:false, why:"A szerződés tárgya közérdekből nyilvános." },
+        { t:"Megbízási díj: bruttó 1 850 000 Ft", bad:false, why:"A közpénz-felhasználás értéke közérdekből nyilvános." },
+        { t:"Teljesítési határidő: 2025. 11. 30.", bad:false, why:"A szerződés lényeges eleme, kiadandó." },
+        { t:"A szerződés időtartama: 2025. 09. 15. – 2025. 11. 30.", bad:false, why:"A szerződés lényeges eleme, kiadandó." },
+        { t:"A teljesítést igazolja: dr. Nagy Erika osztályvezető (Informatikai Osztály)", bad:false, why:"A hivatali minőségében eljáró ügyintéző neve és beosztása nyilvános, kiadandó." },
+        { t:"Megbízott aláírásmintája és személyi igazolványának másolata a 2. sz. mellékletben", bad:true, why:"Az aláírásminta és a személyi igazolvány másolata személyes adat; a kiadott példányból kihagyandó/kitakarandó." },
+        "Kelt: Példaváros, 2025. szeptember 3."
+      ] },
+    { docTitle:"Bérleti szerződés – PLD/1172/2025 (kivonat)",
+      doc:[
+        "Iktatószám: PLD/1172-2/2025",
+        { t:"Bérlő: Példaváros Polgármesteri Hivatal (1234 Példaváros, Fő tér 1.)", bad:false, why:"A közfeladatot ellátó szerv és székhelye nyilvános, kiadandó." },
+        { t:"Bérbeadó: Nagy Erzsébet magánszemély", bad:false, why:"A szerződő fél neve a közpénzből fizetett bérlettel összefüggő adat, kiadandó." },
+        { t:"Bérbeadó lakcíme: 1115 Budapest, Bartók Béla út 44. 3/2.", bad:true, why:"A bérbeadó magánlakcíme nem azonos a bérlemény címével; magánszférához tartozó adat, kitakarandó." },
+        { t:"Bérbeadó adóazonosító jele: 8 392 145 678", bad:true, why:"A magánszemély adóazonosító jele személyes azonosító, a közfeladathoz nem szükséges, kitakarandó." },
+        { t:"Születési hely, idő: Pécs, 1979. 02. 23. • anyja neve: Szabó Ilona", bad:true, why:"Születési adatok és az anyja neve személyes adat, kitakarandó." },
+        { t:"Elérhetőség: +36 20 444 5566 • nagy.erzsebet81@gmail.com", bad:true, why:"Magán telefonszám és e-mail-cím, kitakarandó." },
+        { t:"Bérbeadó bankszámlaszáma: 10300002-20201234-00003285", bad:true, why:"Magánszférához tartozó adat, kitakarandó." },
+        { t:"A bérlemény címe és adatai: Példaváros, Fő tér 2. fszt. 3., 48 m² irodahelyiség", bad:false, why:"A bérlemény a szerződés tárgya, adatai közérdekből nyilvánosak, kiadandó." },
+        { t:"Havi bérleti díj: 240 000 Ft + rezsi", bad:false, why:"A közpénz-felhasználás értéke közérdekből nyilvános." },
+        { t:"Óvadék (kaució) összege: 480 000 Ft", bad:false, why:"A szerződés pénzügyi feltétele, közérdekből nyilvános." },
+        { t:"A bérlet időtartama: 2025. 07. 01. – 2028. 06. 30.", bad:false, why:"A szerződés lényeges eleme, kiadandó." },
+        { t:"A bérleményt átadja/átveszi: Kovács Tamás gondnok (Üzemeltetési Osztály)", bad:false, why:"A hivatali minőségében eljáró munkatárs neve és beosztása nyilvános, kiadandó." },
+        { t:"Bérbeadó aláírásmintája és személyi igazolványának másolata az 1. sz. mellékletben", bad:true, why:"Az aláírásminta és a személyi igazolvány másolata személyes adat, kitakarandó." },
+        "Kelt: Példaváros, 2025. június 18."
+      ] },
+    { docTitle:"Vállalkozási szerződés – PLD/1455/2025 (kivonat)",
+      doc:[
+        "Iktatószám: PLD/1455-2/2025",
+        { t:"Megrendelő: Példaváros Polgármesteri Hivatal (1234 Példaváros, Fő tér 1.)", bad:false, why:"A közfeladatot ellátó szerv és székhelye nyilvános, kiadandó." },
+        { t:"Vállalkozó: Zöldág Kertépítő Kft.", bad:false, why:"A szerződő gazdasági társaság neve nyilvános, kiadandó." },
+        { t:"Vállalkozó székhelye: Példaváros, Ipari út 8.", bad:false, why:"A cég székhelye a cégnyilvántartásból nyilvános adat (nem magánlakcím), kiadandó." },
+        { t:"Cégjegyzékszám: 13-09-123456 • adószám: 12345678-2-13", bad:false, why:"A cégjegyzékszám és a cég adószáma nyilvános (nem a magánszemély adóazonosító jele), kiadandó." },
+        { t:"A céget képviseli: Szabó Anna ügyvezető", bad:false, why:"A szerződést aláíró képviselő neve e minőségében nyilvános, kiadandó." },
+        { t:"Az ügyvezető személyi igazolványának száma: 123456 AB • anyja neve: Tóth Mária", bad:true, why:"A személyi igazolvány száma és az anyja neve személyes adat, a közfeladathoz nem szükséges, kitakarandó." },
+        { t:"Kapcsolattartó magán elérhetősége: +36 20 555 7788 • anna.szabo88@freemail.hu", bad:true, why:"A munkatárs magán telefonszáma és e-mail-címe, kitakarandó." },
+        { t:"A szerződés tárgya: a központi park parkfenntartása 2025-ben", bad:false, why:"A szerződés tárgya közérdekből nyilvános." },
+        { t:"Vállalkozói díj: nettó 3 200 000 Ft", bad:false, why:"A közpénz-felhasználás értéke közérdekből nyilvános." },
+        { t:"Teljesítési határidő: 2025. 10. 31.", bad:false, why:"A szerződés lényeges eleme, kiadandó." },
+        { t:"A szerződés időtartama: 2025. 04. 01. – 2025. 10. 31.", bad:false, why:"A szerződés lényeges eleme, kiadandó." },
+        { t:"A teljesítést igazolja: dr. Kiss Péter osztályvezető (Városüzemeltetési Osztály)", bad:false, why:"A hivatali minőségében eljáró ügyintéző neve és beosztása nyilvános, kiadandó." },
+        { t:"Az ügyvezető aláírásmintája és személyi igazolványának másolata a 3. sz. mellékletben", bad:true, why:"Az aláírásminta és a személyi igazolvány másolata személyes adat, kitakarandó." },
+        "Kelt: Példaváros, 2025. március 11."
+      ] }
   ]
 },
 { unit:"u4", id:"u4-erintett", type:"mcq",
@@ -932,6 +1010,140 @@ const A2 = [
     { prompt:"Mit jelent a PLD/1420-3/2026 iktatószám?", fields:[
       { label:"Jelentése", type:"select", options:["Az 1420. ügy 3. alszámos irata 2026-ban","A 3. ügy 1420. irata","Az 1420. irat 3. példánya"], answer:"Az 1420. ügy 3. alszámos irata 2026-ban", wide:true, why:"Főszám = az ügy (és a kezdőirata), alszám = az ügy további iratai." }
     ]}
+  ]
+},
+{ unit:"u5", id:"u5-boncolas", type:"audit",
+  title:"Iktatókönyv-boncolás",
+  lead:"Egy iktatókönyv-kivonat hét iratkezelési hibát rejt. Keresd meg mindet.",
+  task:"Minden sornál válaszd ki a legördülőből, hogy milyen iratkezelési hiba van benne, vagy válaszd a „Szabályos sor” opciót, ha a sor rendben van. A három iktatószám-hibánál írd is be a helyes iktatószámot. Ellenőrzés után látod a megoldást és a pontozást.",
+  note:"Ebben a kivonatban az ügy kezdőirata a főszámon szerepel (pl. PLD/2050/2026), a további iratai kapnak alszámot (PLD/2050-1/2026, PLD/2050-2/2026…). PLD = kitalált példaszerv. A pontozás a dolgozatéval azonos: hibánként 1 pont a megtalálásért és 1 a követelmény megnevezéséért, a három iktatószám-javításért 1-1 pont – összesen 17 pont. Az Újrakezdés gombbal másik kivonaton is gyakorolhatsz – négy eset van.",
+  cols:["Iktatószám","Dátum","Ügyfél / partner","Tárgy","Ügyintéző","Tétel"],
+  cats:[
+    { id:"alszam", label:"Ismételt / kihagyott alszám", needsFix:true },
+    { id:"evkor", label:"Rossz évszám (évkör)", needsFix:true },
+    { id:"ugyirat", label:"Új főszám alszám helyett", needsFix:true },
+    { id:"tetel", label:"Eltérő tételszám egy ügyön belül" },
+    { id:"targy", label:"Nem érdemi tárgymegjelölés" },
+    { id:"kulonleges", label:"Különleges (egészségügyi) adat" },
+    { id:"ugyintezo", label:"Hiányzó ügyintéző" }
+  ],
+  variants:[
+   { rows:[
+    { cells:["PLD/2048/2026","2026. 01. 05.","Szabó Anna","Közérdekű adatigénylés teljesítése","Nagy E.","B312"] },
+    { cells:["PLD/2050/2026","2026. 01. 08.","Kiss Béla","Behajtási-parkolási engedély iránti kérelem","Nagyné K. E.","E502"] },
+    { cells:["PLD/2050-1/2026","2026. 01. 12.","Kiss Béla","Hiánypótlási felhívás","Nagyné K. E.","E502"] },
+    { cells:["PLD/2050-1/2026","2026. 01. 13.","Kiss Béla","Hiánypótlás beérkezése","Nagyné K. E.","E502"], bad:true, cat:"alszam",
+      req:"Folyamatos alszámozás: az ügyirathoz tartozó minden iratot a következő, még ki nem osztott alszámmal kell iktatni.",
+      fix:"PLD/2050-2/2026",
+      why:"A PLD/2050-1/2026 alszámot a hiánypótlási felhívás már megkapta; a beérkezett hiánypótlás a soron következő PLD/2050-2/2026 alszámra kerül." },
+    { cells:["PLD/2051/2026","2026. 01. 14.","Horváth Éva","Ügy","Nagyné K. E.","E502"], bad:true, cat:"targy",
+      req:"Érdemi tárgymegjelölés: az ügy tárgyát azonosíthatóan, konkrétan kell rögzíteni.",
+      why:"Az „Ügy” nem azonosítja az ügyet; a tárgymezőből ki kell derülnie, miről szól az irat (pl. „Közterület-használati kérelem”)." },
+    { cells:["PLD/2050-3/2026","2026. 01. 16.","Kiss Béla","Behajtási-parkolási engedély – határozat","Nagyné K. E.","E505"], bad:true, cat:"tetel",
+      req:"Tételszám-egységesség: egy ügyirat valamennyi alszáma azonos irattári tételszám alá tartozik.",
+      why:"A 2050-es ügy E502 tételszámon fut, ezért a határozat is E502 kellene legyen, nem E505." },
+    { cells:["PLD/2052/2025","2026. 01. 19.","Molnár Bt.","Árajánlat irodabútor beszerzésére","Kiss P.","C305"], bad:true, cat:"evkor",
+      req:"Évkör-egyezés: az iktatószám évszáma az iktatás tárgyévével azonos.",
+      fix:"PLD/2052/2026",
+      why:"A beérkezés 2026. 01. 19., ezért az iktatószám évszáma 2026, nem 2025. A lezárt évbe új irat nem iktatható." },
+    { cells:["PLD/2053/2026","2026. 01. 20.","Varga Ilona","Méltányossági kérelem – 2-es típusú cukorbetegség miatt","Nagyné K. E.","F605"], bad:true, cat:"kulonleges",
+      req:"Adattakarékosság: különleges (egészségügyi) adat indokolatlanul nem kerülhet a nyilvántartásba.",
+      why:"A betegség megnevezése különleges adat; a tárgyat ok nélküli egészségügyi adat nélkül kell megfogalmazni (pl. „Méltányossági kérelem”)." },
+    { cells:["PLD/2054/2026","2026. 01. 21.","Példa Zrt.","Panaszbejelentés az ügyintézés elhúzódása miatt","","A112"], bad:true, cat:"ugyintezo",
+      req:"Teljes körű adatrögzítés / szignálás: minden iktatott tételhez ügyintézőt kell rendelni.",
+      why:"Az Ügyintéző mező üres; felelős nélkül nem követhető nyomon az ügy és a határidő. Ki kell jelölni az eljáró ügyintézőt." },
+    { cells:["PLD/2055/2026","2026. 01. 22.","Kiss Béla","Fellebbezés a PLD/2050-3/2026 határozat ellen","Nagyné K. E.","E502"], bad:true, cat:"ugyirat",
+      req:"Ügyirathoz tartozás: ugyanazon ügyben keletkezett irat a meglévő ügyirat következő alszáma, nem új főszám.",
+      fix:"PLD/2050-4/2026",
+      why:"A fellebbezés a 2050-es ügy határozata ellen irányul, tehát ugyanazon ügyirat része; a határozat (…-3) utáni soron következő PLD/2050-4/2026 alszámra kerül, nem új főszámra." }
+   ] },
+   { rows:[
+    { cells:["PLD/3101/2026","2026. 02. 03.","Kiss Márta","Építési engedély iránti kérelem","Szabó T.","D210"] },
+    { cells:["PLD/3101-1/2026","2026. 02. 05.","Kiss Márta","Hiánypótlási felhívás","Szabó T.","D210"] },
+    { cells:["PLD/3102/2026","2026. 02. 06.","Lakatos Bt.","Árajánlat takarítási szolgáltatásra","Nagy P.","C520"] },
+    { cells:["PLD/3101-1/2026","2026. 02. 09.","Kiss Márta","Hiánypótlás beérkezése","Szabó T.","D210"], bad:true, cat:"alszam",
+      req:"Folyamatos alszámozás: az ügyirathoz tartozó minden iratot a következő, még ki nem osztott alszámmal kell iktatni.",
+      fix:"PLD/3101-2/2026",
+      why:"A PLD/3101-1/2026 alszámot a hiánypótlási felhívás már megkapta; a beérkezett hiánypótlás a soron következő PLD/3101-2/2026 alszámra kerül." },
+    { cells:["PLD/3103/2026","2026. 02. 10.","Fehér Andor","Egyéb","Nagy P.","C520"], bad:true, cat:"targy",
+      req:"Érdemi tárgymegjelölés: az ügy tárgyát azonosíthatóan, konkrétan kell rögzíteni.",
+      why:"Az „Egyéb” nem azonosítja az ügyet; a tárgymezőből ki kell derülnie, miről szól az irat." },
+    { cells:["PLD/3104/2026","2026. 02. 12.","Varga Péter","Közgyógyellátási kérelem – epilepszia miatt","Szabó T.","F605"], bad:true, cat:"kulonleges",
+      req:"Adattakarékosság: különleges (egészségügyi) adat indokolatlanul nem kerülhet a nyilvántartásba.",
+      why:"A betegség megnevezése különleges adat; a tárgyat egészségügyi adat nélkül kell megfogalmazni (pl. „Közgyógyellátási kérelem”)." },
+    { cells:["PLD/3105/2025","2026. 02. 13.","Kovács Zrt.","Szerződés karbantartási munkákra","Nagy P.","C520"], bad:true, cat:"evkor",
+      req:"Évkör-egyezés: az iktatószám évszáma az iktatás tárgyévével azonos.",
+      fix:"PLD/3105/2026",
+      why:"A beérkezés 2026. 02. 13., ezért az iktatószám évszáma 2026, nem 2025." },
+    { cells:["PLD/3106/2026","2026. 02. 16.","Tóth Gáborné","Birtokvédelmi kérelem","","B418"], bad:true, cat:"ugyintezo",
+      req:"Teljes körű adatrögzítés / szignálás: minden iktatott tételhez ügyintézőt kell rendelni.",
+      why:"Az Ügyintéző mező üres; felelős nélkül nem követhető nyomon az ügy és a határidő." },
+    { cells:["PLD/3101-3/2026","2026. 02. 17.","Kiss Márta","Építési engedély – határozat","Szabó T.","D215"], bad:true, cat:"tetel",
+      req:"Tételszám-egységesség: egy ügyirat valamennyi alszáma azonos irattári tételszám alá tartozik.",
+      why:"A 3101-es ügy D210 tételszámon fut, ezért a határozat is D210 kellene legyen, nem D215." },
+    { cells:["PLD/3107/2026","2026. 02. 19.","Kiss Márta","Fellebbezés a PLD/3101-3/2026 határozat ellen","Szabó T.","D210"], bad:true, cat:"ugyirat",
+      req:"Ügyirathoz tartozás: ugyanazon ügyben keletkezett irat a meglévő ügyirat következő alszáma, nem új főszám.",
+      fix:"PLD/3101-4/2026",
+      why:"A fellebbezés a 3101-es ügy határozata ellen irányul, tehát ugyanazon ügyirat része; a határozat (…-3) utáni PLD/3101-4/2026 alszámra kerül, nem új főszámra." }
+   ] },
+   { rows:[
+    { cells:["PLD/4201/2026","2026. 03. 02.","Nagy Ádám","Közterület-használati engedély iránti kérelem","Kiss R.","B530"] },
+    { cells:["PLD/4201-1/2026","2026. 03. 04.","Nagy Ádám","Hiánypótlási felhívás","Kiss R.","B530"] },
+    { cells:["PLD/4202/2026","2026. 03. 05.","Molnár Éva","Panaszbejelentés zajártalom miatt","Tóth B.","B418"] },
+    { cells:["PLD/4203/2026","2026. 03. 09.","Szabó Kft.","Ügyirat","Kiss R.","C520"], bad:true, cat:"targy",
+      req:"Érdemi tárgymegjelölés: az ügy tárgyát azonosíthatóan, konkrétan kell rögzíteni.",
+      why:"Az „Ügyirat” nem azonosítja az ügyet; a tárgymezőből ki kell derülnie, miről szól az irat." },
+    { cells:["PLD/4204/2025","2026. 03. 10.","Horváth Bt.","Árajánlat világítástechnikai felújításra","Kiss R.","C520"], bad:true, cat:"evkor",
+      req:"Évkör-egyezés: az iktatószám évszáma az iktatás tárgyévével azonos.",
+      fix:"PLD/4204/2026",
+      why:"A beérkezés 2026. 03. 10., ezért az iktatószám évszáma 2026, nem 2025." },
+    { cells:["PLD/4205/2026","2026. 03. 12.","Kis Tamás","Méltányossági kérelem – mozgásszervi fogyatékosság miatt","Tóth B.","F605"], bad:true, cat:"kulonleges",
+      req:"Adattakarékosság: különleges (egészségügyi) adat indokolatlanul nem kerülhet a nyilvántartásba.",
+      why:"A fogyatékosság megnevezése különleges adat; a tárgyat egészségügyi adat nélkül kell megfogalmazni (pl. „Méltányossági kérelem”)." },
+    { cells:["PLD/4201-1/2026","2026. 03. 13.","Nagy Ádám","Hiánypótlás beérkezése","Kiss R.","B530"], bad:true, cat:"alszam",
+      req:"Folyamatos alszámozás: az ügyirathoz tartozó minden iratot a következő, még ki nem osztott alszámmal kell iktatni.",
+      fix:"PLD/4201-2/2026",
+      why:"A PLD/4201-1/2026 alszámot a hiánypótlási felhívás már megkapta; a beérkezett hiánypótlás a PLD/4201-2/2026 alszámra kerül." },
+    { cells:["PLD/4201-3/2026","2026. 03. 16.","Nagy Ádám","Közterület-használati engedély – határozat","Kiss R.","B535"], bad:true, cat:"tetel",
+      req:"Tételszám-egységesség: egy ügyirat valamennyi alszáma azonos irattári tételszám alá tartozik.",
+      why:"A 4201-es ügy B530 tételszámon fut, ezért a határozat is B530 kellene legyen, nem B535." },
+    { cells:["PLD/4206/2026","2026. 03. 17.","Kelemen Zrt.","Számlakifogás","","C520"], bad:true, cat:"ugyintezo",
+      req:"Teljes körű adatrögzítés / szignálás: minden iktatott tételhez ügyintézőt kell rendelni.",
+      why:"Az Ügyintéző mező üres; felelős nélkül nem követhető nyomon az ügy és a határidő." },
+    { cells:["PLD/4207/2026","2026. 03. 19.","Nagy Ádám","Fellebbezés a PLD/4201-3/2026 határozat ellen","Kiss R.","B530"], bad:true, cat:"ugyirat",
+      req:"Ügyirathoz tartozás: ugyanazon ügyben keletkezett irat a meglévő ügyirat következő alszáma, nem új főszám.",
+      fix:"PLD/4201-4/2026",
+      why:"A fellebbezés a 4201-es ügy határozata ellen irányul, tehát ugyanazon ügyirat része; a határozat (…-3) utáni PLD/4201-4/2026 alszámra kerül, nem új főszámra." }
+   ] },
+   { rows:[
+    { cells:["PLD/5301/2026","2026. 04. 06.","Takács Nóra","Fakivágási engedély iránti kérelem","Varga L.","B540"] },
+    { cells:["PLD/5302/2026","2026. 04. 07.","Épület Kft.","Vállalkozási szerződés tetőfelújításra","Nagy D.","C520"] },
+    { cells:["PLD/5301-1/2026","2026. 04. 09.","Takács Nóra","Szakhatósági állásfoglalás kérése","Varga L.","B540"] },
+    { cells:["PLD/5301-1/2026","2026. 04. 12.","Takács Nóra","Szakhatósági állásfoglalás beérkezése","Varga L.","B540"], bad:true, cat:"alszam",
+      req:"Folyamatos alszámozás: az ügyirathoz tartozó minden iratot a következő, még ki nem osztott alszámmal kell iktatni.",
+      fix:"PLD/5301-2/2026",
+      why:"A PLD/5301-1/2026 alszámot a szakhatósági kérés már megkapta; a beérkezett állásfoglalás a PLD/5301-2/2026 alszámra kerül." },
+    { cells:["PLD/5303/2026","2026. 04. 13.","Bíró Lajos","Irat","Nagy D.","C520"], bad:true, cat:"targy",
+      req:"Érdemi tárgymegjelölés: az ügy tárgyát azonosíthatóan, konkrétan kell rögzíteni.",
+      why:"Az „Irat” nem azonosítja az ügyet; a tárgymezőből ki kell derülnie, miről szól az irat." },
+    { cells:["PLD/5304/2026","2026. 04. 15.","Sárosi Anna","Ápolási díj iránti kérelem – demencia miatt","Varga L.","F605"], bad:true, cat:"kulonleges",
+      req:"Adattakarékosság: különleges (egészségügyi) adat indokolatlanul nem kerülhet a nyilvántartásba.",
+      why:"A betegség megnevezése különleges adat; a tárgyat egészségügyi adat nélkül kell megfogalmazni (pl. „Ápolási díj iránti kérelem”)." },
+    { cells:["PLD/5305/2025","2026. 04. 16.","Thermo Bt.","Árajánlat fűtéskorszerűsítésre","Nagy D.","C520"], bad:true, cat:"evkor",
+      req:"Évkör-egyezés: az iktatószám évszáma az iktatás tárgyévével azonos.",
+      fix:"PLD/5305/2026",
+      why:"A beérkezés 2026. 04. 16., ezért az iktatószám évszáma 2026, nem 2025." },
+    { cells:["PLD/5306/2026","2026. 04. 19.","Fekete Pál","Közérdekű bejelentés illegális hulladéklerakásról","","B418"], bad:true, cat:"ugyintezo",
+      req:"Teljes körű adatrögzítés / szignálás: minden iktatott tételhez ügyintézőt kell rendelni.",
+      why:"Az Ügyintéző mező üres; felelős nélkül nem követhető nyomon az ügy és a határidő." },
+    { cells:["PLD/5301-3/2026","2026. 04. 20.","Takács Nóra","Fakivágási engedély – határozat","Varga L.","B545"], bad:true, cat:"tetel",
+      req:"Tételszám-egységesség: egy ügyirat valamennyi alszáma azonos irattári tételszám alá tartozik.",
+      why:"Az 5301-es ügy B540 tételszámon fut, ezért a határozat is B540 kellene legyen, nem B545." },
+    { cells:["PLD/5307/2026","2026. 04. 22.","Takács Nóra","Fellebbezés a PLD/5301-3/2026 határozat ellen","Varga L.","B540"], bad:true, cat:"ugyirat",
+      req:"Ügyirathoz tartozás: ugyanazon ügyben keletkezett irat a meglévő ügyirat következő alszáma, nem új főszám.",
+      fix:"PLD/5301-4/2026",
+      why:"A fellebbezés az 5301-es ügy határozata ellen irányul, tehát ugyanazon ügyirat része; a határozat (…-3) utáni PLD/5301-4/2026 alszámra kerül, nem új főszámra." }
+   ] }
   ]
 },
 { unit:"u5", id:"u5-erkvsikt", type:"mcq",
@@ -3125,7 +3337,7 @@ const store = {
   get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
   set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
 };
-const TYPE = { mcq:"Feleletválasztós", order:"Sorrend", match:"Párosítás", sim:"Szimuláció", find:"Hibakereső", form:"Kitöltős", cards:"Tanulókártya", flow:"Teljes ügymenet", osint:"OSINT-nyomozás" };
+const TYPE = { mcq:"Feleletválasztós", order:"Sorrend", match:"Párosítás", sim:"Szimuláció", find:"Hibakereső", form:"Kitöltős", cards:"Tanulókártya", flow:"Teljes ügymenet", osint:"OSINT-nyomozás", audit:"Iktatókönyv-boncolás" };
 let course = null, unitFilter = "all";
 
 function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
@@ -3229,7 +3441,7 @@ function openActivity(id){
     ${a.note?`<p class="note">${esc(a.note)}</p>`:""}`;
   $("#back").onclick = () => { s.hidden = true; renderActivities(); $("#step2").scrollIntoView({behavior:"smooth"}); };
   $("#reset").onclick = () => openActivity(id);
-  ({mcq:runMcq, order:runOrder, match:runMatch, sim:runSim, find:runFind, form:runForm, cards:runCards, flow:runFlow, osint:runOsint})[a.type](a);
+  ({mcq:runMcq, order:runOrder, match:runMatch, sim:runSim, find:runFind, form:runForm, cards:runCards, flow:runFlow, osint:runOsint, audit:runAudit})[a.type](a);
   s.scrollIntoView({behavior:"smooth", block:"start"});
 }
 
@@ -3487,16 +3699,28 @@ function runOsint(a){
 }
 
 /* ---------- hibakereső ---------- */
+const _lastVar = {};
+function pickVariant(id, n){
+  if(n<=1) return 0;
+  let i; do { i=Math.floor(Math.random()*n); } while(i===_lastVar[id]);
+  _lastVar[id]=i; return i;
+}
 function runFind(a){
-  const segs = a.doc;
+  const hasVar = Array.isArray(a.variants) && a.variants.length;
+  const vi = hasVar ? pickVariant(a.id, a.variants.length) : 0;
+  const v = hasVar ? a.variants[vi] : a;
+  const segs = v.doc;
+  const docTitle = v.docTitle || a.docTitle;
+  const varTag = hasVar ? `<span class="doc-var">${vi+1}/${a.variants.length}. ügy</span>` : "";
   const marked = new Set();
   let checked = false;
   const nBad = segs.filter(s => typeof s==="object" && s.bad).length;
   setScore(0, segs.filter(s=>typeof s==="object").length);
+  const nums = []; let _c = 0; segs.forEach((s,i)=>{ nums[i] = (typeof s==="object") ? (++_c) : 0; });
   const draw = () => {
     $("#body").innerHTML = `
       <div class="legend"><span><i style="background:var(--stamp-soft);border:1px solid var(--stamp)"></i>Megjelölted</span>${checked?`<span><i style="background:var(--ok-soft);border:1px solid var(--ok)"></i>Jól megtalált hiba</span><span><i style="background:var(--bad-soft);border:1px solid var(--bad)"></i>Kimaradt hiba</span><span><i style="background:var(--warn-soft);border:1px solid var(--warn)"></i>Ez nem hiba</span>`:""}</div>
-      <div class="doc">${a.docTitle?`<div class="doc-title">${esc(a.docTitle)}</div>`:""}${segs.map((s,i)=>{
+      <div class="doc">${docTitle?`<div class="doc-title">${esc(docTitle)}${varTag}</div>`:""}${segs.map((s,i)=>{
         if(typeof s==="string") return `<div class="seg plain">${esc(s)}</div>`;
         let cls = "", fb = "";
         if(checked){
@@ -3504,7 +3728,7 @@ function runFind(a){
           else if(s.bad){ cls="missed"; fb=s.why; }
           else if(marked.has(i)){ cls="false"; fb=s.why||"Ez a rész rendben van."; }
         }
-        return `<button class="seg ${cls}" data-i="${i}" aria-pressed="${marked.has(i)}" ${checked?"disabled":""}>${esc(s.t)}${fb?`<span class="segfb">${esc(fb)}</span>`:""}</button>`;
+        return `<button class="seg ${cls}" data-i="${i}" aria-pressed="${marked.has(i)}" ${checked?"disabled":""}><span class="seg-n">[${nums[i]}]</span><span class="seg-t">${esc(s.t)}</span>${fb?`<span class="segfb">${esc(fb)}</span>`:""}</button>`;
       }).join("")}</div>
       <div class="actions"><button class="btn" id="chk" ${checked?"disabled":""}>Ellenőrzés</button><span class="empty" style="align-self:center">${checked?"":`${marked.size} megjelölve`}</span></div>`;
     $("#chk").onclick = () => {
@@ -3518,6 +3742,72 @@ function runFind(a){
     const b = e.target.closest(".seg:not(.plain)"); if(!b || b.disabled) return;
     const i = +b.dataset.i; marked.has(i) ? marked.delete(i) : marked.add(i); draw();
     const again = $(`.seg[data-i="${i}"]`); again && again.focus();
+  };
+  draw();
+}
+
+/* ---------- iktatókönyv-boncolás (táblázatos hibakereső) ---------- */
+function runAudit(a){
+  const hasVar = Array.isArray(a.variants) && a.variants.length;
+  const vi = hasVar ? pickVariant(a.id, a.variants.length) : 0;
+  const rows = (hasVar ? a.variants[vi].rows : a.rows), cats = a.cats;
+  const varTag = hasVar ? ` <span class="doc-var">${vi+1}/${a.variants.length}. kivonat</span>` : "";
+  const catById = Object.fromEntries(cats.map(c=>[c.id,c]));
+  const isErr = s => !!s && s!=="ok";
+  const sel = rows.map(()=> "");
+  const fixv = rows.map(()=> "");
+  let checked = false;
+  const badIdx = rows.map((r,i)=>r.bad?i:-1).filter(i=>i>=0);
+  const fixRows = badIdx.filter(i=>rows[i].fix);
+  const maxPts = badIdx.length*2 + fixRows.length;
+  setScore(0, maxPts);
+  const optsFor = i => `<option value=""${sel[i]===""?" selected":""} disabled>— válassz… —</option><option value="ok"${sel[i]==="ok"?" selected":""}>Szabályos sor (nincs hiba)</option>`+cats.map(c=>`<option value="${c.id}"${sel[i]===c.id?" selected":""}>${esc(c.label)}</option>`).join("");
+  const draw = () => {
+    const found = badIdx.filter(i=>isErr(sel[i])).length;
+    const falseFlags = rows.map((r,i)=>i).filter(i=>!rows[i].bad && isErr(sel[i]));
+    const unanswered = rows.map((r,i)=>i).filter(i=>sel[i]==="").length;
+    $("#body").innerHTML = `
+      <div class="audit">
+        <div class="legend"><span><i style="background:var(--stamp-soft);border:1px solid var(--stamp)"></i>Megjelölve</span>${checked?`<span><i style="background:var(--ok-soft);border:1px solid var(--ok)"></i>Hiba + helyes indok</span><span><i style="background:var(--bad-soft);border:1px solid var(--bad)"></i>Kimaradt hiba</span><span><i style="background:var(--warn-soft);border:1px solid var(--warn)"></i>Pontatlan jelölés</span>`:""}${varTag}</div>
+        <div class="audit-scroll"><table class="audit-t">
+          <thead><tr>${a.cols.map(c=>`<th>${esc(c)}</th>`).join("")}<th class="hcol">Mi a hiba?</th></tr></thead>
+          <tbody>${rows.map((r,i)=>{
+            let cls="";
+            if(checked){ if(r.bad){ cls = sel[i]===r.cat ? "r-right" : isErr(sel[i]) ? "r-partial" : "r-missed"; } else { cls = isErr(sel[i]) ? "r-false" : ""; } }
+            else if(isErr(sel[i])) cls="r-flag";
+            const c = catById[sel[i]];
+            const fixInput = (!checked && c && c.needsFix) ? `<input class="afix" data-i="${i}" placeholder="Helyes iktatószám…" value="${esc(fixv[i])}" autocomplete="off" spellcheck="false">` : "";
+            let hcell;
+            if(checked){
+              hcell = sel[i]==="ok" ? '<span class="aempty">szabályos</span>' : sel[i]==="" ? '<span class="aempty">nincs válasz</span>' : esc((catById[sel[i]]||{}).label||"");
+            } else {
+              hcell = `<select class="asel" data-i="${i}">${optsFor(i)}</select>${fixInput}`;
+            }
+            return `<tr class="${cls}">${r.cells.map(cell=>`<td>${cell?esc(cell):'<span class="aempty">—</span>'}</td>`).join("")}<td class="hcol">${hcell}</td></tr>`;
+          }).join("")}</tbody>
+        </table></div>
+        ${checked?`<div class="audit-sol">
+          <h3>Megoldás – ${badIdx.length} hiba (összesen ${maxPts} pont)</h3>
+          ${badIdx.map(i=>{const r=rows[i]; const foundIt=isErr(sel[i]); const catOk=sel[i]===r.cat; const fixOk=r.fix&&normA(fixv[i])===normA(r.fix);
+            return `<div class="asol ${catOk?'ok':foundIt?'part':'no'}"><b>${catOk?'✓':foundIt?'≈':'✗'} <span class="mono">${esc(r.cells[0])}</span> – ${esc(r.cells[3])}</b>
+            <div class="asol-req"><em>Sértett követelmény:</em> ${esc(r.req)}${foundIt&&!catOk?` <span class="asol-mark">(te ezt jelölted: ${esc((catById[sel[i]]||{}).label||"—")})</span>`:foundIt?"":` <span class="asol-mark">(ezt nem jelölted hibásnak)</span>`}</div>
+            ${r.fix?`<div class="asol-fix"><em>Helyes iktatószám:</em> <span class="mono">${esc(r.fix)}</span>${fixOk?' <span class="asol-mark ok">✓ jól beírtad</span>':fixv[i]?` <span class="asol-mark">(te: ${esc(fixv[i])})</span>`:''}</div>`:""}
+            <div class="asol-why">${esc(r.why)}</div></div>`;}).join("")}
+          ${falseFlags.length?`<div class="asol-extra"><b>Szabályos sor, amit tévesen jelöltél:</b> ${falseFlags.map(i=>`<span class="mono">${esc(rows[i].cells[0])}</span>`).join(", ")}.</div>`:""}
+          <p class="audit-score">Megtalált hibák: <b>${found}/${badIdx.length}</b> · helyesen megnevezett követelmény: <b>${badIdx.filter(i=>sel[i]===rows[i].cat).length}/${badIdx.length}</b> · helyes iktatószám: <b>${fixRows.filter(i=>normA(fixv[i])===normA(rows[i].fix)).length}/${fixRows.length}</b>. A dolgozat pontozása: hibánként 1 pont a megtalálásért és 1 a követelmény megnevezéséért, a helyes iktatószámokért 1-1 pont – összesen ${maxPts} pont.</p>
+        </div>`:""}
+        <div class="actions"><button class="btn" id="chk" ${checked?"disabled":""}>Ellenőrzés</button>${checked?`<button class="btn ghost" id="again">Újra</button>`:`<span class="empty" style="align-self:center">${found} hibát jelöltél${unanswered?` · ${unanswered} sor még kitöltetlen`:""}</span>`}</div>
+      </div>`;
+    if(!checked){
+      $("#body").querySelectorAll(".asel").forEach(se=>se.onchange=()=>{ sel[+se.dataset.i]=se.value; draw(); });
+      $("#body").querySelectorAll(".afix").forEach(inp=>inp.oninput=()=>{ fixv[+inp.dataset.i]=inp.value; });
+    }
+    $("#chk").onclick=()=>{ checked=true;
+      let earned=0;
+      badIdx.forEach(i=>{ if(isErr(sel[i]))earned++; if(sel[i]===rows[i].cat)earned++; if(rows[i].fix && normA(fixv[i])===normA(rows[i].fix))earned++; });
+      finish(a, earned, maxPts); draw();
+    };
+    const ag=$("#again"); if(ag) ag.onclick=()=>{ checked=false; sel.fill(""); fixv.fill(""); setScore(0,maxPts); draw(); };
   };
   draw();
 }
