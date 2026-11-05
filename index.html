@@ -348,7 +348,9 @@ select,input{font:inherit;padding:6px 8px;border:1px solid var(--line);border-ra
 .audit-t tr.r-right{background:var(--ok-soft)}
 .audit-t tr.r-missed{background:var(--bad-soft)}
 .audit-t tr.r-false,.audit-t tr.r-partial{background:var(--warn-soft)}
-.audit-sol{display:flex;flex-direction:column;gap:10px}
+.audit-note{display:block;width:100%;text-align:left;cursor:pointer;border:1px solid var(--ok);border-left:4px solid var(--ok);background:var(--ok-soft);color:var(--ink);border-radius:8px;padding:10px 14px;font-size:.9rem;font-weight:600;font-family:inherit}
+.audit-note:hover{filter:brightness(1.03)}
+.audit-sol{display:flex;flex-direction:column;gap:10px;scroll-margin-top:12px}
 .audit-sol h3{margin:0;font-family:var(--f-display);font-size:1.05rem}
 .asol{border:1px solid var(--line);border-left:3px solid var(--line);border-radius:6px;padding:9px 12px;font-size:.88rem;background:var(--surface)}
 .asol.ok{border-left-color:var(--ok)}
@@ -3769,6 +3771,7 @@ function runAudit(a){
     $("#body").innerHTML = `
       <div class="audit">
         <div class="legend"><span><i style="background:var(--stamp-soft);border:1px solid var(--stamp)"></i>Megjelölve</span>${checked?`<span><i style="background:var(--ok-soft);border:1px solid var(--ok)"></i>Hiba + helyes indok</span><span><i style="background:var(--bad-soft);border:1px solid var(--bad)"></i>Kimaradt hiba</span><span><i style="background:var(--warn-soft);border:1px solid var(--warn)"></i>Pontatlan jelölés</span>`:""}${varTag}</div>
+        ${checked?`<button type="button" class="audit-note" id="audit-note">✓ Ellenőrizve – a részletes megoldás és a pontozás a táblázat alatt található. Kattints ide a megoldáshoz ↓</button>`:""}
         <div class="audit-scroll"><table class="audit-t">
           <thead><tr>${a.cols.map(c=>`<th>${esc(c)}</th>`).join("")}<th class="hcol">Mi a hiba?</th></tr></thead>
           <tbody>${rows.map((r,i)=>{
@@ -3801,13 +3804,16 @@ function runAudit(a){
     if(!checked){
       $("#body").querySelectorAll(".asel").forEach(se=>se.onchange=()=>{ sel[+se.dataset.i]=se.value; draw(); });
       $("#body").querySelectorAll(".afix").forEach(inp=>inp.oninput=()=>{ fixv[+inp.dataset.i]=inp.value; });
+    } else {
+      const note=$("#audit-note"); if(note) note.onclick=()=>$(".audit-sol")?.scrollIntoView({behavior:"smooth", block:"start"});
     }
     $("#chk").onclick=()=>{ checked=true;
       let earned=0;
       badIdx.forEach(i=>{ if(isErr(sel[i]))earned++; if(sel[i]===rows[i].cat)earned++; if(rows[i].fix && normA(fixv[i])===normA(rows[i].fix))earned++; });
       finish(a, earned, maxPts); draw();
+      $(".audit-sol")?.scrollIntoView({behavior:"smooth", block:"start"});
     };
-    const ag=$("#again"); if(ag) ag.onclick=()=>{ checked=false; sel.fill(""); fixv.fill(""); setScore(0,maxPts); draw(); };
+    const ag=$("#again"); if(ag) ag.onclick=()=>{ checked=false; sel.fill(""); fixv.fill(""); setScore(0,maxPts); draw(); $("#body").scrollIntoView({behavior:"smooth", block:"start"}); };
   };
   draw();
 }
